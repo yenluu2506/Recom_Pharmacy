@@ -1,0 +1,56 @@
+﻿@model Recom_Pharmacy.Models.QUOCGIA
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật Quốc gia</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/quocgia">Quocgia</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card-body">
+        @if (Model != null)
+        {
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("Edit", "Quocgia", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(x => x.ID)
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên quốc gia</label>
+                            @Html.TextBoxFor(x => x.TENQG, new { @class = "form-control", @placeholder = "Nhập tên quốc gia cần chỉnh sửa" })
+                            @Html.ValidationMessageFor(x => x.TENQG, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <a href="/quocgia" class="btn btn-danger">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+    </div>
+    <!-- /.card-body -->
+    <!-- /.card -->
+
+</section>

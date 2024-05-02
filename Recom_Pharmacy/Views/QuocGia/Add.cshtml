@@ -1,0 +1,55 @@
+﻿@model Recom_Pharmacy.Models.QUOCGIA
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới Quốc gia</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Quốc Gia</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card-body">
+        <div class="bs-stepper-content">
+            @using (Html.BeginForm("Add", "QuocGia", FormMethod.Post, new { }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <!-- your steps content here -->
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên tỉnh</label>
+                        @Html.TextBoxFor(x => x.TENQG, new { @class = "form-control", @placeholder = "Nhập vào tên Quốc gia" })
+                        @Html.ValidationMessageFor(x => x.TENQG, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <a href="/quocgia" class="btn btn-danger">Quay lại</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</section>
+
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>

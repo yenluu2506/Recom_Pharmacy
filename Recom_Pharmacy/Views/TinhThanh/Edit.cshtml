@@ -1,0 +1,56 @@
+﻿@model Recom_Pharmacy.Models.TINHTHANH
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật tỉnh thành</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/tinhthanh">Tỉnh thành</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card-body">
+        @if (Model != null)
+        {
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("Edit", "TinhThanh", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(x => x.ID)
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên Tỉnh thành</label>
+                            @Html.TextBoxFor(x => x.TENTINH, new { @class = "form-control", @placeholder = "Nhập tên tỉnh thành cần chỉnh sửa" })
+                            @Html.ValidationMessageFor(x => x.TENTINH, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <a href="/tinhthanh" class="btn btn-danger">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+    </div>
+    <!-- /.card-body -->
+    <!-- /.card -->
+
+</section>
