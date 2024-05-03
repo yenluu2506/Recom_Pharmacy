@@ -10,6 +10,7 @@ using PagedList;
 using System.Web.UI;
 using Recom_Pharmacy.Models;
 using Filter = Recom_Pharmacy.Models.Common.Filter;
+using System.Data.Entity.Validation;
 
 namespace Recom_Pharmacy.Controllers
 {
@@ -52,7 +53,7 @@ namespace Recom_Pharmacy.Controllers
             ViewBag.page = page;
             return View(items);
         }
-        // GET: Thuoc/Create
+        //// GET: Thuoc/Create
         public ActionResult Add()
         {
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI");
@@ -65,13 +66,27 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "ID,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,TRANGTHAI")] THUOC tHUOC)
+        public ActionResult Add([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,TRANGTHAI")] THUOC tHUOC)
         {
             if (ModelState.IsValid)
             {
-                db.THUOCs.Add(tHUOC);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                try
+                {
+                    db.THUOCs.Add(tHUOC);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            Console.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                        }
+                    }
+                }
             }
 
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI", tHUOC.MALOAI);
@@ -101,13 +116,28 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,TRANGTHAI")] THUOC tHUOC)
+        public ActionResult Edit([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,TRANGTHAI")] THUOC tHUOC)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tHUOC).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(tHUOC).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            Console.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                        }
+                    }
+                }
+
+                
             }
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI", tHUOC.MALOAI);
             ViewBag.MANCC = new SelectList(db.NCCs, "ID", "TENNCC", tHUOC.MANCC);

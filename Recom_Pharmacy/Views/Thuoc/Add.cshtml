@@ -27,7 +27,7 @@
 
     <div class="card-body">
         <div class="bs-stepper-content">
-            @using (Html.BeginForm("Add", "Thuóc", FormMethod.Post, new { }))
+            @using (Html.BeginForm("Add", "Thuoc", FormMethod.Post, new { }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
@@ -80,9 +80,9 @@
                     </div>
                     <div class="form-group">
                         <label for="startdate">Hạn sử dụng</label>
-                        <div class="input-group date" id="startdate" data-target-input="nearest">
-                            @Html.TextBoxFor(x => x.HSD, new { @class = "form-control datetimepicker-input", data_target = "#startdate" })
-                            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
+                        <div class="input-group date" id="enddate" data-target-input="nearest">
+                            @Html.TextBoxFor(x => x.HSD, new { @class = "form-control datetimepicker-input", data_target = "#enddate" })
+                            <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -99,8 +99,8 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Đối tượng sử dụng</label>
-                        @Html.TextBoxFor(x => x.NHASX, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.NHASX, null, new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.DOITUONGSD, new { @class = "form-control", @placeholder = "Nhập vào tên" })
+                        @Html.ValidationMessageFor(x => x.DOITUONGSD, null, new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Công dụng</label>
@@ -151,6 +151,20 @@
         $(function () {
             // Date picker for start date
             $('#startdate').datetimepicker({
+                format: 'L',
+                icons: {
+                    time: 'far fa-clock',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-calendar-check-o',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-times'
+                }
+            });
+            $('#enddate').datetimepicker({
                 format: 'L',
                 icons: {
                     time: 'far fa-clock',
