@@ -148,9 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CTKhoController.cs" />
     <Compile Include="Controllers\DonViTinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\KhoController.cs" />
     <Compile Include="Controllers\LoaiThuocController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MENUTHUOCController.cs" />
@@ -5578,6 +5580,14 @@
     <Content Include="Views\Thuoc\Add.cshtml" />
     <Content Include="Views\Thuoc\Edit.cshtml" />
     <Content Include="Views\Thuoc\Index.cshtml" />
+    <Content Include="Views\Kho\Add.cshtml" />
+    <Content Include="Views\Kho\Edit.cshtml" />
+    <Content Include="Views\Kho\Index.cshtml" />
+    <Content Include="Views\CTKho\Create.cshtml" />
+    <Content Include="Views\CTKho\Delete.cshtml" />
+    <Content Include="Views\CTKho\Details.cshtml" />
+    <Content Include="Views\CTKho\Edit.cshtml" />
+    <Content Include="Views\CTKho\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.CTKHO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.KE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NGAN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TRANGTHAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KHO.TENKHO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.KE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NGAN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TRANGTHAI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KHO.TENKHO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

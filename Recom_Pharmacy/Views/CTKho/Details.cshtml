@@ -1,0 +1,51 @@
+﻿@model Recom_Pharmacy.Models.CTKHO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CTKHO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NGAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TRANGTHAI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TRANGTHAI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KHO.TENKHO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KHO.TENKHO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
