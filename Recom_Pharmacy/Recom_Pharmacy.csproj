@@ -5583,9 +5583,7 @@
     <Content Include="Views\Kho\Add.cshtml" />
     <Content Include="Views\Kho\Edit.cshtml" />
     <Content Include="Views\Kho\Index.cshtml" />
-    <Content Include="Views\CTKho\Create.cshtml" />
-    <Content Include="Views\CTKho\Delete.cshtml" />
-    <Content Include="Views\CTKho\Details.cshtml" />
+    <Content Include="Views\CTKho\Add.cshtml" />
     <Content Include="Views\CTKho\Edit.cshtml" />
     <Content Include="Views\CTKho\Index.cshtml" />
   </ItemGroup>

@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using System.Web.UI;
 using Recom_Pharmacy.Models;
+using Filter = Recom_Pharmacy.Models.Common.Filter;
 
 namespace Recom_Pharmacy.Controllers
 {
@@ -15,29 +18,37 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: CTKho
-        public ActionResult Index()
+        public ActionResult Index(string Searchtext, int? page, int? SelectedKho)
         {
-            var cTKHOes = db.CTKHOes.Include(c => c.KHO);
-            return View(cTKHOes.ToList());
-        }
+            ViewBag.Kho = new SelectList(db.KHOes.ToList(), "ID", "TENKHO");
+            var pageSize = 5;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<CTKHO> items = db.CTKHOes.OrderByDescending(x => x.ID);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                string searchKeyword = Filter.ChuyenCoDauThanhKhongDau(Searchtext);
+                items = items.Where(x => Filter.ChuyenCoDauThanhKhongDau(x.KE).StartsWith(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
+                                         Filter.ChuyenCoDauThanhKhongDau(x.KE).Contains(searchKeyword) ||
+                                         x.KE.Contains(Searchtext));
 
-        // GET: CTKho/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CTKHO cTKHO = db.CTKHOes.Find(id);
-            if (cTKHO == null)
+            if (SelectedKho.HasValue)
             {
-                return HttpNotFound();
+                items = items.Where(x => x.KHO.ID == SelectedKho.Value);
             }
-            return View(cTKHO);
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.SelectedKho = SelectedKho;
+            ViewBag.page = page;
+            return View(items);
         }
 
         // GET: CTKho/Create
-        public ActionResult Create()
+        public ActionResult Add()
         {
             ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO");
             return View();
@@ -48,7 +59,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,KE,NGAN,TRANGTHAI,MAKHO")] CTKHO cTKHO)
+        public ActionResult Add([Bind(Include = "ID,KE,NGAN,TRANGTHAI,MAKHO")] CTKHO cTKHO)
         {
             if (ModelState.IsValid)
             {
@@ -94,39 +105,51 @@ namespace Recom_Pharmacy.Controllers
             return View(cTKHO);
         }
 
-        // GET: CTKho/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult IsActive(int id)
         {
-            if (id == null)
+            var item = db.CTKHOes.Find(id);
+            if (item != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                item.TRANGTHAI = !item.TRANGTHAI;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.TRANGTHAI });
             }
-            CTKHO cTKHO = db.CTKHOes.Find(id);
-            if (cTKHO == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cTKHO);
+            return Json(new { success = false });
         }
 
-        // POST: CTKho/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
-            CTKHO cTKHO = db.CTKHOes.Find(id);
-            db.CTKHOes.Remove(cTKHO);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var item = db.CTKHOes.Find(id);
+            if (item != null)
+            {
+                db.CTKHOes.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
         {
-            if (disposing)
+            if (!string.IsNullOrEmpty(ids))
             {
-                db.Dispose();
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.CTKHOes.Find(Convert.ToInt32(item));
+                        db.CTKHOes.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
             }
-            base.Dispose(disposing);
+            return Json(new { success = false });
         }
     }
 }
