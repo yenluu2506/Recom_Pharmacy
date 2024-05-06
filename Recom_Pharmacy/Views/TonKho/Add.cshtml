@@ -1,0 +1,92 @@
+﻿@model Recom_Pharmacy.Models.TONKHO
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới Tồn Kho</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/tonkho">Tồn Kho</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card-body">
+        <div class="bs-stepper-content">
+            @using (Html.BeginForm("Add", "TonKho", FormMethod.Post, new { }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <!-- your steps content here -->
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Kho</label>
+                        @Html.DropDownList("MAKHO", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MAKHO, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startdate">Ngày</label>
+                        <div class="input-group date" id="startdate" data-target-input="nearest">
+                            @Html.TextBoxFor(x => x.NGAY, new { @class = "form-control datetimepicker-input", data_target = "#startdate" })
+                            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hiển thị</label>
+                        @Html.CheckBoxFor(x => x.TRANGTHAI, new { @checked = "@checked" })
+                    </div>
+                    <div class="form-group">
+                        <a href="/tonkho" class="btn btn-danger">Quay lại</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</section>
+
+@section scripts{
+    <script>
+        $(function () {
+            // Date picker for start date
+            $('#startdate').datetimepicker({
+                format: 'L',
+                icons: {
+                    time: 'far fa-clock',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-calendar-check-o',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-times'
+                }
+            });
+        });
+
+
+    </script>
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/Content/clients/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/clients/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+}

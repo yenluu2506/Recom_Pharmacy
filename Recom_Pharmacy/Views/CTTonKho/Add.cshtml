@@ -1,0 +1,65 @@
+﻿@model Recom_Pharmacy.Models.CTTONKHO
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới Chi tiết Tồn Kho</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/cttonkho">Chi tiết Tồn Kho</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="card-body">
+        <div class="bs-stepper-content">
+            @using (Html.BeginForm("Add", "CTTonKho", FormMethod.Post, new { }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <!-- your steps content here -->
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mã tồn Kho</label>
+                        @Html.DropDownList("MATONKHO", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MATONKHO, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Thuốc</label>
+                        @Html.DropDownList("MATHUOC", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MATHUOC, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Số lượng tồn</label>
+                        @Html.TextBoxFor(x => x.SLTON, new { @class = "form-control", @placeholder = "Nhập vào tên" })
+                        @Html.ValidationMessageFor(x => x.SLTON, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hiển thị</label>
+                        @Html.CheckBoxFor(x => x.TRANGTHAI, new { @checked = "@checked" })
+                    </div>
+                    <div class="form-group">
+                        <a href="/cttonkho" class="btn btn-danger">Quay lại</a>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</section>

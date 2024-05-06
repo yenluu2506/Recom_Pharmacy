@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CTKhoController.cs" />
+    <Compile Include="Controllers\CTTonKhoController.cs" />
     <Compile Include="Controllers\DonViTinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Controllers\QuocGiaController.cs" />
     <Compile Include="Controllers\ThuocController.cs" />
     <Compile Include="Controllers\TinhThanhController.cs" />
+    <Compile Include="Controllers\TonKhoController.cs" />
     <Compile Include="Controllers\TrinhDuocVienController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5586,6 +5588,13 @@
     <Content Include="Views\CTKho\Add.cshtml" />
     <Content Include="Views\CTKho\Edit.cshtml" />
     <Content Include="Views\CTKho\Index.cshtml" />
+    <Content Include="Views\TonKho\Add.cshtml" />
+    <Content Include="Views\TonKho\Edit.cshtml" />
+    <Content Include="Views\TonKho\Index.cshtml" />
+    <Content Include="Views\CTTonKho\Add.cshtml" />
+    <Content Include="Views\CTTonKho\Details.cshtml" />
+    <Content Include="Views\CTTonKho\Edit.cshtml" />
+    <Content Include="Views\CTTonKho\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

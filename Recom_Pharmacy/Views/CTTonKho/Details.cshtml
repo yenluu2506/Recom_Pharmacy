@@ -1,0 +1,51 @@
+﻿@model Recom_Pharmacy.Models.CTTONKHO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CTTONKHO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SLTON)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLTON)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TRANGTHAI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TRANGTHAI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TONKHO.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TONKHO.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THUOC.ANH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THUOC.ANH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
