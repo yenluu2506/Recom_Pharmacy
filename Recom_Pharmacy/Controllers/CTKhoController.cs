@@ -18,7 +18,7 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: CTKho
-        public ActionResult Index(string Searchtext, int? page, int? SelectedKho)
+        public ActionResult Index(string Searchtext, int? page, int? SelectedKho, int? id)
         {
             ViewBag.Kho = new SelectList(db.KHOes.ToList(), "ID", "TENKHO");
             var pageSize = 5;
@@ -26,7 +26,8 @@ namespace Recom_Pharmacy.Controllers
             {
                 page = 1;
             }
-            IEnumerable<CTKHO> items = db.CTKHOes.OrderByDescending(x => x.ID);
+            
+            IEnumerable<CTKHO> items = db.CTKHOes.OrderByDescending(x => x.ID).Where(x => x.KHO.ID == id);
             if (!string.IsNullOrEmpty(Searchtext))
             {
                 string searchKeyword = Filter.ChuyenCoDauThanhKhongDau(Searchtext);
@@ -48,9 +49,9 @@ namespace Recom_Pharmacy.Controllers
         }
 
         // GET: CTKho/Create
-        public ActionResult Add()
+        public ActionResult Add(int? id)
         {
-            ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO");
+            ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO", id);
             return View();
         }
 

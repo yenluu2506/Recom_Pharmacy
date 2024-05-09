@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.CHITIETHDN>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MATHUOC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOLUONG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DONGIA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CHIETKHAU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTKHO.KE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DONVITINH.TENDVT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HOADONNHAP.SOHD)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MATHUOC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOLUONG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DONGIA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CHIETKHAU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CTKHO.KE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DONVITINH.TENDVT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HOADONNHAP.SOHD)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -148,9 +148,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CTHDNController.cs" />
     <Compile Include="Controllers\CTKhoController.cs" />
     <Compile Include="Controllers\CTTonKhoController.cs" />
     <Compile Include="Controllers\DonViTinhController.cs" />
+    <Compile Include="Controllers\HoaDonNhapController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\KhoController.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Models\HOADONNHAP.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HoaDonNhapViewModel.cs" />
     <Compile Include="Models\HOADONXUAT.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
@@ -5595,6 +5598,13 @@
     <Content Include="Views\CTTonKho\Details.cshtml" />
     <Content Include="Views\CTTonKho\Edit.cshtml" />
     <Content Include="Views\CTTonKho\Index.cshtml" />
+    <Content Include="Views\HoaDonNhap\Index.cshtml" />
+    <Content Include="Views\CTHDN\Create.cshtml" />
+    <Content Include="Views\CTHDN\Delete.cshtml" />
+    <Content Include="Views\CTHDN\Details.cshtml" />
+    <Content Include="Views\CTHDN\Edit.cshtml" />
+    <Content Include="Views\CTHDN\Index.cshtml" />
+    <Content Include="Views\HoaDonNhap\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

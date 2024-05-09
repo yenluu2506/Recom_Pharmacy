@@ -1,0 +1,75 @@
+﻿@model Recom_Pharmacy.Models.CHITIETHDN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CHITIETHDN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MATHUOC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATHUOC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOLUONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOLUONG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DONGIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DONGIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CHIETKHAU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CHIETKHAU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CTKHO.KE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CTKHO.KE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DONVITINH.TENDVT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DONVITINH.TENDVT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HOADONNHAP.SOHD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HOADONNHAP.SOHD)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

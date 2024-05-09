@@ -1,4 +1,4 @@
-﻿@model PagedList.PagedList<Recom_Pharmacy.Models.TONKHO>
+﻿@model PagedList.PagedList<Recom_Pharmacy.Models.HOADONNHAP>
 @using PagedList.Mvc
 
 @{
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý Tồn Kho</h1>
+                <h1>Quản lý Hóa đơn nhập</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="card-tools">
-                        <a href="/tonkho/add" class="btn btn-primary">Thêm mới</a>
+                        <a href="/hoadonnhap/add" class="btn btn-primary">Thêm mới</a>
                         <a href="#" class="btn btn-danger" id="btnDeleteAll">Xóa</a>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    @using (Html.BeginForm("index", "TonKho", FormMethod.Get, new { }))
+                    @using (Html.BeginForm("index", "HoaDonNhap", FormMethod.Get, new { }))
                     {
                         <div class="input-group input-group-sm">
                             @Html.TextBox("Searchtext", null, new { @class = "form-control" })
@@ -57,8 +57,14 @@
                         <tr>
                             <th><input type="checkbox" id="SelectAll" /></th>
                             <th>STT</th>
-                            <th>Kho</th>
-                            <th>Ngày</th>
+                            <th>Số hóa đơn</th>
+                            <th>Nhân viên lập</th>
+                            <th>Ngày nhập</th>
+                            <th>Tổng tiền</th>
+                            <th>Loại tiền</th>
+                            <th>VAT</th>
+                            <th>Tiền nợ</th>
+                            <th>Ghi chú</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
@@ -68,16 +74,21 @@
                             var i = ((ViewBag.page - 1) * ViewBag.PageSize) + 1;
                             foreach (var item in Model)
                             {
-                                var strCheck = item.TRANGTHAI ? "<i class='fa fa-check text-success'></i>" : "<i class='fa fa-times text-danger'></i>";
                                 <tr id="trow_@item.ID">
                                     <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
                                     <td>@i</td>
-                                    <td>@item.KHO.TENKHO</td>
-                                    <td>@item.NGAY</td>
+                                    <td>@item.SOHD</td>
+                                    <td>@item.TRINHDUOCVIEN.TENNV</td>
+                                    <td>@item.NGAYNHAP</td>
+                                    <td>@item.TONGTIEN</td>
+                                    <td>@item.MALOAITIEN</td>
+                                    <td>@item.VAT</td>
+                                    <td>@item.TIENNO</td>
+                                    <td>@item.GHICHU</td>
                                     <td>@item.TRANGTHAI</td>
                                     <td>
-                                        <a href="/cttonkho/index/@item.ID" class="btn btn-sm btn-primary">CT Tồn Kho</a>
-                                        <a href="#" data-id="@item.ID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                        <a href="/cthdn/index/@item.ID" class="btn btn-sm btn-primary">Chi tiết HĐN</a>
+                                        @*<a href="#" data-id="@item.ID" class="btn btn-sm btn-danger btnDelete">Xóa</a>*@
                                     </td>
                                 </tr>
                                 i++;
@@ -132,7 +143,7 @@
                     var conf = confirm('Bạn có muốn xóa các bản ghi này hay không?');
                     if (conf === true) {
                         $.ajax({
-                            url: '/tonkho/deleteAll',
+                            url: '/hoadonnhap/deleteAll',
                             type: 'POST',
                             data: { ids: str },
                             success: function (rs) {
@@ -164,7 +175,7 @@
                 var conf = confirm('Bạn có muốn xóa  bản ghi này không?')
                 if (conf == true) {
                     $.ajax({
-                        url: '/tonkho/delete',
+                        url: '/hoadonnhap/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
@@ -176,27 +187,9 @@
                     });
                 }
             });
-
-            $('body').on('click', '.btnActive', function (e) {
-                e.preventDefault();
-                var btn = $(this);
-                var id = btn.data("id");
-                $.ajax({
-                    url: '/tonkho/IsActive',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (rs) {
-                        if (rs.success) {
-                            if (rs.isAcive) {
-                                btn.html("<i class='fa fa-check text-success'></i>");
-                            } else {
-                                btn.html("<i class='fas fa-times text-danger'></i>");
-                            }
-                        }
-
-                    }
-                });
-            });
         });
+
+
     </script>
 }
+

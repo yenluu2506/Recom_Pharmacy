@@ -17,7 +17,7 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: CTTonKho
-        public ActionResult Index(string Searchtext, int? page, int? SelectedTonKho, int? SelectedThuoc)
+        public ActionResult Index(string Searchtext, int? page, int? SelectedTonKho, int? SelectedThuoc, int? id)
         {
             ViewBag.TonKho = new SelectList(db.TONKHOes.ToList(), "ID");
             ViewBag.Thuoc = new SelectList(db.TONKHOes.ToList(), "ID", "TENTHUOC");
@@ -26,7 +26,7 @@ namespace Recom_Pharmacy.Controllers
             {
                 page = 1;
             }
-            IEnumerable<CTTONKHO> items = db.CTTONKHOes.OrderByDescending(x => x.ID);
+            IEnumerable<CTTONKHO> items = db.CTTONKHOes.OrderByDescending(x => x.ID).Where(x=> x.TONKHO.ID == id);
             if (SelectedTonKho.HasValue)
             {
                 items = items.Where(x => x.TONKHO.ID == SelectedTonKho.Value);
@@ -60,10 +60,10 @@ namespace Recom_Pharmacy.Controllers
         }
 
         // GET: CTTonKho/Create
-        public ActionResult Add()
+        public ActionResult Add(int? id)
         {
             ViewBag.MATONKHO = new SelectList(db.TONKHOes, "ID", "ID");
-            ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC");
+            ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", id);
             return View();
         }
 
