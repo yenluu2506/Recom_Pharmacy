@@ -104,7 +104,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Công dụng</label>
-                        @Html.TextBoxFor(x => x.CONGDUNG, new { @class = "form-control", @placeholder = "Nhập vào tên" })
+                        @Html.TextAreaFor(x => x.CONGDUNG, new { @class = "form-control", @placeholder = "Nhập vào tên",@id="txtDetail"})
                         @Html.ValidationMessageFor(x => x.CONGDUNG, null, new { @class = "text-danger" })
                     </div>
                     <div class="form-group">

@@ -15,6 +15,7 @@
     <NavigationProperty Name="CTKHO" Relationship="RecomPharmacyModel.FK_CHITIETHDN_CTKHO" FromRole="CHITIETHDN" ToRole="CTKHO" />
     <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" FromRole="CHITIETHDN" ToRole="DONVITINH" />
     <NavigationProperty Name="HOADONNHAP" Relationship="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" FromRole="CHITIETHDN" ToRole="HOADONNHAP" />
+    <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="CHITIETHDN" ToRole="THUOC" />
   </EntityType>
   <EntityType Name="CHITIETHDX">
     <Key>
@@ -191,6 +192,10 @@
       <End Role="TONKHO" EntitySet="TONKHOes" />
     </AssociationSet>
     <EntitySet Name="THUOCs" EntityType="RecomPharmacyModel.THUOC" />
+    <AssociationSet Name="FK_CHITIETHDN_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDN_THUOC">
+      <End Role="THUOC" EntitySet="THUOCs" />
+      <End Role="CHITIETHDN" EntitySet="CHITIETHDNs" />
+    </AssociationSet>
     <AssociationSet Name="FK_CHITIETHDX_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDX_THUOC">
       <End Role="THUOC" EntitySet="THUOCs" />
       <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
@@ -533,12 +538,26 @@
     <Property Name="CONGDUNG" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
     <Property Name="GIANHAP" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="GIABAN" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SOLUONG" Type="Int32" Nullable="false" />
     <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="THUOC" ToRole="CHITIETHDN" />
     <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="THUOC" ToRole="CHITIETHDX" />
     <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_THUOC" FromRole="THUOC" ToRole="CTTONKHO" />
     <NavigationProperty Name="LOAITHUOC" Relationship="RecomPharmacyModel.FK_THUOC_LOAITHUOC" FromRole="THUOC" ToRole="LOAITHUOC" />
     <NavigationProperty Name="NCC" Relationship="RecomPharmacyModel.FK_THUOC_NCC" FromRole="THUOC" ToRole="NCC" />
   </EntityType>
+  <Association Name="FK_CHITIETHDN_THUOC">
+    <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUOC">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CHITIETHDN">
+        <PropertyRef Name="MATHUOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CHITIETHDX_THUOC">
     <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
     <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />

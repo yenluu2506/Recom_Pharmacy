@@ -26,5 +26,6 @@ namespace Recom_Pharmacy.Models
         public virtual CTKHO CTKHO { get; set; }
         public virtual DONVITINH DONVITINH { get; set; }
         public virtual HOADONNHAP HOADONNHAP { get; set; }
+        public virtual THUOC THUOC { get; set; }
     }
 }

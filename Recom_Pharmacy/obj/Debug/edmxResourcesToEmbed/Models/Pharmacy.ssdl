@@ -177,6 +177,7 @@
     <Property Name="CONGDUNG" Type="nvarchar" MaxLength="300" Nullable="false" />
     <Property Name="GIANHAP" Type="money" />
     <Property Name="GIABAN" Type="money" />
+    <Property Name="SOLUONG" Type="int" Nullable="false" />
     <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="TINHTHANH">
@@ -240,6 +241,18 @@
       </Principal>
       <Dependent Role="CHITIETHDN">
         <PropertyRef Name="MAHDN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CHITIETHDN_THUOC">
+    <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+    <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUOC">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CHITIETHDN">
+        <PropertyRef Name="MATHUOC" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -476,6 +489,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_CHITIETHDN_HOADONNHAP" Association="Self.FK_CHITIETHDN_HOADONNHAP">
       <End Role="HOADONNHAP" EntitySet="HOADONNHAP" />
+      <End Role="CHITIETHDN" EntitySet="CHITIETHDN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CHITIETHDN_THUOC" Association="Self.FK_CHITIETHDN_THUOC">
+      <End Role="THUOC" EntitySet="THUOC" />
       <End Role="CHITIETHDN" EntitySet="CHITIETHDN" />
     </AssociationSet>
     <AssociationSet Name="FK_CHITIETHDX_DONVITINH" Association="Self.FK_CHITIETHDX_DONVITINH">

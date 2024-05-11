@@ -38,7 +38,8 @@
         <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" />
         <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_TRINHDUOCVIEN" />
         <AssociationConnector Association="RecomPharmacyModel.FK_TONKHO_KHO" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.THUOC" Width="1.5" PointX="8.25" PointY="1.5" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.THUOC" Width="1.5" PointX="8.25" PointY="1.25" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDN_THUOC" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDX_THUOC" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CTTONKHO_THUOC" />
         <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_LOAITHUOC" />

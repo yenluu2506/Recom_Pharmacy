@@ -207,6 +207,7 @@
       <EntityTypeMapping TypeName="RecomPharmacyModel.THUOC">
         <MappingFragment StoreEntitySet="THUOC">
           <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
           <ScalarProperty Name="GIABAN" ColumnName="GIABAN" />
           <ScalarProperty Name="GIANHAP" ColumnName="GIANHAP" />
           <ScalarProperty Name="CONGDUNG" ColumnName="CONGDUNG" />

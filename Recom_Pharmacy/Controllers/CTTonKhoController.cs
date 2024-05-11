@@ -76,6 +76,7 @@ namespace Recom_Pharmacy.Controllers
         {
             if (ModelState.IsValid)
             {
+                cTTONKHO.SLTON = 0;
                 db.CTTONKHOes.Add(cTTONKHO);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,6 +113,7 @@ namespace Recom_Pharmacy.Controllers
         {
             if (ModelState.IsValid)
             {
+                cTTONKHO.SLTON = 0;
                 db.Entry(cTTONKHO).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

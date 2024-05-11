@@ -66,13 +66,14 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,TRANGTHAI")] THUOC tHUOC)
+        public ActionResult Add([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,SOLUONG,TRANGTHAI")] THUOC tHUOC)
         {
             if (ModelState.IsValid)
             {
                 
                 try
                 {
+                    tHUOC.SOLUONG = 0;
                     db.THUOCs.Add(tHUOC);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -116,7 +117,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,TRANGTHAI")] THUOC tHUOC)
+        public ActionResult Edit([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,SOLUONG,TRANGTHAI")] THUOC tHUOC)
         {
             if (ModelState.IsValid)
             {

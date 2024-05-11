@@ -93,3 +93,5 @@ F:\Recom_Pharmacy\Recom_Pharmacy\bin\DevExtreme.AspNet.Data.xml
 F:\Recom_Pharmacy\Recom_Pharmacy\bin\System.Net.Http.Formatting.xml
 F:\Recom_Pharmacy\Recom_Pharmacy\bin\System.Web.Http.xml
 F:\Recom_Pharmacy\Recom_Pharmacy\bin\System.Web.Http.WebHost.xml
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\CKFinder.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\CKFinder.pdb
