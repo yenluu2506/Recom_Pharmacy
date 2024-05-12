@@ -57,6 +57,7 @@
     <link rel="stylesheet" href="~/Content/clients/plugins/bs-stepper/css/bs-stepper.min.css">
     <!-- dropzonejs -->
     <link rel="stylesheet" href="~/Content/clients/plugins/dropzone/min/dropzone.min.css">
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
 
 </head>
 
@@ -132,50 +133,43 @@
                 <div id="da" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="@Url.Action("Index","Items")">Danh sách </a>
-                        <a class="collapse-item" href="@Url.Action("Create", "Items")">Thêm sản phẩm</a>
-
-                        <!----------------new Product---------------------------------------------------------------------------------------------------------------------------------------------->
+                        <a class="collapse-item" href="@Url.Action("Index","LoaiThuoc")">Loại thuốc </a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Thuoc")">Danh sách thuốc</a>
                     </div>
                 </div>
             </li>
-            <!--  Product Type Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr5" aria-expanded="true" aria-controls="rr5">
+                    <i class="fas fa-fw fa-cube"></i>
+                    <span>Kho</span>
+                </a>
+                <div id="rr5" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href="@Url.Action("Index","Kho")">Danh sách kho</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "TonKho")">Danh sách Tồn Kho</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr6" aria-expanded="true" aria-controls="rr6">
+                    <i class="fas fa-fw fa-cube"></i>
+                    <span>Hóa Đơn Nhập</span>
+                </a>
+                <div id="rr6" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href="@Url.Action("Index","Hoadonnhap")">Danh sách kho</a>
+                        @*<a class="collapse-item" href="@Url.Action("Index", "TonKho")">Danh sách Tồn Kho</a>*@
+                    </div>
+                </div>
+            </li>
             @*<li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-briefcase"></i>
-                    <span>
-                        Loại Thuốc
-                    </span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="@Url.Action("Index","LoaiThuoc")">Danh sách</a>
-                        <a class="collapse-item" href="@Url.Action("Create", "LoaiThuoc")">Thêm mới</a>
-                    </div>
-                </div>
-            </li>*@
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index","LoaiThuoc")">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Loại Thuốc</span>
-                </a>
-            </li>
-            <!--  Banner Menu -->
-            <!--  Brand -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Xuất Xứ</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="@Url.Action("Index","Brands")">Danh sách</a>
-                    </div>
-                </div>
-            </li>
+            <a class="nav-link" href="@Url.Action("Index","LoaiThuoc")">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Loại Thuốc</span>
+            </a>
+        </li>*@
 
             <!--  Banners -->
 
@@ -188,22 +182,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
 
                         <a class="collapse-item" href="@Url.Action("Index","Banners")">Danh sách</a>
-                    </div>
-                </div>
-            </li>
-
-            <!--  Store -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr3" aria-expanded="true" aria-controls="rr3">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Kho</span>
-                </a>
-                <div id="rr3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="@Url.Action("Index","Store")">Danh sách</a>
-                        <a class="collapse-item" href="@Url.Action("ItemInStore","Store")">Thuốc trong kho</a>
                     </div>
                 </div>
             </li>

@@ -20,7 +20,7 @@
     <Property Name="SOLUONG" Type="int" Nullable="false" />
     <Property Name="DONGIA" Type="money" Nullable="false" />
     <Property Name="MADVT" Type="int" Nullable="false" />
-    <Property Name="CHIETKHAU" Type="float" />
+    <Property Name="CHIETKHAU" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="CHITIETHDX">
     <Key>
@@ -171,10 +171,10 @@
     <Property Name="DONGGOI" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="NGAYSX" Type="date" Nullable="false" />
     <Property Name="HSD" Type="date" Nullable="false" />
-    <Property Name="NHASX" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="NUOCSX" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DOITUONGSD" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="CONGDUNG" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="NHASX" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="NUOCSX" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="DOITUONGSD" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="CONGDUNG" Type="nvarchar(max)" Nullable="false" />
     <Property Name="GIANHAP" Type="money" />
     <Property Name="GIABAN" Type="money" />
     <Property Name="SOLUONG" Type="int" Nullable="false" />
@@ -233,7 +233,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDN_HOADONNHAP">
-    <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="0..1" />
+    <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HOADONNHAP">

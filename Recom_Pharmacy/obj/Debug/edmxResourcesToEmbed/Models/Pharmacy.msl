@@ -1,20 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="RecomPharmacyModelStoreContainer" CdmEntityContainer="RecomPharmacyEntities">
-    <EntitySetMapping Name="CHITIETHDNs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDN">
-        <MappingFragment StoreEntitySet="CHITIETHDN">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="MAHDN" ColumnName="MAHDN" />
-          <ScalarProperty Name="MACTKHO" ColumnName="MACTKHO" />
-          <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
-          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
-          <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
-          <ScalarProperty Name="MADVT" ColumnName="MADVT" />
-          <ScalarProperty Name="CHIETKHAU" ColumnName="CHIETKHAU" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CHITIETHDXes">
       <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDX">
         <MappingFragment StoreEntitySet="CHITIETHDX">
@@ -223,6 +209,20 @@
           <ScalarProperty Name="MADVT" ColumnName="MADVT" />
           <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
           <ScalarProperty Name="ANH" ColumnName="ANH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIETHDNs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDN">
+        <MappingFragment StoreEntitySet="CHITIETHDN">
+          <ScalarProperty Name="CHIETKHAU" ColumnName="CHIETKHAU" />
+          <ScalarProperty Name="MADVT" ColumnName="MADVT" />
+          <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+          <ScalarProperty Name="MACTKHO" ColumnName="MACTKHO" />
+          <ScalarProperty Name="MAHDN" ColumnName="MAHDN" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

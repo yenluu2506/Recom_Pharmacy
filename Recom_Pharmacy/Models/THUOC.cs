@@ -17,9 +17,9 @@ namespace Recom_Pharmacy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public THUOC()
         {
-            this.CHITIETHDNs = new HashSet<CHITIETHDN>();
             this.CHITIETHDXes = new HashSet<CHITIETHDX>();
             this.CTTONKHOes = new HashSet<CTTONKHO>();
+            this.CHITIETHDNs = new HashSet<CHITIETHDN>();
         }
     
         public int ID { get; set; }
@@ -42,12 +42,12 @@ namespace Recom_Pharmacy.Models
         public bool TRANGTHAI { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDX> CHITIETHDXes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTTONKHO> CTTONKHOes { get; set; }
         public virtual LOAITHUOC LOAITHUOC { get; set; }
         public virtual NCC NCC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }
     }
 }

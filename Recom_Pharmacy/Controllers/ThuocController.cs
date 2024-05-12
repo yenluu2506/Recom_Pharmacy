@@ -23,7 +23,7 @@ namespace Recom_Pharmacy.Controllers
         {
             ViewBag.LoaiThuoc = new SelectList(db.LOAITHUOCs.ToList(), "ID", "TENLOAI");
             ViewBag.NCC = new SelectList(db.NCCs.ToList(), "ID", "TENNCC");
-            var pageSize = 5;
+            var pageSize = 10;
             if (page == null)
             {
                 page = 1;
@@ -145,39 +145,51 @@ namespace Recom_Pharmacy.Controllers
             return View(tHUOC);
         }
 
-        // GET: Thuoc/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult IsActive(int id)
         {
-            if (id == null)
+            var item = db.THUOCs.Find(id);
+            if (item != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                item.TRANGTHAI = !item.TRANGTHAI;
+                db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.TRANGTHAI });
             }
-            THUOC tHUOC = db.THUOCs.Find(id);
-            if (tHUOC == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tHUOC);
+            return Json(new { success = false });
         }
 
-        // POST: Thuoc/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
-            THUOC tHUOC = db.THUOCs.Find(id);
-            db.THUOCs.Remove(tHUOC);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var item = db.THUOCs.Find(id);
+            if (item != null)
+            {
+                db.THUOCs.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
         {
-            if (disposing)
+            if (!string.IsNullOrEmpty(ids))
             {
-                db.Dispose();
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.THUOCs.Find(Convert.ToInt32(item));
+                        db.THUOCs.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
             }
-            base.Dispose(disposing);
+            return Json(new { success = false });
         }
     }
 }

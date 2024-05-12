@@ -25,7 +25,6 @@ namespace Recom_Pharmacy.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CHITIETHDN> CHITIETHDNs { get; set; }
         public virtual DbSet<CHITIETHDX> CHITIETHDXes { get; set; }
         public virtual DbSet<LOAITHUOC> LOAITHUOCs { get; set; }
         public virtual DbSet<MENUTHUOC> MENUTHUOCs { get; set; }
@@ -43,5 +42,6 @@ namespace Recom_Pharmacy.Models
         public virtual DbSet<KHO> KHOes { get; set; }
         public virtual DbSet<TONKHO> TONKHOes { get; set; }
         public virtual DbSet<THUOC> THUOCs { get; set; }
+        public virtual DbSet<CHITIETHDN> CHITIETHDNs { get; set; }
     }
 }

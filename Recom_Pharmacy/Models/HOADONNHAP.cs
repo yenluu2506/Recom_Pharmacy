@@ -31,8 +31,8 @@ namespace Recom_Pharmacy.Models
         public string GHICHU { get; set; }
         public bool TRANGTHAI { get; set; }
     
+        public virtual TRINHDUOCVIEN TRINHDUOCVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }
-        public virtual TRINHDUOCVIEN TRINHDUOCVIEN { get; set; }
     }
 }

@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover display" style="width: 100%;color:black;">
+                <table class="table table-hover display" style="width: 220%;color:black;">
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="SelectAll" /></th>
@@ -95,7 +95,7 @@
                                 <tr id="trow_@item.ID">
                                     <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
                                     <td>@i</td>
-                                    <td>@item.ANH</td>
+                                    <td><img src="@item.ANH" width="50" /></td>
                                     <td>@item.TENTHUOC</td>
                                     <td>@item.LOAITHUOC.TENLOAI</td>
                                     <td>@item.NCC.TENNCC</td>
@@ -110,7 +110,9 @@
                                     <td>@item.GIANHAP</td>
                                     <td>@item.GIABAN</td>
                                     <td>@item.SOLUONG</td>
-                                    <td>@item.TRANGTHAI</td>
+                                    <td class="text-center">
+                                        <a href='#' data-id="@item.ID" class="btnActive">@Html.Raw(strCheck)</a>
+                                    </td>
                                     <td>
                                         <a href="/thuoc/edit/@item.ID" class="btn btn-sm btn-primary">Sửa</a>
                                         <a href="#" data-id="@item.ID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
@@ -218,7 +220,7 @@
                 var btn = $(this);
                 var id = btn.data("id");
                 $.ajax({
-                    url: '/thuoc/IsActive',
+                    url: '/admin/Thuoc/IsActive',
                     type: 'POST',
                     data: { id: id },
                     success: function (rs) {

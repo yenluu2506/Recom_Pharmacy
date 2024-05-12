@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using System.Web.UI;
 using Recom_Pharmacy.Models;
 
 namespace Recom_Pharmacy.Controllers
@@ -15,16 +17,51 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: CTHDN
-        public ActionResult Index(int? id)
+        public ActionResult Index(string Searchtext, int? page, int? SelectedDVT, int? SelectedCTKho, int? SelectedThuoc, int? id, int? SelectedHDN)
         {
-            var cHITIETHDNs = db.CHITIETHDNs
-                        .Include(c => c.CTKHO)
-                        .Include(c => c.DONVITINH)
-                        .Include(c => c.HOADONNHAP)
-                        .Where(c => c.HOADONNHAP.ID == id)
-                        .ToList();
-            return View(cHITIETHDNs);
+            //var cHITIETHDNs = db.CHITIETHDNs
+            //            .Include(c => c.CTKHO)
+            //            .Include(c => c.DONVITINH)
+            //            .Include(c => c.HOADONNHAP)
+            //            .Where(c => c.HOADONNHAP.ID == id)
+            //            .ToList();
+            //return View(cHITIETHDNs);
             //return RedirectToAction("index", new { id = id });
+            ViewBag.CTKho = new SelectList(db.CTKHOes.ToList(), "ID");
+            ViewBag.Thuoc = new SelectList(db.TONKHOes.ToList(), "ID", "TENTHUOC");
+            ViewBag.HDN = new SelectList(db.HOADONNHAPs.ToList(), "ID", "SOHD");
+            ViewBag.DVT = new SelectList(db.HOADONNHAPs.ToList(), "ID", "TENDVT");
+            var pageSize = 5;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<CHITIETHDN> items = db.CHITIETHDNs.OrderByDescending(x => x.ID).Where(x => x.HOADONNHAP.ID == id);
+            if (SelectedCTKho.HasValue)
+            {
+                items = items.Where(x => x.CTKHO.ID == SelectedCTKho.Value);
+            }
+            if (SelectedThuoc.HasValue)
+            {
+                items = items.Where(x => x.THUOC.ID == SelectedThuoc.Value);
+            }
+            if (SelectedHDN.HasValue)
+            {
+                items = items.Where(x => x.HOADONNHAP.ID == SelectedHDN.Value);
+            }
+            if (SelectedDVT.HasValue)
+            {
+                items = items.Where(x => x.DONVITINH.ID == SelectedDVT.Value);
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.SelectedTonKho = SelectedCTKho;
+            ViewBag.SelectedThuoc = SelectedThuoc;
+            ViewBag.SelectedHDN = SelectedHDN;
+            ViewBag.SelectedDVT = SelectedDVT;
+            ViewBag.page = page;
+            return View(items);
         }
 
         // GET: CTHDN/Details/5
@@ -45,8 +82,9 @@ namespace Recom_Pharmacy.Controllers
         // GET: CTHDN/Create
         public ActionResult Create(int? id)
         {
-            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "KE");
+            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "MAKHO");
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT");
+            ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC");
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", id);
             return View();
         }
@@ -65,8 +103,9 @@ namespace Recom_Pharmacy.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "KE", cHITIETHDN.MACTKHO);
+            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "MAKHO", cHITIETHDN.MACTKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
+            ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", cHITIETHDN.MATHUOC);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
             return View(cHITIETHDN);
         }

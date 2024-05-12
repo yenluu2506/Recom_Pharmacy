@@ -19,7 +19,7 @@ namespace Recom_Pharmacy.Controllers
         // GET: MENUTHUOC
         public ActionResult Index(string Searchtext, int? page)
         {
-            var pageSize = 5;
+            var pageSize = 15;
             if (page == null)
             {
                 page = 1;

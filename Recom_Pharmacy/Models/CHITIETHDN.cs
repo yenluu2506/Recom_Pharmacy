@@ -21,7 +21,7 @@ namespace Recom_Pharmacy.Models
         public int SOLUONG { get; set; }
         public decimal DONGIA { get; set; }
         public int MADVT { get; set; }
-        public Nullable<double> CHIETKHAU { get; set; }
+        public double CHIETKHAU { get; set; }
     
         public virtual CTKHO CTKHO { get; set; }
         public virtual DONVITINH DONVITINH { get; set; }

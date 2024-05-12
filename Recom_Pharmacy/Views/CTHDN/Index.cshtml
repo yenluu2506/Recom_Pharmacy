@@ -1,70 +1,180 @@
-﻿@model IEnumerable<Recom_Pharmacy.Models.CHITIETHDN>
+﻿@model PagedList.PagedList<Recom_Pharmacy.Models.CHITIETHDN>
+@using PagedList.Mvc
+
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MATHUOC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SOLUONG)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DONGIA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CHIETKHAU)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CTKHO.KHO.TENKHO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DONVITINH.TENDVT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HOADONNHAP.SOHD)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MATHUOC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SOLUONG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DONGIA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CHIETKHAU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTKHO.KHO.TENKHO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DONVITINH.TENDVT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HOADONNHAP.SOHD)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MATHUOC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SOLUONG)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DONGIA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CHIETKHAU)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CTKHO.KHO.TENKHO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DONVITINH.TENDVT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HOADONNHAP.SOHD)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MATHUOC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SOLUONG)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DONGIA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CHIETKHAU)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CTKHO.KHO.TENKHO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DONVITINH.TENDVT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HOADONNHAP.SOHD)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>*@
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý CTHDN</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="card-tools">
+                        <a href="/cthdn/create" class="btn btn-primary">Thêm mới</a>
+                        <a href="#" class="btn btn-danger" id="btnDeleteAll">Xóa</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    @using (Html.BeginForm("index", "cthdn", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group input-group-sm">
+                            @Html.TextBox("Searchtext", null, new { @class = "form-control" })
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover display" style="width: 100%;color:black;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="SelectAll" /></th>
+                            <th>STT</th>
+                            <th>Mã hóa đơn nhập</th>
+                            <th>Mã kho</th>
+                            <th>Thuốc</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Đơn vị tính</th>
+                            <th>Chiết khấu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            var i = ((ViewBag.page - 1) * ViewBag.PageSize) + 1;
+                            foreach (var item in Model)
+                            {
+                                <tr id="trow_@item.ID">
+                                    <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
+                                    <td>@i</td>
+                                    <td>@item.HOADONNHAP.SOHD</td>
+                                    <td>@item.CTKHO.KHO.TENKHO</td>
+                                    <td>@item.THUOC.TENTHUOC</td>
+                                    <td>@item.SOLUONG</td>
+                                    <td>@item.DONGIA</td>
+                                    <td>@item.DONVITINH.TENDVT</td>
+                                    <td>@item.CHIETKHAU</td>
+                                    <td>
+                                        @*<a href="//index/@item.ID" class="btn btn-sm btn-primary">CT Tồn Kho</a>
+                                        <a href="#" data-id="@item.ID" class="btn btn-sm btn-danger btnDelete">Xóa</a>*@
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">Không có bản ghi nào!</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
