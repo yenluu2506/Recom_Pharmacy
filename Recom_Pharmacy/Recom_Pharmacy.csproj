@@ -169,6 +169,7 @@
     <Compile Include="Controllers\TinhThanhController.cs" />
     <Compile Include="Controllers\TonKhoController.cs" />
     <Compile Include="Controllers\TrinhDuocVienController.cs" />
+    <Compile Include="Controllers\UserInterfaceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5445,6 +5446,8 @@
     <Content Include="Views\CTHDN\Edit.cshtml" />
     <Content Include="Views\CTHDN\Index.cshtml" />
     <Content Include="Views\HoaDonNhap\Add.cshtml" />
+    <Content Include="Views\UserInterface\Sessionlogin.cshtml" />
+    <Content Include="Views\UserInterface\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

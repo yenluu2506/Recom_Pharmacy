@@ -26,26 +26,6 @@ namespace Recom_Pharmacy.Models
 		public string Name { get; set; }
 		[Required(ErrorMessage = "PhoneNumber not null !")]
 		public string PhoneNumber { get; set; }
-		//--------------------
-		//public Customer TypeOf_Customer()
-		//{
-		//	Customer customer = new Customer();
-		//	PropertyInfo[] pithis = typeof(AccountClientEntity).GetProperties();
-		//	PropertyInfo[] pieClinet = typeof(Customer).GetProperties();
-		//	foreach (var item in pithis)
-		//	{
-		//		foreach (var itempiem in pieClinet)
-		//		{
-		//			if (itempiem.Name == item.Name)
-		//			{
-		//				itempiem.SetValue(customer, item.GetValue(this));
-		//				break;
-		//			}
-		//		}
-		//	}
-		//	return customer;
-		//}
-
 		// convert tu model sang view
 
 		public void TypeOf_AccountClientEntity(KHACHHANG customer)

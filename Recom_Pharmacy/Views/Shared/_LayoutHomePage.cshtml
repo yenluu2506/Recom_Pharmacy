@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Recom_Pharmacy.Models;
+@{
+
+    KHACHHANG acc = (KHACHHANG)Session["usr"];
+    string username = "";
+    if (Request.Cookies["usr"] != null)
+    {
+        username = Request.Cookies["usr"].Value;
+
+    }
+
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -83,6 +95,71 @@
                             <span class="icon-menu"></span>
                         </a>
                     </div>
+                    @*<div class="h_right_text">
+            @if (Session["usr"] == null)
+            {
+                <div class="btn-group ps-dropdown">
+                    <a href="@Url.Action("Login","Login")" class="ps-btn ps-btn-login" aria-haspopup="true" aria-expanded="false"> Đăng Nhập<i></i></a>
+                    <ul class="dropdown-menu"></ul>
+                </div>
+                <div class="btn-group ps-dropdown">
+                    <a href="@Url.Action("Register","Login")" class="ps-btn ps-btn-register" aria-haspopup="true" aria-expanded="false">Đăng Ký<i></i></a>
+                    <ul class="dropdown-menu"></ul>
+                </div>
+            }
+            else
+            {
+                <li style="list-style: none;" class="dropdown submenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span>@acc.TENKH</span>
+                        <img width="50" height="50" style="border-radius: 50%" src="@Url.Content("~/img/Item/avatar-default-icon.png")">
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Profile","AuraStore")">Hồ Sơ</a></li>
+                        <li><a href="@Url.Action("ListOrderClient","AuraStore")">Đơn Hàng</a></li>
+                        <li><a href="@Url.Action("Changepassword","Login")">Đổi mật khẩu</a></li>
+                        <li><a href="@Url.Action("Newinformation","Cart")">New</a></li>
+                        <li><a href="@Url.Action("SignOut","AuraStore")">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            }
+        </div>*@
+                    <div class="h_right_text">
+                        @if (Session["usr"] == null)
+                        {
+                            <ul class="nav">
+                                <li class="nav-item dropdown">
+                                    <a href="@Url.Action("Login","Login")" class="nav-link" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-sign-in-alt"></i> Đăng Nhập
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a href="@Url.Action("Register","Login")" class="nav-link" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-user-plus"></i> Đăng Ký
+                                    </a>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="nav">
+                                <li class="nav-item dropdown submenu">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span>@acc.TENKH</span>
+                                        <img width="50" height="50" style="border-radius: 50%" src="@Url.Content("~/img/Item/avatar-default-icon.png")">
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="@Url.Action("Profile","UserInterface")">Hồ Sơ</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("ListOrderClient","UserInterface")">Đơn Hàng</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("Changepassword","Login")">Đổi mật khẩu</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("SignOut","UserInterface")">Đăng xuất</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+
                 </div>
             </div>
         </div>
