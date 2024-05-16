@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.LOAITHUOC>
+
+@foreach (var item in Model) {
+
+    <li><a href="@Url.Action("ProductByLT","UserInterface",new { id=item.ID})">@item.TENLOAI</a></li>
+
+}

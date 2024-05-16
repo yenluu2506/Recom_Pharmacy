@@ -1,9 +1,11 @@
 /* Base */
 body {
-  line-height: 1.7;
-  color: #8c92a0;
-  font-weight: 300;
-  font-size: 16px; }
+    line-height: 1.7;
+    color: #8c92a0;
+    font-weight: 300;
+    font-size: 16px;
+    font-family: Arial !important;
+}
 
 ::-moz-selection {
   background: #000;
@@ -273,7 +275,7 @@ a {
           -webkit-transform: translateY(-50%);
           -ms-transform: translateY(-50%);
           transform: translateY(-50%);
-          font-family: 'icomoon'; }
+          font-family: 'Arial'; }
       .site-navbar .site-navigation .site-menu .has-children .dropdown {
         visibility: hidden;
         opacity: 0;
@@ -335,7 +337,48 @@ a {
           margin-top: 0px;
           visibility: visible;
           opacity: 1; }
+/*tucode*/
+    .site-navbar .site-navigation .site-menu .flex-menu {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 
+        .site-navbar .site-navigation .site-menu .flex-menu li {
+            display: inline-block;
+        }
+
+        .site-navbar .site-navigation .site-menu .flex-menu a {
+            padding: 10px 15px;
+            white-space: nowrap;
+            display: block;
+        }
+
+        /* Optional: To style the dropdown menus properly */
+        .site-navbar .site-navigation .site-menu .flex-menu .has-children {
+            position: relative;
+        }
+
+        .site-navbar .site-navigation .site-menu .flex-menu .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            white-space: normal;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        .site-navbar .site-navigation .site-menu .flex-menu .has-children:hover .dropdown {
+            display: block;
+        }
+
+        .site-navbar .site-navigation .site-menu .flex-menu .dropdown li {
+            display: block;
+        }
+/*hettucode*/
 .site-mobile-menu {
   width: 300px;
   position: fixed;
@@ -429,7 +472,7 @@ a {
       .site-mobile-menu .site-nav-wrap .arrow-collapse:before {
         font-size: 18px;
         z-index: 20;
-        font-family: "icomoon";
+        font-family: "Arial";
         content: "\e313";
         position: absolute;
         top: 50%;
@@ -660,7 +703,7 @@ a {
   color: #25262a; }
   .block-5 ul li:before {
     top: 0;
-    font-family: "icomoon";
+    font-family: "Arial";
     content: "";
     position: absolute;
     left: 0;

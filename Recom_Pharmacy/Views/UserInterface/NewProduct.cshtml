@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.THUOC>
+
+<div class="nonloop-block-3 owl-carousel">
+
+    @foreach (var item in Model)
+    {
+        <div class="text-center item mb-4">
+            @*<span class="tag">Sale</span>*@
+            <a href="shop-single.html"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+            <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
+            <p class="price">@item.GIABAN VND</p>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.MENUTHUOC>
+
+<div class="main-nav d-none d-lg-block">
+        <nav class="site-navigation text-right text-md-center" role="navigation">
+            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                @foreach (var item in Model)
+                {
+                    <li class="has-children">
+                        <a href="#">@item.TENDM</a>
+                        <ul class="dropdown">
+                            @Html.Action("LoaiThuoc", "UserInterface", new { id = item.ID })
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+@*<div class="main-nav d-none d-lg-block">
+    <nav class="site-navigation text-right text-md-center" role="navigation">
+        <ul class="site-menu js-clone-nav d-none d-lg-block flex-menu">
+            <li class="active"><a href="@Url.Action("Index", "UserInterface")">Home</a></li>
+            @foreach (var item in Model)
+            {
+                <li class="has-children">
+                    <a href="#">@item.TENDM</a>
+                    <ul class="dropdown">
+                        @Html.Action("LoaiThuoc", "UserInterface", new { id = item.ID })
+                    </ul>
+                </li>
+            }
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</div>*@
+

@@ -5448,6 +5448,11 @@
     <Content Include="Views\HoaDonNhap\Add.cshtml" />
     <Content Include="Views\UserInterface\Sessionlogin.cshtml" />
     <Content Include="Views\UserInterface\Index.cshtml" />
+    <Content Include="Views\UserInterface\ViewAllProduct.cshtml" />
+    <Content Include="Views\UserInterface\NewProduct.cshtml" />
+    <Content Include="Views\UserInterface\Menu.cshtml" />
+    <Content Include="Views\UserInterface\LoaiThuoc.cshtml" />
+    <Content Include="Views\UserInterface\ProductByLT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
