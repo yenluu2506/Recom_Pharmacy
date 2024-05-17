@@ -5453,6 +5453,7 @@
     <Content Include="Views\UserInterface\Menu.cshtml" />
     <Content Include="Views\UserInterface\LoaiThuoc.cshtml" />
     <Content Include="Views\UserInterface\ProductByLT.cshtml" />
+    <Content Include="Views\UserInterface\DetailProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,7 +11,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="shop-single.html"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+                    <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
                     <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
                     <p class="price">@item.GIABAN VND</p>
                 </div>

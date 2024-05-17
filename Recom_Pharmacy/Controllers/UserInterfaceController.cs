@@ -70,5 +70,10 @@ namespace Recom_Pharmacy.Controllers
             var pr = from d in db.THUOCs where d.MALOAI == id && d.TRANGTHAI == true select d;
             return View(pr);
         }
+        public ActionResult DetailProduct(int id)
+        {
+            var item = db.THUOCs.Find(id);
+            return View(item);
+        }
     }
 }
