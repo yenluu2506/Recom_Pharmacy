@@ -32,8 +32,9 @@
     <Property Name="MATHUOC" Type="int" />
     <Property Name="SOLUONG" Type="int" Nullable="false" />
     <Property Name="DONGIA" Type="money" Nullable="false" />
-    <Property Name="MADVT" Type="int" Nullable="false" />
+    <Property Name="MADVT" Type="int" />
     <Property Name="CHIETKHAU" Type="float" />
+    <Property Name="TONGTIEN" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="CTKHO">
     <Key>
@@ -83,14 +84,14 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SOHD" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MACTKHO" Type="int" Nullable="false" />
-    <Property Name="MATDV" Type="int" Nullable="false" />
+    <Property Name="SOHD" Type="nvarchar" MaxLength="50" />
+    <Property Name="MACTKHO" Type="int" />
+    <Property Name="MATDV" Type="int" />
     <Property Name="MAKH" Type="int" />
     <Property Name="NGAYXUAT" Type="date" Nullable="false" />
     <Property Name="TONGTIEN" Type="money" Nullable="false" />
     <Property Name="MALOAITIEN" Type="nvarchar" MaxLength="500" />
-    <Property Name="VAT" Type="float" Nullable="false" />
+    <Property Name="VAT" Type="float" />
     <Property Name="TIENNO" Type="int" />
     <Property Name="GHICHU" Type="nvarchar" MaxLength="100" />
     <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
@@ -259,7 +260,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDX_DONVITINH">
-    <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
+    <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="0..1" />
     <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DONVITINH">
@@ -343,7 +344,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_HOADONXUAT_CTKHO">
-    <End Role="CTKHO" Type="Self.CTKHO" Multiplicity="1" />
+    <End Role="CTKHO" Type="Self.CTKHO" Multiplicity="0..1" />
     <End Role="HOADONXUAT" Type="Self.HOADONXUAT" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CTKHO">
@@ -367,7 +368,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_HOADONXUAT_TRINHDUOCVIEN">
-    <End Role="TRINHDUOCVIEN" Type="Self.TRINHDUOCVIEN" Multiplicity="1" />
+    <End Role="TRINHDUOCVIEN" Type="Self.TRINHDUOCVIEN" Multiplicity="0..1" />
     <End Role="HOADONXUAT" Type="Self.HOADONXUAT" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TRINHDUOCVIEN">

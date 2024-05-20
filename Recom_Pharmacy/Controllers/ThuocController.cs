@@ -45,6 +45,13 @@ namespace Recom_Pharmacy.Controllers
             {
                 items = items.Where(x => x.NCC.ID == SelectedNCC.Value);
             }
+            foreach (var item in items)
+            {
+                if (item.SOLUONG == 0)
+                {
+                    item.TRANGTHAI = false;
+                }
+            }
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;

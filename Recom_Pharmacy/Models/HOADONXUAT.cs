@@ -22,13 +22,13 @@ namespace Recom_Pharmacy.Models
     
         public int ID { get; set; }
         public string SOHD { get; set; }
-        public int MACTKHO { get; set; }
-        public int MATDV { get; set; }
+        public Nullable<int> MACTKHO { get; set; }
+        public Nullable<int> MATDV { get; set; }
         public Nullable<int> MAKH { get; set; }
         public System.DateTime NGAYXUAT { get; set; }
         public decimal TONGTIEN { get; set; }
         public string MALOAITIEN { get; set; }
-        public double VAT { get; set; }
+        public Nullable<double> VAT { get; set; }
         public Nullable<int> TIENNO { get; set; }
         public string GHICHU { get; set; }
         public bool TRANGTHAI { get; set; }

@@ -20,8 +20,9 @@ namespace Recom_Pharmacy.Models
         public Nullable<int> MATHUOC { get; set; }
         public int SOLUONG { get; set; }
         public decimal DONGIA { get; set; }
-        public int MADVT { get; set; }
+        public Nullable<int> MADVT { get; set; }
         public Nullable<double> CHIETKHAU { get; set; }
+        public Nullable<decimal> TONGTIEN { get; set; }
     
         public virtual DONVITINH DONVITINH { get; set; }
         public virtual HOADONXUAT HOADONXUAT { get; set; }

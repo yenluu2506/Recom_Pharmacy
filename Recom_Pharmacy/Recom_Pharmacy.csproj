@@ -152,6 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CTHDNController.cs" />
     <Compile Include="Controllers\CTKhoController.cs" />
     <Compile Include="Controllers\CTTonKhoController.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Models\Admin.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartEntity.cs" />
     <Compile Include="Models\CHITIETHDN.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
@@ -5454,6 +5456,10 @@
     <Content Include="Views\UserInterface\LoaiThuoc.cshtml" />
     <Content Include="Views\UserInterface\ProductByLT.cshtml" />
     <Content Include="Views\UserInterface\DetailProduct.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Cart\CartPartial.cshtml" />
+    <Content Include="Views\Cart\Order.cshtml" />
+    <Content Include="Views\Cart\OrderConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

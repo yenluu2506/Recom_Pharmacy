@@ -1,21 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="RecomPharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="CHITIETHDX">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MAHDX" Type="Int32" />
-    <Property Name="MACTKHO" Type="Int32" />
-    <Property Name="MATHUOC" Type="Int32" />
-    <Property Name="SOLUONG" Type="Int32" Nullable="false" />
-    <Property Name="DONGIA" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="MADVT" Type="Int32" Nullable="false" />
-    <Property Name="CHIETKHAU" Type="Double" />
-    <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="CHITIETHDX" ToRole="DONVITINH" />
-    <NavigationProperty Name="HOADONXUAT" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="CHITIETHDX" ToRole="HOADONXUAT" />
-    <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="CHITIETHDX" ToRole="THUOC" />
-  </EntityType>
   <EntityType Name="LOAITHUOC">
     <Key>
       <PropertyRef Name="ID" />
@@ -93,7 +77,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="RecomPharmacyEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="CHITIETHDXes" EntityType="Self.CHITIETHDX" />
     <EntitySet Name="LOAITHUOCs" EntityType="Self.LOAITHUOC" />
     <EntitySet Name="MENUTHUOCs" EntityType="Self.MENUTHUOC" />
     <EntitySet Name="QUOCGIAs" EntityType="Self.QUOCGIA" />
@@ -122,24 +105,11 @@
     <EntitySet Name="CTTONKHOes" EntityType="RecomPharmacyModel.CTTONKHO" />
     <EntitySet Name="DONVITINHs" EntityType="RecomPharmacyModel.DONVITINH" />
     <EntitySet Name="HOADONNHAPs" EntityType="RecomPharmacyModel.HOADONNHAP" />
-    <EntitySet Name="HOADONXUATs" EntityType="RecomPharmacyModel.HOADONXUAT" />
     <EntitySet Name="KHOes" EntityType="RecomPharmacyModel.KHO" />
     <EntitySet Name="TONKHOes" EntityType="RecomPharmacyModel.TONKHO" />
-    <AssociationSet Name="FK_CHITIETHDX_DONVITINH" Association="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH">
-      <End Role="DONVITINH" EntitySet="DONVITINHs" />
-      <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CHITIETHDX_HOADONXUAT" Association="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT">
-      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
-      <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
-    </AssociationSet>
     <AssociationSet Name="FK_CTKHO_KHO" Association="RecomPharmacyModel.FK_CTKHO_KHO">
       <End Role="KHO" EntitySet="KHOes" />
       <End Role="CTKHO" EntitySet="CTKHOes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HOADONXUAT_CTKHO" Association="RecomPharmacyModel.FK_HOADONXUAT_CTKHO">
-      <End Role="CTKHO" EntitySet="CTKHOes" />
-      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
     </AssociationSet>
     <AssociationSet Name="FK_CTTONKHO_TONKHO" Association="RecomPharmacyModel.FK_CTTONKHO_TONKHO">
       <End Role="TONKHO" EntitySet="TONKHOes" />
@@ -149,23 +119,11 @@
       <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIENs" />
       <End Role="HOADONNHAP" EntitySet="HOADONNHAPs" />
     </AssociationSet>
-    <AssociationSet Name="FK_HOADONXUAT_KHACHHANG" Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG">
-      <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
-      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HOADONXUAT_TRINHDUOCVIEN" Association="RecomPharmacyModel.FK_HOADONXUAT_TRINHDUOCVIEN">
-      <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIENs" />
-      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
-    </AssociationSet>
     <AssociationSet Name="FK_TONKHO_KHO" Association="RecomPharmacyModel.FK_TONKHO_KHO">
       <End Role="KHO" EntitySet="KHOes" />
       <End Role="TONKHO" EntitySet="TONKHOes" />
     </AssociationSet>
     <EntitySet Name="THUOCs" EntityType="RecomPharmacyModel.THUOC" />
-    <AssociationSet Name="FK_CHITIETHDX_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDX_THUOC">
-      <End Role="THUOC" EntitySet="THUOCs" />
-      <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
-    </AssociationSet>
     <AssociationSet Name="FK_CTTONKHO_THUOC" Association="RecomPharmacyModel.FK_CTTONKHO_THUOC">
       <End Role="THUOC" EntitySet="THUOCs" />
       <End Role="CTTONKHO" EntitySet="CTTONKHOes" />
@@ -194,6 +152,32 @@
     <AssociationSet Name="FK_CHITIETHDN_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDN_THUOC">
       <End Role="THUOC" EntitySet="THUOCs" />
       <End Role="CHITIETHDN" EntitySet="CHITIETHDNs" />
+    </AssociationSet>
+    <EntitySet Name="CHITIETHDXes" EntityType="RecomPharmacyModel.CHITIETHDX" />
+    <EntitySet Name="HOADONXUATs" EntityType="RecomPharmacyModel.HOADONXUAT" />
+    <AssociationSet Name="FK_CHITIETHDX_DONVITINH" Association="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH">
+      <End Role="DONVITINH" EntitySet="DONVITINHs" />
+      <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CHITIETHDX_HOADONXUAT" Association="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT">
+      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
+      <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CHITIETHDX_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDX_THUOC">
+      <End Role="THUOC" EntitySet="THUOCs" />
+      <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOADONXUAT_CTKHO" Association="RecomPharmacyModel.FK_HOADONXUAT_CTKHO">
+      <End Role="CTKHO" EntitySet="CTKHOes" />
+      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOADONXUAT_KHACHHANG" Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG">
+      <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOADONXUAT_TRINHDUOCVIEN" Association="RecomPharmacyModel.FK_HOADONXUAT_TRINHDUOCVIEN">
+      <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIENs" />
+      <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Admin">
@@ -270,8 +254,8 @@
     <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
     <Property Name="MAKHO" Type="Int32" Nullable="false" />
     <NavigationProperty Name="KHO" Relationship="RecomPharmacyModel.FK_CTKHO_KHO" FromRole="CTKHO" ToRole="KHO" />
-    <NavigationProperty Name="HOADONXUATs" Relationship="RecomPharmacyModel.FK_HOADONXUAT_CTKHO" FromRole="CTKHO" ToRole="HOADONXUAT" />
     <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_CTKHO" FromRole="CTKHO" ToRole="CHITIETHDN" />
+    <NavigationProperty Name="HOADONXUATs" Relationship="RecomPharmacyModel.FK_HOADONXUAT_CTKHO" FromRole="CTKHO" ToRole="HOADONXUAT" />
   </EntityType>
   <EntityType Name="CTTONKHO">
     <Key>
@@ -292,8 +276,8 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TENDVT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="DONVITINH" ToRole="CHITIETHDX" />
     <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" FromRole="DONVITINH" ToRole="CHITIETHDN" />
+    <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="DONVITINH" ToRole="CHITIETHDX" />
   </EntityType>
   <EntityType Name="HOADONNHAP">
     <Key>
@@ -311,27 +295,6 @@
     <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="TRINHDUOCVIEN" Relationship="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN" FromRole="HOADONNHAP" ToRole="TRINHDUOCVIEN" />
     <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" FromRole="HOADONNHAP" ToRole="CHITIETHDN" />
-  </EntityType>
-  <EntityType Name="HOADONXUAT">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SOHD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="MACTKHO" Type="Int32" Nullable="false" />
-    <Property Name="MATDV" Type="Int32" Nullable="false" />
-    <Property Name="MAKH" Type="Int32" />
-    <Property Name="NGAYXUAT" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="MALOAITIEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="VAT" Type="Double" Nullable="false" />
-    <Property Name="TIENNO" Type="Int32" />
-    <Property Name="GHICHU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="HOADONXUAT" ToRole="CHITIETHDX" />
-    <NavigationProperty Name="CTKHO" Relationship="RecomPharmacyModel.FK_HOADONXUAT_CTKHO" FromRole="HOADONXUAT" ToRole="CTKHO" />
-    <NavigationProperty Name="KHACHHANG" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="HOADONXUAT" ToRole="KHACHHANG" />
-    <NavigationProperty Name="TRINHDUOCVIEN" Relationship="RecomPharmacyModel.FK_HOADONXUAT_TRINHDUOCVIEN" FromRole="HOADONXUAT" ToRole="TRINHDUOCVIEN" />
   </EntityType>
   <EntityType Name="KHO">
     <Key>
@@ -357,30 +320,6 @@
     <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_TONKHO" FromRole="TONKHO" ToRole="CTTONKHO" />
     <NavigationProperty Name="KHO" Relationship="RecomPharmacyModel.FK_TONKHO_KHO" FromRole="TONKHO" ToRole="KHO" />
   </EntityType>
-  <Association Name="FK_CHITIETHDX_DONVITINH">
-    <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="1" />
-    <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DONVITINH">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CHITIETHDX">
-        <PropertyRef Name="MADVT" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CHITIETHDX_HOADONXUAT">
-    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="0..1" />
-    <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="HOADONXUAT">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CHITIETHDX">
-        <PropertyRef Name="MAHDX" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CTKHO_KHO">
     <End Type="RecomPharmacyModel.KHO" Role="KHO" Multiplicity="1" />
     <End Type="RecomPharmacyModel.CTKHO" Role="CTKHO" Multiplicity="*" />
@@ -390,18 +329,6 @@
       </Principal>
       <Dependent Role="CTKHO">
         <PropertyRef Name="MAKHO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_HOADONXUAT_CTKHO">
-    <End Type="RecomPharmacyModel.CTKHO" Role="CTKHO" Multiplicity="1" />
-    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CTKHO">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="HOADONXUAT">
-        <PropertyRef Name="MACTKHO" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -425,30 +352,6 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="HOADONNHAP">
-        <PropertyRef Name="MATDV" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_HOADONXUAT_KHACHHANG">
-    <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
-    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="KHACHHANG">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="HOADONXUAT">
-        <PropertyRef Name="MAKH" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_HOADONXUAT_TRINHDUOCVIEN">
-    <End Type="RecomPharmacyModel.TRINHDUOCVIEN" Role="TRINHDUOCVIEN" Multiplicity="1" />
-    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TRINHDUOCVIEN">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="HOADONXUAT">
         <PropertyRef Name="MATDV" />
       </Dependent>
     </ReferentialConstraint>
@@ -487,24 +390,12 @@
     <Property Name="GIABAN" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SOLUONG" Type="Int32" Nullable="false" />
     <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="THUOC" ToRole="CHITIETHDX" />
     <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_THUOC" FromRole="THUOC" ToRole="CTTONKHO" />
     <NavigationProperty Name="LOAITHUOC" Relationship="RecomPharmacyModel.FK_THUOC_LOAITHUOC" FromRole="THUOC" ToRole="LOAITHUOC" />
     <NavigationProperty Name="NCC" Relationship="RecomPharmacyModel.FK_THUOC_NCC" FromRole="THUOC" ToRole="NCC" />
     <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="THUOC" ToRole="CHITIETHDN" />
+    <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="THUOC" ToRole="CHITIETHDX" />
   </EntityType>
-  <Association Name="FK_CHITIETHDX_THUOC">
-    <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
-    <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="THUOC">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CHITIETHDX">
-        <PropertyRef Name="MATHUOC" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CTTONKHO_THUOC">
     <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
     <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="*" />
@@ -605,6 +496,116 @@
       </Principal>
       <Dependent Role="CHITIETHDN">
         <PropertyRef Name="MATHUOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CHITIETHDX">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MAHDX" Type="Int32" />
+    <Property Name="MACTKHO" Type="Int32" />
+    <Property Name="MATHUOC" Type="Int32" />
+    <Property Name="SOLUONG" Type="Int32" Nullable="false" />
+    <Property Name="DONGIA" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="MADVT" Type="Int32" />
+    <Property Name="CHIETKHAU" Type="Double" />
+    <Property Name="TONGTIEN" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="CHITIETHDX" ToRole="DONVITINH" />
+    <NavigationProperty Name="HOADONXUAT" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="CHITIETHDX" ToRole="HOADONXUAT" />
+    <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="CHITIETHDX" ToRole="THUOC" />
+  </EntityType>
+  <EntityType Name="HOADONXUAT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SOHD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MACTKHO" Type="Int32" />
+    <Property Name="MATDV" Type="Int32" />
+    <Property Name="MAKH" Type="Int32" />
+    <Property Name="NGAYXUAT" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="MALOAITIEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="VAT" Type="Double" />
+    <Property Name="TIENNO" Type="Int32" />
+    <Property Name="GHICHU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="HOADONXUAT" ToRole="CHITIETHDX" />
+    <NavigationProperty Name="CTKHO" Relationship="RecomPharmacyModel.FK_HOADONXUAT_CTKHO" FromRole="HOADONXUAT" ToRole="CTKHO" />
+    <NavigationProperty Name="KHACHHANG" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="HOADONXUAT" ToRole="KHACHHANG" />
+    <NavigationProperty Name="TRINHDUOCVIEN" Relationship="RecomPharmacyModel.FK_HOADONXUAT_TRINHDUOCVIEN" FromRole="HOADONXUAT" ToRole="TRINHDUOCVIEN" />
+  </EntityType>
+  <Association Name="FK_CHITIETHDX_DONVITINH">
+    <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONVITINH">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CHITIETHDX">
+        <PropertyRef Name="MADVT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CHITIETHDX_HOADONXUAT">
+    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOADONXUAT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CHITIETHDX">
+        <PropertyRef Name="MAHDX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CHITIETHDX_THUOC">
+    <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUOC">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CHITIETHDX">
+        <PropertyRef Name="MATHUOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOADONXUAT_CTKHO">
+    <End Type="RecomPharmacyModel.CTKHO" Role="CTKHO" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CTKHO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADONXUAT">
+        <PropertyRef Name="MACTKHO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOADONXUAT_KHACHHANG">
+    <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACHHANG">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADONXUAT">
+        <PropertyRef Name="MAKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOADONXUAT_TRINHDUOCVIEN">
+    <End Type="RecomPharmacyModel.TRINHDUOCVIEN" Role="TRINHDUOCVIEN" Multiplicity="0..1" />
+    <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TRINHDUOCVIEN">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADONXUAT">
+        <PropertyRef Name="MATDV" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

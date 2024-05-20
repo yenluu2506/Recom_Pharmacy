@@ -1,0 +1,5 @@
+﻿
+@using Recom_Pharmacy.Models
+@model List<CartEntity>
+
+<li class="shop_cart"><a href="@Url.Action("Cart","Cart")"><i class="lnr lnr-cart">Cart(@ViewBag.TotalQuantity)</i></a></li>

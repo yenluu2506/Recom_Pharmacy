@@ -33,7 +33,7 @@ namespace HieuThuoc.Controllers
 				{
 					
 					Session["usr"] = cs;
-					return RedirectToAction("Index", "AuraStore");
+					return RedirectToAction("Index", "UserInterface");
 				}
 				else
 					ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
@@ -178,7 +178,7 @@ namespace HieuThuoc.Controllers
 			}
 			else
 			{
-				return RedirectToAction("Index", "AuraStore");
+				return RedirectToAction("Index", "UserInterface");
 			}
 			ModelState.AddModelError("", "Không thể thay đổi mật khẩu");
 			return View(new AccountClientEntity(ac));
