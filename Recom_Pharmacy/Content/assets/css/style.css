@@ -258,6 +258,7 @@ a {
         letter-spacing: .05em;
         color: #25262a;
         font-size: 15px;
+        font-weight:600;
         text-decoration: none !important; }
         .site-navbar .site-navigation .site-menu > li > a:hover {
           color: #000; }
@@ -1195,6 +1196,7 @@ a {
 .sidebar_categories {
     list-style-type: none; 
     padding: 0; 
+    text-transform: uppercase;
 }
     .sidebar_categories li {
         margin-bottom: 10px;

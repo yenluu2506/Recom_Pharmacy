@@ -4,18 +4,53 @@
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
 
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Store</strong></div>
+        </div>
+    </div>
+</div>
 <div class="site-section">
     <div class="container">
 
         <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
-                    <p class="price">@item.GIABAN VND</p>
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Product Category</h5>
+                        </div>
+                        @Html.Action("Menu", "UserInterface")
+                    </div>
+
+                    <!-- Price Range Filtering -->
+                    <div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Filter by Price</h5>
+                        </div>
+                        <p>
+                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        </p>
+                        <div id="slider-range"></div>
+                        <div class="filter_button"><span>filter</span></div>
+                    </div>
                 </div>
-            }
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                            <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+                            <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
+                            <p class="price">@item.GIABAN VND</p>
+                        </div>
+                    }
+                </div>
+                
+            </div>
+            
         </div>
         <div class="row mt-5">
             <div class="col-md-12 text-center">

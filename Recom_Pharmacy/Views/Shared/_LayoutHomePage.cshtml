@@ -57,7 +57,16 @@
                             <a href="@Url.Action("Index", "UserInterface")" class="js-logo-clone">Pharma</a>
                         </div>
                     </div>
-                    @*@Html.Action("Menu", "UserInterface")*@
+                    <div class="main-nav d-none d-lg-block">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
+                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                <li class="active"><a href="@Url.Action("Index", "UserInterface")">Trang chủ</a></li>
+                                <li><a href="@Url.Action("ViewAllProduct", "UserInterface")">Store</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
                     <div class="icons">
                         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
                         <a href="@Url.Action("Cart", "Cart")" class="icons-btn d-inline-block bag">
