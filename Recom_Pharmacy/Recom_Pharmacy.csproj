@@ -210,6 +210,7 @@
     <Compile Include="Models\NCC.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Payment\VNPayLibary.cs" />
     <Compile Include="Models\Pharmacy.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
