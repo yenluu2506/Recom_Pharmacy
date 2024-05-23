@@ -57,7 +57,7 @@
                             <a href="@Url.Action("Index", "UserInterface")" class="js-logo-clone">Pharma</a>
                         </div>
                     </div>
-                    @Html.Action("Menu", "UserInterface")
+                    @*@Html.Action("Menu", "UserInterface")*@
                     <div class="icons">
                         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
                         <a href="@Url.Action("Cart", "Cart")" class="icons-btn d-inline-block bag">
@@ -175,7 +175,13 @@
     <script src="/Content/assets/js/aos.js"></script>
 
     <script src="/Content/assets/js/main.js"></script>
+
     @RenderSection("scripts", required: false)
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME"
+                  chat-title="Recom_Pharmacy"
+                  agent-id="d481d997-79eb-4297-96a5-a3e523cde7da"
+                  language-code="en"></df-messenger>
 
 </body>
 

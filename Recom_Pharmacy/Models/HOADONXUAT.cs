@@ -21,22 +21,15 @@ namespace Recom_Pharmacy.Models
         }
     
         public int ID { get; set; }
-        public string SOHD { get; set; }
-        public Nullable<int> MACTKHO { get; set; }
-        public Nullable<int> MATDV { get; set; }
         public Nullable<int> MAKH { get; set; }
         public System.DateTime NGAYXUAT { get; set; }
         public decimal TONGTIEN { get; set; }
-        public string MALOAITIEN { get; set; }
         public Nullable<double> VAT { get; set; }
-        public Nullable<int> TIENNO { get; set; }
         public string GHICHU { get; set; }
         public bool TRANGTHAI { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDX> CHITIETHDXes { get; set; }
-        public virtual CTKHO CTKHO { get; set; }
         public virtual KHACHHANG KHACHHANG { get; set; }
-        public virtual TRINHDUOCVIEN TRINHDUOCVIEN { get; set; }
     }
 }

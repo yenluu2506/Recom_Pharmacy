@@ -18,23 +18,25 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: TonKho
-        public ActionResult Index(string Searchtext, int? page, int? SelectedKho)
+        public ActionResult Index(string Searchtext, int? page)
         {
-            ViewBag.Kho = new SelectList(db.KHOes.ToList(), "ID", "TENKHO");
             var pageSize = 5;
             if (page == null)
             {
                 page = 1;
             }
             IEnumerable<TONKHO> items = db.TONKHOes.OrderByDescending(x => x.ID);
-            if (SelectedKho.HasValue)
+            if (!string.IsNullOrEmpty(Searchtext))
             {
-                items = items.Where(x => x.KHO.ID == SelectedKho.Value);
+                string searchKeyword = Filter.ChuyenCoDauThanhKhongDau(Searchtext);
+                items = items.Where(x => Filter.ChuyenCoDauThanhKhongDau(x.TENKHO).StartsWith(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
+                                         Filter.ChuyenCoDauThanhKhongDau(x.TENKHO).Contains(searchKeyword) ||
+                                         x.TENKHO.Contains(Searchtext));
+
             }
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;
-            ViewBag.SelectedKho = SelectedKho;
             ViewBag.page = page;
             return View(items);
         }
@@ -42,7 +44,6 @@ namespace Recom_Pharmacy.Controllers
         // GET: TonKho/Create
         public ActionResult Add()
         {
-            ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO");
             return View();
         }
 
@@ -51,7 +52,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "ID,MAKHO,NGAY,TRANGTHAI")] TONKHO tONKHO)
+        public ActionResult Add([Bind(Include = "ID,TENKHO,NGAYLAP,DIACHI,SDT,TRANGTHAI")] TONKHO tONKHO)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +61,6 @@ namespace Recom_Pharmacy.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO", tONKHO.MAKHO);
             return View(tONKHO);
         }
 
@@ -76,7 +76,6 @@ namespace Recom_Pharmacy.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO", tONKHO.MAKHO);
             return View(tONKHO);
         }
 
@@ -85,7 +84,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MAKHO,NGAY,TRANGTHAI")] TONKHO tONKHO)
+        public ActionResult Edit([Bind(Include = "ID,TENKHO,NGAYLAP,DIACHI,SDT,TRANGTHAI")] TONKHO tONKHO)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +92,6 @@ namespace Recom_Pharmacy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MAKHO = new SelectList(db.KHOes, "ID", "TENKHO", tONKHO.MAKHO);
             return View(tONKHO);
         }
 

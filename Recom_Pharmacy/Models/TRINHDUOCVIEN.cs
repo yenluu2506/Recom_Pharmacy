@@ -18,7 +18,6 @@ namespace Recom_Pharmacy.Models
         public TRINHDUOCVIEN()
         {
             this.HOADONNHAPs = new HashSet<HOADONNHAP>();
-            this.HOADONXUATs = new HashSet<HOADONXUAT>();
         }
     
         public int ID { get; set; }
@@ -32,7 +31,5 @@ namespace Recom_Pharmacy.Models
         public virtual TINHTHANH TINHTHANH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONNHAP> HOADONNHAPs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADONXUAT> HOADONXUATs { get; set; }
     }
 }

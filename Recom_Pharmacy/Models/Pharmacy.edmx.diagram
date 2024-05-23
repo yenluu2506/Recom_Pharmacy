@@ -17,33 +17,27 @@
         <AssociationConnector Association="RecomPharmacyModel.FK_NCC_QUOCGIA" />
         <EntityTypeShape EntityType="RecomPharmacyModel.KHACHHANG" Width="1.5" PointX="3" PointY="19.75" />
         <AssociationConnector Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.CTKHO" Width="1.5" PointX="3" PointY="12.625" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.CTTONKHO" Width="1.5" PointX="10.5" PointY="9.125" />
         <EntityTypeShape EntityType="RecomPharmacyModel.DONVITINH" Width="1.5" PointX="5.25" PointY="10" />
         <EntityTypeShape EntityType="RecomPharmacyModel.HOADONNHAP" Width="1.5" PointX="8.25" PointY="17.25" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.KHO" Width="1.5" PointX="0.75" PointY="12.625" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.TONKHO" Width="1.5" PointX="3" PointY="8.875" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_CTKHO_KHO" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_CTTONKHO_TONKHO" />
         <AssociationConnector Association="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_TONKHO_KHO" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.THUOC" Width="1.5" PointX="8.25" PointY="1.25" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_CTTONKHO_THUOC" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_LOAITHUOC" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_NCC" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.CHITIETHDN" Width="1.5" PointX="10.5" PointY="12.25" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDN_CTKHO" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.CHITIETHDN" Width="1.5" PointX="10.5" PointY="10.375" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.CHITIETHDX" Width="1.5" PointX="7.5" PointY="8.125" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.CTTONKHO" Width="1.5" PointX="7.5" PointY="4.75" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.HOADONXUAT" Width="1.5" PointX="5.25" PointY="16.375" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.THUOC" Width="1.5" PointX="5.25" PointY="3.375" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.TONKHO" Width="1.5" PointX="5.25" PointY="12.875" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDN_CTTONKHO" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDN_THUOC" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.CHITIETHDX" Width="1.5" PointX="13.5" PointY="8.875" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.HOADONXUAT" Width="1.5" PointX="5.25" PointY="15.75" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDX_THUOC" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_CTKHO" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_CTTONKHO_THUOC" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_CTTONKHO_TONKHO" />
         <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_TRINHDUOCVIEN" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_LOAITHUOC" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_NCC" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

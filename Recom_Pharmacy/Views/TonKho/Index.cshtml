@@ -57,7 +57,9 @@
                         <tr>
                             <th><input type="checkbox" id="SelectAll" /></th>
                             <th>STT</th>
-                            <th>Kho</th>
+                            <th>Tên Kho</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
                             <th>Ngày</th>
                             <th>Trạng thái</th>
                         </tr>
@@ -72,8 +74,10 @@
                                 <tr id="trow_@item.ID">
                                     <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
                                     <td>@i</td>
-                                    <td>@item.KHO.TENKHO</td>
-                                    <td>@item.NGAY</td>
+                                    <td>@item.TENKHO</td>
+                                    <td>@item.DIACHI</td>
+                                    <td>@item.SDT</td>
+                                    <td>@item.NGAYLAP</td>
                                     <td>@item.TRANGTHAI</td>
                                     <td>
                                         <a href="/cttonkho/index/@item.ID" class="btn btn-sm btn-primary">CT Tồn Kho</a>

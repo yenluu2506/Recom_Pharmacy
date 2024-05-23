@@ -16,7 +16,6 @@ namespace Recom_Pharmacy.Models
     {
         public int ID { get; set; }
         public Nullable<int> MAHDX { get; set; }
-        public Nullable<int> MACTKHO { get; set; }
         public Nullable<int> MATHUOC { get; set; }
         public int SOLUONG { get; set; }
         public decimal DONGIA { get; set; }

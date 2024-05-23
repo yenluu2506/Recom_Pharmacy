@@ -154,13 +154,11 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CTHDNController.cs" />
-    <Compile Include="Controllers\CTKhoController.cs" />
     <Compile Include="Controllers\CTTonKhoController.cs" />
     <Compile Include="Controllers\DonViTinhController.cs" />
     <Compile Include="Controllers\HoaDonNhapController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
-    <Compile Include="Controllers\KhoController.cs" />
     <Compile Include="Controllers\LoaiThuocController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MENUTHUOCController.cs" />
@@ -186,9 +184,6 @@
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Common\Filter.cs" />
-    <Compile Include="Models\CTKHO.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CTTONKHO.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
@@ -204,9 +199,6 @@
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KHACHHANG.cs">
-      <DependentUpon>Pharmacy.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KHO.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LOAITHUOC.cs">
@@ -4660,6 +4652,38 @@
     <Content Include="Content\Login_v3\vendor\select2\select2.min.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\responsive.css" />
+    <Content Include="Content\sidebar\js\categories_custom.js" />
+    <Content Include="Content\sidebar\js\contact_custom.js" />
+    <Content Include="Content\sidebar\js\custom.js" />
+    <Content Include="Content\sidebar\js\jquery-3.2.1.min.js" />
+    <Content Include="Content\sidebar\js\single_custom.js" />
+    <Content Include="Content\sidebar\plugins\easing\easing.js" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Content\sidebar\plugins\Isotope\isotope.pkgd.min.js" />
+    <Content Include="Content\sidebar\plugins\jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="Content\sidebar\plugins\jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="Content\sidebar\plugins\OwlCarousel2-2.2.1\ajax-loader.gif" />
+    <Content Include="Content\sidebar\plugins\OwlCarousel2-2.2.1\animate.css" />
+    <Content Include="Content\sidebar\plugins\OwlCarousel2-2.2.1\owl.carousel.css" />
+    <Content Include="Content\sidebar\plugins\OwlCarousel2-2.2.1\owl.carousel.js" />
+    <Content Include="Content\sidebar\plugins\OwlCarousel2-2.2.1\owl.theme.default.css" />
+    <Content Include="Content\sidebar\plugins\OwlCarousel2-2.2.1\owl.video.play.png" />
+    <Content Include="Content\sidebar\plugins\themify-icons\fonts\themify.svg" />
+    <Content Include="Content\sidebar\plugins\themify-icons\themify-icons.css" />
+    <Content Include="Content\sidebar\styles\bootstrap4\bootstrap.min.css" />
+    <Content Include="Content\sidebar\styles\bootstrap4\bootstrap.min.js" />
+    <Content Include="Content\sidebar\styles\bootstrap4\popper.js" />
+    <Content Include="Content\sidebar\styles\categories_responsive.css" />
+    <Content Include="Content\sidebar\styles\categories_styles.css" />
+    <Content Include="Content\sidebar\styles\contact_responsive.css" />
+    <Content Include="Content\sidebar\styles\contact_styles.css" />
+    <Content Include="Content\sidebar\styles\main_styles.css" />
+    <Content Include="Content\sidebar\styles\responsive.css" />
+    <Content Include="Content\sidebar\styles\single_responsive.css" />
+    <Content Include="Content\sidebar\styles\single_styles.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -5366,6 +5390,42 @@
     <Content Include="Content\ckeditor\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Content\ckeditor\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\ckfinder\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\sidebar\plugins\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\sidebar\plugins\themify-icons\fonts\themify.eot" />
+    <Content Include="Content\sidebar\plugins\themify-icons\fonts\themify.ttf" />
+    <Content Include="Content\sidebar\plugins\themify-icons\fonts\themify.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5428,12 +5488,6 @@
     <Content Include="Views\Thuoc\Add.cshtml" />
     <Content Include="Views\Thuoc\Edit.cshtml" />
     <Content Include="Views\Thuoc\Index.cshtml" />
-    <Content Include="Views\Kho\Add.cshtml" />
-    <Content Include="Views\Kho\Edit.cshtml" />
-    <Content Include="Views\Kho\Index.cshtml" />
-    <Content Include="Views\CTKho\Add.cshtml" />
-    <Content Include="Views\CTKho\Edit.cshtml" />
-    <Content Include="Views\CTKho\Index.cshtml" />
     <Content Include="Views\TonKho\Add.cshtml" />
     <Content Include="Views\TonKho\Edit.cshtml" />
     <Content Include="Views\TonKho\Index.cshtml" />

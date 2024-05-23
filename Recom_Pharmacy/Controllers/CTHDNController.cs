@@ -17,7 +17,7 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: CTHDN
-        public ActionResult Index(string Searchtext, int? page, int? SelectedDVT, int? SelectedCTKho, int? SelectedThuoc, int? id, int? SelectedHDN)
+        public ActionResult Index(string Searchtext, int? page, int? SelectedDVT, int? SelectedCTTonKho, int? SelectedThuoc, int? id, int? SelectedHDN)
         {
             //var cHITIETHDNs = db.CHITIETHDNs
             //            .Include(c => c.CTKHO)
@@ -27,7 +27,7 @@ namespace Recom_Pharmacy.Controllers
             //            .ToList();
             //return View(cHITIETHDNs);
             //return RedirectToAction("index", new { id = id });
-            ViewBag.CTKho = new SelectList(db.CTKHOes.ToList(), "ID");
+            ViewBag.CTTonKho = new SelectList(db.CTTONKHOes.ToList(), "ID", "ID");
             ViewBag.Thuoc = new SelectList(db.TONKHOes.ToList(), "ID", "TENTHUOC");
             ViewBag.HDN = new SelectList(db.HOADONNHAPs.ToList(), "ID", "SOHD");
             ViewBag.DVT = new SelectList(db.HOADONNHAPs.ToList(), "ID", "TENDVT");
@@ -37,9 +37,9 @@ namespace Recom_Pharmacy.Controllers
                 page = 1;
             }
             IEnumerable<CHITIETHDN> items = db.CHITIETHDNs.OrderByDescending(x => x.ID).Where(x => x.HOADONNHAP.ID == id);
-            if (SelectedCTKho.HasValue)
+            if (SelectedCTTonKho.HasValue)
             {
-                items = items.Where(x => x.CTKHO.ID == SelectedCTKho.Value);
+                items = items.Where(x => x.CTTONKHO.ID == SelectedCTTonKho.Value);
             }
             if (SelectedThuoc.HasValue)
             {
@@ -56,7 +56,7 @@ namespace Recom_Pharmacy.Controllers
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;
-            ViewBag.SelectedTonKho = SelectedCTKho;
+            ViewBag.SelectedTonKho = SelectedCTTonKho;
             ViewBag.SelectedThuoc = SelectedThuoc;
             ViewBag.SelectedHDN = SelectedHDN;
             ViewBag.SelectedDVT = SelectedDVT;
@@ -82,7 +82,7 @@ namespace Recom_Pharmacy.Controllers
         // GET: CTHDN/Create
         public ActionResult Create(int? id)
         {
-            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "MAKHO");
+            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID");
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT");
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC");
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", id);
@@ -94,7 +94,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,MAHDN,MACTKHO,MATHUOC,SOLUONG,DONGIA,MADVT,CHIETKHAU")] CHITIETHDN cHITIETHDN)
+        public ActionResult Create([Bind(Include = "ID,MAHDN,MACTTONKHO,MATHUOC,SOLUONG,DONGIA,MADVT,CHIETKHAU")] CHITIETHDN cHITIETHDN)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace Recom_Pharmacy.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "MAKHO", cHITIETHDN.MACTKHO);
+            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID", cHITIETHDN.MACTTONKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", cHITIETHDN.MATHUOC);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
@@ -122,7 +122,7 @@ namespace Recom_Pharmacy.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "KE", cHITIETHDN.MACTKHO);
+            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID", cHITIETHDN.MACTTONKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
             return View(cHITIETHDN);
@@ -133,7 +133,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,MAHDN,MACTKHO,MATHUOC,SOLUONG,DONGIA,MADVT,CHIETKHAU")] CHITIETHDN cHITIETHDN)
+        public ActionResult Edit([Bind(Include = "ID,MAHDN,MACTTONKHO,MATHUOC,SOLUONG,DONGIA,MADVT,CHIETKHAU")] CHITIETHDN cHITIETHDN)
         {
             if (ModelState.IsValid)
             {
@@ -141,7 +141,7 @@ namespace Recom_Pharmacy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MACTKHO = new SelectList(db.CTKHOes, "ID", "KE", cHITIETHDN.MACTKHO);
+            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID", cHITIETHDN.MACTTONKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
             return View(cHITIETHDN);

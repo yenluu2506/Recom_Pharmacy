@@ -21,12 +21,13 @@ namespace Recom_Pharmacy.Models
         }
     
         public int ID { get; set; }
-        public int MAKHO { get; set; }
-        public System.DateTime NGAY { get; set; }
+        public string TENKHO { get; set; }
+        public System.DateTime NGAYLAP { get; set; }
+        public string DIACHI { get; set; }
+        public string SDT { get; set; }
         public bool TRANGTHAI { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTTONKHO> CTTONKHOes { get; set; }
-        public virtual KHO KHO { get; set; }
     }
 }

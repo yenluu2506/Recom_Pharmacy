@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Recom_Pharmacy.Models.MENUTHUOC>
 
-<div class="main-nav d-none d-lg-block">
+@*<div class="main-nav d-none d-lg-block">
         <nav class="site-navigation text-right text-md-center" role="navigation">
             <ul class="site-menu js-clone-nav d-none d-lg-block">
                 @foreach (var item in Model)
@@ -14,24 +14,26 @@
                 }
             </ul>
         </nav>
-    </div>
+    </div>*@
 
-@*<div class="main-nav d-none d-lg-block">
-    <nav class="site-navigation text-right text-md-center" role="navigation">
-        <ul class="site-menu js-clone-nav d-none d-lg-block flex-menu">
-            <li class="active"><a href="@Url.Action("Index", "UserInterface")">Home</a></li>
+
+
+        <ul class="sidebar_categories">
             @foreach (var item in Model)
             {
-                <li class="has-children">
+                <li>
                     <a href="#">@item.TENDM</a>
-                    <ul class="dropdown">
+                    <ul class="sidebar_subcategories">
+                        @*<li><a href="#">Shirts</a></li>
+                        <li><a href="#">Pants</a></li>
+                        <li><a href="#">Shoes</a></li>*@
                         @Html.Action("LoaiThuoc", "UserInterface", new { id = item.ID })
                     </ul>
                 </li>
+                @*<li class="active"><a href="#"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>Women</a></li>
+                <li><a href="#">Accessories</a></li>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Collection</a></li>
+                <li><a href="#">Shop</a></li>*@
             }
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-</div>*@
 

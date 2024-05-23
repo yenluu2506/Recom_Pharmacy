@@ -1,4 +1,4 @@
- AOS.init({
+﻿ AOS.init({
  	duration: 800,
  	easing: 'slide',
  	once: true
@@ -36,8 +36,6 @@ jQuery(document).ready(function($) {
 		});
 	};
 	slider();
-
-
 	var siteMenuClone = function() {
 
 		$('<div class="site-mobile-menu"></div>').prependTo('.site-wrap');
@@ -148,8 +146,6 @@ jQuery(document).ready(function($) {
 	//	});
 	//};
 	//sitePlusMinus();
-
-
 	var siteSliderRange = function() {
     $( "#slider-range" ).slider({
       range: true,
@@ -215,5 +211,18 @@ jQuery(document).ready(function($) {
 		})
 	};
 	searchShow();
+
+	// Kiểm tra nếu jQuery đã được tải
+	console.log('jQuery version: ' + $.fn.jquery);
+
+	// Gắn sự kiện click vào các mục có danh mục con
+	$('.sidebar_categories > li:has(.sidebar_subcategories) > a').on('click', function (event) {
+		console.log('Clicked on: ', $(this).text()); // Kiểm tra xem sự kiện có hoạt động không
+		event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+		var $subcategories = $(this).siblings('.sidebar_subcategories');
+		console.log('Subcategories found: ', $subcategories.length); // Kiểm tra xem danh mục con có được tìm thấy không
+		$('.sidebar_subcategories').not($subcategories).slideUp(); // Ẩn tất cả các danh mục con khác
+		$subcategories.slideToggle(); // Hiển thị hoặc ẩn danh mục con hiện tại
+	});
 
 });
