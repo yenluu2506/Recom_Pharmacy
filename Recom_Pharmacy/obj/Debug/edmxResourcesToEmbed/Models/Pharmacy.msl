@@ -72,22 +72,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="KHACHHANGs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
-        <MappingFragment StoreEntitySet="KHACHHANG">
-          <ScalarProperty Name="Picture" ColumnName="Picture" />
-          <ScalarProperty Name="Passwords" ColumnName="Passwords" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-          <ScalarProperty Name="MATINH" ColumnName="MATINH" />
-          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-          <ScalarProperty Name="TENKH" ColumnName="TENKH" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DONVITINHs">
       <EntityTypeMapping TypeName="RecomPharmacyModel.DONVITINH">
         <MappingFragment StoreEntitySet="DONVITINH">
@@ -196,6 +180,23 @@
           <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
           <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
           <ScalarProperty Name="TENKHO" ColumnName="TENKHO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHACHHANGs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
+        <MappingFragment StoreEntitySet="KHACHHANG">
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="MATINH" ColumnName="MATINH" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TENKH" ColumnName="TENKH" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

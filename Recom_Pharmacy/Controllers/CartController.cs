@@ -215,7 +215,7 @@ namespace Recom_Pharmacy.Controllers
 
             return View(listcart);
         }
-        public ActionResult Order(FormCollection collection)
+        public ActionResult Order(FormCollection collection, int TypePaymentVN)
         {
             HOADONXUAT or = new HOADONXUAT();
             KHACHHANG cus = (KHACHHANG)Session["usr"];
@@ -244,6 +244,12 @@ namespace Recom_Pharmacy.Controllers
             }
             db.SaveChanges();
             Session["Cart"] = null;
+
+            if (TypePaymentVN != -1)
+            {
+                var url = UrlPayment(TypePaymentVN, or.ID.ToString());
+                return Redirect(url);
+            }
 
             return RedirectToAction("OrderConfirmation", "Cart");
 
@@ -275,6 +281,7 @@ namespace Recom_Pharmacy.Controllers
                 string name = fc["name"].ToString();
                 string tinhthanh = fc["tinhthanh"].ToString();
                 string gioitinh = fc["gioitinh"].ToString();
+                string payment = fc["payment"].ToString();
 
                 var temp = db.KHACHHANGs.SingleOrDefault(x => x.Username == userName);
                 if (temp != null && address != "")
@@ -284,6 +291,7 @@ namespace Recom_Pharmacy.Controllers
                     temp.SDT = fc["phonenumber"];
                     temp.TINHTHANH.TENTINH = fc["tinhthanh"];
                     temp.GIOITINH = fc["gioitinh"];
+                    temp.Payment = fc["payment"];
                     db.SaveChanges();
                     Session["usr"] = temp;
                     return RedirectToAction("Order", "Cart");
@@ -301,10 +309,70 @@ namespace Recom_Pharmacy.Controllers
             return View(new AccountClientEntity(ac));
         }
 
+        public ActionResult VnpayReturn()
+        {
+            if (Request.QueryString.Count > 0)
+            {
+                string vnp_HashSecret = ConfigurationManager.AppSettings["vnp_HashSecret"]; //Chuoi bi mat
+                var vnpayData = Request.QueryString;
+                VnPayLibrary vnpay = new VnPayLibrary();
+
+                foreach (string s in vnpayData)
+                {
+                    //get all querystring data
+                    if (!string.IsNullOrEmpty(s) && s.StartsWith("vnp_"))
+                    {
+                        vnpay.AddResponseData(s, vnpayData[s]);
+                    }
+                }
+                int orderCode = Convert.ToInt32(vnpay.GetResponseData("vnp_TxnRef"));
+                long vnpayTranId = Convert.ToInt64(vnpay.GetResponseData("vnp_TransactionNo"));
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+                string vnp_TransactionStatus = vnpay.GetResponseData("vnp_TransactionStatus");
+                String vnp_SecureHash = Request.QueryString["vnp_SecureHash"];
+                String TerminalID = Request.QueryString["vnp_TmnCode"];
+                long vnp_Amount = Convert.ToInt64(vnpay.GetResponseData("vnp_Amount")) / 100;
+                String bankCode = Request.QueryString["vnp_BankCode"];
+
+                bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
+                if (checkSignature)
+                {
+                    if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
+                    {
+                        var itemOrder = db.HOADONXUATs.FirstOrDefault(x => x.ID == (orderCode));
+                        if (itemOrder != null)
+                        {
+                            //itemOrder. = 2;//đã thanh toán
+                            db.HOADONXUATs.Attach(itemOrder);
+                            db.Entry(itemOrder).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        //Thanh toan thanh cong
+                        ViewBag.InnerText = "Giao dịch được thực hiện thành công. Cảm ơn quý khách đã sử dụng dịch vụ";
+                        //log.InfoFormat("Thanh toan thanh cong, OrderId={0}, VNPAY TranId={1}", orderId, vnpayTranId);
+                    }
+                    else
+                    {
+                        //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
+                        ViewBag.InnerText = "Có lỗi xảy ra trong quá trình xử lý.Mã lỗi: " + vnp_ResponseCode;
+                        //log.InfoFormat("Thanh toan loi, OrderId={0}, VNPAY TranId={1},ResponseCode={2}", orderId, vnpayTranId, vnp_ResponseCode);
+                    }
+                    //displayTmnCode.InnerText = "Mã Website (Terminal ID):" + TerminalID;
+                    //displayTxnRef.InnerText = "Mã giao dịch thanh toán:" + orderId.ToString();
+                    //displayVnpayTranNo.InnerText = "Mã giao dịch tại VNPAY:" + vnpayTranId.ToString();
+                    ViewBag.ThanhToanThanhCong = "Số tiền thanh toán (VND):" + vnp_Amount.ToString();
+                    //displayBankCode.InnerText = "Ngân hàng thanh toán:" + bankCode;
+                }
+            }
+            //var a = UrlPayment(0, "DH3574");
+            return View();
+        }
         public string UrlPayment(int TypePaymentVN, string orderCode)
         {
             var urlPayment = "";
-            var order = db.CHITIETHDXes.FirstOrDefault(x => x.ID == Convert.ToInt32(orderCode));
+            int orderIntId = Convert.ToInt32(orderCode);
+            var order = db.HOADONXUATs.FirstOrDefault(x => x.ID == orderIntId);
+            //var order = db.CHITIETHDXes.FirstOrDefault(x => x.ID == Convert.ToInt32(orderCode));
             //Get Config Info
             string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve 
             string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY 
@@ -331,7 +399,7 @@ namespace Recom_Pharmacy.Controllers
                 vnpay.AddRequestData("vnp_BankCode", "INTCARD");
             }
 
-            vnpay.AddRequestData("vnp_CreateDate", order.HOADONXUAT.NGAYXUAT.ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_CreateDate", order.NGAYXUAT.ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", "VND");
             vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
             vnpay.AddRequestData("vnp_Locale", "vn");

@@ -30,9 +30,10 @@ namespace Recom_Pharmacy.Models
         public string Username { get; set; }
         public string Passwords { get; set; }
         public string Picture { get; set; }
+        public string Payment { get; set; }
     
-        public virtual TINHTHANH TINHTHANH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONXUAT> HOADONXUATs { get; set; }
+        public virtual TINHTHANH TINHTHANH { get; set; }
     }
 }

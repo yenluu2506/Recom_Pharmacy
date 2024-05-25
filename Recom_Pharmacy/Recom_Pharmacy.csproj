@@ -1847,6 +1847,7 @@
     <Content Include="Content\assets\images\women.jpg" />
     <Content Include="Content\assets\js\aos.js" />
     <Content Include="Content\assets\js\bootstrap.min.js" />
+    <Content Include="Content\assets\js\categories_custom.js" />
     <Content Include="Content\assets\js\jquery-3.3.1.min.js" />
     <Content Include="Content\assets\js\jquery-ui.js" />
     <Content Include="Content\assets\js\jquery.magnific-popup.min.js" />
@@ -5515,6 +5516,7 @@
     <Content Include="Views\Cart\CartPartial.cshtml" />
     <Content Include="Views\Cart\Order.cshtml" />
     <Content Include="Views\Cart\OrderConfirmation.cshtml" />
+    <Content Include="Views\Cart\VnpayReturn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

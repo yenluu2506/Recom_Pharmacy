@@ -32,7 +32,6 @@ namespace Recom_Pharmacy.Models
         public virtual DbSet<TRINHDUOCVIEN> TRINHDUOCVIENs { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<NCC> NCCs { get; set; }
-        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<DONVITINH> DONVITINHs { get; set; }
         public virtual DbSet<HOADONNHAP> HOADONNHAPs { get; set; }
         public virtual DbSet<CHITIETHDN> CHITIETHDNs { get; set; }
@@ -41,5 +40,6 @@ namespace Recom_Pharmacy.Models
         public virtual DbSet<HOADONXUAT> HOADONXUATs { get; set; }
         public virtual DbSet<THUOC> THUOCs { get; set; }
         public virtual DbSet<TONKHO> TONKHOes { get; set; }
+        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
     }
 }

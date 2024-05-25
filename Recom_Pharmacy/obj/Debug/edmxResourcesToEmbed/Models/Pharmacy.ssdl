@@ -94,6 +94,7 @@
     <Property Name="Username" Type="nvarchar" MaxLength="400" />
     <Property Name="Passwords" Type="nvarchar" MaxLength="400" />
     <Property Name="Picture" Type="nvarchar(max)" />
+    <Property Name="Payment" Type="nvarchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="LOAITHUOC">
     <Key>
