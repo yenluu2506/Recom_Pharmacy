@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.OrderEntity>
+@{
+    ViewBag.Title = "ListOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="text-center">Đơn Hàng</h2>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã đơn
+                        </th>
+                        <th>
+                            Ngày Đặt Hàng
+                        </th>
+                        <th>
+                            Ngày Giao Hàng
+                        </th>
+                        <th>
+                            Trạng Thái
+                        </th>
+                        <th>
+                            Duyệt
+                        </th>
+                        <th>
+                            Trạng trái thanh toán
+                        </th>
+                        <th>
+                            Khách Hàng
+                        </th>
+                        <th>
+                            Địa Chỉ
+                        </th>
+                        <th>
+                            Số Điện Thoại
+                        </th>
+                        <th>
+                            Ghi Chú
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NGAYXUAT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NGAYGIAOHANG)
+                            </td>
+
+                            <td>
+                                @if (item.TRANGTHAI == true)
+                                {
+                                    <p>Xử Lý</p>
+                                }
+                                else
+                                {
+                                    <p>Chưa Xử Lý</p>
+                                }
+                            </td>
+                            <td>
+                                @if (item.TRANGTHAI == true || item.XULY == true)
+                                {
+                                    <p>Đã Duyệt</p>
+                                }
+                                else if (item.TRANGTHAI == true || item.XULY == false)
+                                {
+                                    <p>Hủy Đơn</p>
+                                }
+                                else
+                                {
+                                    <p>Chưa xử lý</p>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.TTGIAOHANG == true)
+                                {
+                                    <p>Đã thanh toán</p>
+                                }
+                                else
+                                {
+                                    <p>Chưa thanh toán</p>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.TENKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.DIACHI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.SDT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GHICHU)
+                            </td>
+                            <td>
+
+                                @Html.ActionLink("Xử Lý", "Comfirm", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -210,6 +210,8 @@
     <Compile Include="Models\NCC.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderDetailEntity.cs" />
+    <Compile Include="Models\OrderEntity.cs" />
     <Compile Include="Models\Payment\VNPayLibary.cs" />
     <Compile Include="Models\Pharmacy.Context.cs">
       <AutoGen>True</AutoGen>
@@ -4609,6 +4611,8 @@
     <Content Include="Content\Image\20.png" />
     <Content Include="Content\Image\42651306_2108225855878414_8148987251955597312_n.jpg" />
     <Content Include="Content\Image\52743189_383761732178011_8770066443812208640_n.jpg" />
+    <Content Include="Content\Image\avatar-default-icon.png" />
+    <Content Include="Content\Image\user_icon.png" />
     <Content Include="Content\Login_v3\css\main.css" />
     <Content Include="Content\Login_v3\css\util.css" />
     <Content Include="Content\Login_v3\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -5517,6 +5521,11 @@
     <Content Include="Views\Cart\Order.cshtml" />
     <Content Include="Views\Cart\OrderConfirmation.cshtml" />
     <Content Include="Views\Cart\VnpayReturn.cshtml" />
+    <Content Include="Views\Admin\ListOrder.cshtml" />
+    <Content Include="Views\Admin\Comfirm.cshtml" />
+    <Content Include="Views\Admin\AllListOrder.cshtml" />
+    <Content Include="Views\Admin\OrderDetail.cshtml" />
+    <Content Include="Views\UserInterface\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

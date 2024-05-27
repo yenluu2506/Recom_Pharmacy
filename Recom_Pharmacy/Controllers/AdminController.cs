@@ -57,28 +57,6 @@ namespace Recom_Pharmacy.Controllers
         [HttpPost]
         public ActionResult Login(FormCollection collection)
         {
-
-            //var um = db.Admins.SingleOrDefault(o => o.Username.Equals(account.userName) && o.Passwords.Equals(account.passWord));
-            //if (um != null)
-            //{
-            //	Session["Account"] = um;
-
-            //	Response.Cookies["usr"].Value = account.userName;
-            //	var name = db.Admins.SingleOrDefault(a => a.Username == account.userName).Name;
-            //	Response.Cookies["Name"].Value = name;
-            //	var atar = db.Admins.SingleOrDefault(a => a.Username == account.userName).Picture;
-
-            //	if (atar == null || atar == "")
-            //	{
-            //		atar = "~/img/Item/avatar-default-icon.png";
-            //	}
-            //	Response.Cookies["avatar"].Value = atar;
-
-            //	return RedirectToAction("Index", "Admin");
-            //}
-            //else
-            //{
-            //	ModelState.AddModelError("", "The user login or password  is incorrect..");
             var userName = collection["userName"];
 
             var passWord = collection["passWord"];
@@ -133,6 +111,124 @@ namespace Recom_Pharmacy.Controllers
             }
 
             return View(admin);
+        }
+
+        public ActionResult ListOrder()
+        {
+            var temp = db.HOADONXUATs.Where(o => o.TRANGTHAI == false).ToList();
+            List<OrderEntity> lisorder = new List<OrderEntity>();
+            foreach (var item in temp)
+            {
+                OrderEntity or = new OrderEntity();
+                or.TypeOf_OrderEntity(item);
+                lisorder.Add(or);
+
+
+            }
+            return View(lisorder);
+        }
+
+        // xacs nhan
+
+        public ActionResult Comfirm(long? id)
+        {
+            var temp = db.CHITIETHDXes.Where(d => d.MAHDX == id);
+            List<OrderDetailEntity> listdetail = new List<OrderDetailEntity>();
+            foreach (var item in temp)
+            {
+                OrderDetailEntity or = new OrderDetailEntity();
+                or.TypeOf_OrderEntity(item);
+                listdetail.Add(or);
+            }
+            ViewBag.Date = db.HOADONXUATs.SingleOrDefault(a => a.ID == id).NGAYGIAOHANG;
+            ViewBag.Note = db.HOADONXUATs.SingleOrDefault(a => a.ID == id).GHICHU;
+            ViewBag.id = id;
+            return View(listdetail);
+
+        }
+
+        [HttpPost]
+        public ActionResult Comfirm(FormCollection fc)
+        {
+            string date = fc["date"];
+            long id = Convert.ToInt64(fc["id"]);
+            var tem = db.HOADONXUATs.SingleOrDefault(d => d.ID == id);
+
+            tem.TRANGTHAI = true;
+            tem.NGAYGIAOHANG = Convert.ToDateTime(date);
+
+            string action = fc["action"];
+            if (action == "Duyet")
+            {
+                tem.XULY = true;
+                tem.TTGIAOHANG = true;
+            }
+            else if (action == "KhongDuyet")
+            {
+                tem.XULY = false;
+                tem.TTGIAOHANG = false;
+            }
+
+            tem.GHICHU = fc["note"];
+            db.SaveChanges();
+
+            return RedirectToAction("ListOrder");
+
+        }
+        [HttpPost]
+        public ActionResult Reject(long? id)
+        {
+            var order = db.HOADONXUATs.SingleOrDefault(d => d.ID == id);
+            order.TRANGTHAI = false;
+            db.SaveChanges();
+
+            return RedirectToAction("ListOrder");
+        }
+
+        //-------------------------------------------
+        public ActionResult AllListOrder()
+        {
+            var temp = db.HOADONXUATs.ToList();
+            List<OrderEntity> lisorder = new List<OrderEntity>();
+            foreach (var item in temp)
+            {
+                OrderEntity or = new OrderEntity();
+                or.TypeOf_OrderEntity(item);
+                lisorder.Add(or);
+
+
+            }
+
+
+            return View(lisorder);
+        }
+
+        // xacs nhan
+
+        public ActionResult OrderDetail(long? id)
+        {
+            var temp = db.CHITIETHDXes.Where(d => d.MAHDX == id);
+            List<OrderDetailEntity> listdetail = new List<OrderDetailEntity>();
+            foreach (var item in temp)
+            {
+                OrderDetailEntity or = new OrderDetailEntity();
+                or.TypeOf_OrderEntity(item);
+                listdetail.Add(or);
+            }
+
+            return View(listdetail);
+
+        }
+
+        public ActionResult Productnotsold()
+        {
+            var results = from t1 in db.THUOCs
+                          where !(from t2 in db.HOADONXUATs
+                                  join a in db.CHITIETHDXes on t2.ID equals a.MAHDX
+                                  where t2.NGAYXUAT == DateTime.Now
+                                  select t2.ID).Contains(t1.ID)
+                          select t1;
+            return View(results.ToList());
         }
     }
 }

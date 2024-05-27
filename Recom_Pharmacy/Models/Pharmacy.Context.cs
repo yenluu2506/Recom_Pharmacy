@@ -37,9 +37,9 @@ namespace Recom_Pharmacy.Models
         public virtual DbSet<CHITIETHDN> CHITIETHDNs { get; set; }
         public virtual DbSet<CHITIETHDX> CHITIETHDXes { get; set; }
         public virtual DbSet<CTTONKHO> CTTONKHOes { get; set; }
-        public virtual DbSet<HOADONXUAT> HOADONXUATs { get; set; }
         public virtual DbSet<THUOC> THUOCs { get; set; }
         public virtual DbSet<TONKHO> TONKHOes { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
+        public virtual DbSet<HOADONXUAT> HOADONXUATs { get; set; }
     }
 }

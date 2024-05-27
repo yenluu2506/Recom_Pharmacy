@@ -25,8 +25,11 @@ namespace Recom_Pharmacy.Models
         public System.DateTime NGAYXUAT { get; set; }
         public decimal TONGTIEN { get; set; }
         public Nullable<double> VAT { get; set; }
-        public string GHICHU { get; set; }
+        public Nullable<System.DateTime> NGAYGIAOHANG { get; set; }
+        public Nullable<bool> TTGIAOHANG { get; set; }
         public bool TRANGTHAI { get; set; }
+        public Nullable<bool> XULY { get; set; }
+        public string GHICHU { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDX> CHITIETHDXes { get; set; }

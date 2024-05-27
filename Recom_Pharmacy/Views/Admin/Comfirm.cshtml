@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.OrderDetailEntity>
+
+@{
+    ViewBag.Title = "Comfirm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="text-center">Xử Lý</h2>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Số Lượng
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.ItemId)
+                            </th>*@
+                        <th>
+                            Mã Đơn
+                        </th>
+                        <th>
+                            Tổng Giá
+                        </th>
+                        <th>
+                            Sản Phẩm
+                        </th>
+                        <th>
+                            Ảnh
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SOLUONG)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.ItemId)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MAHDX)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TONGTIEN)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.THUOC.TENTHUOC)
+                            </td>
+                            <td>
+                                <img width="100" height="100" src=" @Html.DisplayFor(modelItem => item.THUOC.ANH)" />
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+
+    @using (Html.BeginForm("Comfirm", "Admin", FormMethod.Post, new
+    {
+        id = "confirmForm",
+        name = "confirmForm",
+        enctype = "multipart/form-data"
+    }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container" align="center">
+
+            <div class="col-md-5">
+                <input type="text"
+                       id="id"
+                       name="id"
+                       value="@ViewBag.id"
+                       class="form-control" readonly />
+            </div>
+
+
+            <br />
+
+
+            <div class="col-md-5">
+                <input type="date"
+                       id="date"
+                       name="date"
+                       value="@ViewBag.date"
+                       class="form-control" />
+            </div>
+            <br />
+
+            <div class="col-md-5">
+                <input type="text"
+                       id="note"
+                       name="note"
+                       value="@ViewBag.Note"
+                       class="form-control"
+                       placeholder="Nhập ghi chú vào đây" />
+            </div>
+
+            <br />
+
+
+            @*<input type="submit" value=" Xử Lý " title="Save" class="btn btn-primary" />*@
+            <input type="hidden" id="action" name="action" value="" />
+            <input type="submit" value="Duyệt" onclick="confirmDuyet()" />
+            <input type="submit" value="Không duyệt" onclick="confirmKhongDuyet()" />
+
+
+        </div>
+
+    }
+</div>
+
+<script>
+    function confirmDuyet() {
+        if (confirm("Bạn có chắc chắn muốn duyệt đơn hàng?")) {
+            document.getElementById("action").value = "Duyet";
+            //document.getElementById("confirmForm").submit();
+        } else {
+            document.getElementById("action").value = "";
+        }
+    }
+
+    function confirmKhongDuyet() {
+        if (confirm("Bạn có chắc chắn không duyệt đơn hàng?")) {
+            document.getElementById("action").value = "KhongDuyet";
+            //document.getElementById("confirmForm").submit();
+        } else {
+            document.getElementById("action").value = "";
+        }
+    }
+</script>

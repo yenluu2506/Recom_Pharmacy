@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -215,7 +216,7 @@ namespace Recom_Pharmacy.Controllers
 
             return View(listcart);
         }
-        public ActionResult Order(FormCollection collection, int TypePaymentVN)
+        public ActionResult Order(FormCollection collection, int TypePaymentVN, int TypePayment)
         {
             HOADONXUAT or = new HOADONXUAT();
             KHACHHANG cus = (KHACHHANG)Session["usr"];
@@ -225,6 +226,16 @@ namespace Recom_Pharmacy.Controllers
             or.NGAYXUAT = DateTime.Now;
             or.TRANGTHAI = false;
             or.TONGTIEN = (decimal)ToTalPrice();
+            if (TypePayment == 2)
+            {
+                or.TTGIAOHANG = true;
+            }
+            else
+            {
+                or.TTGIAOHANG = false;
+
+            }
+
             db.HOADONXUATs.Add(or);
             db.SaveChanges();
             foreach (var item in crt)
@@ -240,20 +251,23 @@ namespace Recom_Pharmacy.Controllers
 
                 var it = db.THUOCs.Find(item.IDThuoc);
                 it.SOLUONG = (it.SOLUONG) - item.soLuong;
+
                 db.SaveChanges();
             }
-            db.SaveChanges();
-            Session["Cart"] = null;
-
-            if (TypePaymentVN != -1)
+            if (TypePayment != 1)
             {
                 var url = UrlPayment(TypePaymentVN, or.ID.ToString());
                 return Redirect(url);
             }
+            db.SaveChanges();
+            Session["Cart"] = null;
+
 
             return RedirectToAction("OrderConfirmation", "Cart");
 
         }
+
+
         public ActionResult OrderConfirmation()
         {
             return View();
@@ -343,28 +357,32 @@ namespace Recom_Pharmacy.Controllers
                         if (itemOrder != null)
                         {
                             //itemOrder. = 2;//đã thanh toán
+                            itemOrder.TTGIAOHANG = true; ///xoa ngo nay
                             db.HOADONXUATs.Attach(itemOrder);
                             db.Entry(itemOrder).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
+                            Session["Cart"] = null;
                         }
                         //Thanh toan thanh cong
                         ViewBag.InnerText = "Giao dịch được thực hiện thành công. Cảm ơn quý khách đã sử dụng dịch vụ";
-                        //log.InfoFormat("Thanh toan thanh cong, OrderId={0}, VNPAY TranId={1}", orderId, vnpayTranId);
+                        ViewBag.ThanhToanThanhCong = "Số tiền thanh toán (VND):" + vnp_Amount.ToString();
                     }
                     else
                     {
                         //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
                         ViewBag.InnerText = "Có lỗi xảy ra trong quá trình xử lý.Mã lỗi: " + vnp_ResponseCode;
-                        //log.InfoFormat("Thanh toan loi, OrderId={0}, VNPAY TranId={1},ResponseCode={2}", orderId, vnpayTranId, vnp_ResponseCode);
+                         var itemOrder = db.HOADONXUATs.FirstOrDefault(x => x.ID == (orderCode));
+                        if (itemOrder != null)
+                        {
+                            itemOrder.TTGIAOHANG = false; // Đặt lại trạng thái thành false nếu thanh toán không thành công
+                            db.HOADONXUATs.Attach(itemOrder);
+                            db.Entry(itemOrder).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                            Session["Cart"] = null;
+                        }
                     }
-                    //displayTmnCode.InnerText = "Mã Website (Terminal ID):" + TerminalID;
-                    //displayTxnRef.InnerText = "Mã giao dịch thanh toán:" + orderId.ToString();
-                    //displayVnpayTranNo.InnerText = "Mã giao dịch tại VNPAY:" + vnpayTranId.ToString();
-                    ViewBag.ThanhToanThanhCong = "Số tiền thanh toán (VND):" + vnp_Amount.ToString();
-                    //displayBankCode.InnerText = "Ngân hàng thanh toán:" + bankCode;
                 }
             }
-            //var a = UrlPayment(0, "DH3574");
             return View();
         }
         public string UrlPayment(int TypePaymentVN, string orderCode)
@@ -374,6 +392,11 @@ namespace Recom_Pharmacy.Controllers
             var order = db.HOADONXUATs.FirstOrDefault(x => x.ID == orderIntId);
             //var order = db.CHITIETHDXes.FirstOrDefault(x => x.ID == Convert.ToInt32(orderCode));
             //Get Config Info
+            if (order == null) //xóa ở đây
+            {
+                // Xử lý khi đơn hàng không tồn tại
+                throw new Exception("Order not found");
+            }
             string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve 
             string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY 
             string vnp_TmnCode = ConfigurationManager.AppSettings["vnp_TmnCode"]; //Ma định danh merchant kết nối (Terminal Id)

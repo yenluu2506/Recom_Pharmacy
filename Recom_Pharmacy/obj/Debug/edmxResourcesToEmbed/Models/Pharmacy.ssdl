@@ -77,8 +77,11 @@
     <Property Name="NGAYXUAT" Type="date" Nullable="false" />
     <Property Name="TONGTIEN" Type="money" Nullable="false" />
     <Property Name="VAT" Type="float" />
-    <Property Name="GHICHU" Type="nvarchar" MaxLength="100" />
+    <Property Name="NGAYGIAOHANG" Type="date" />
+    <Property Name="TTGIAOHANG" Type="bit" />
     <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
+    <Property Name="XULY" Type="bit" />
+    <Property Name="GHICHU" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="KHACHHANG">
     <Key>

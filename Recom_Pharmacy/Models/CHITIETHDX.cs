@@ -24,7 +24,7 @@ namespace Recom_Pharmacy.Models
         public Nullable<decimal> TONGTIEN { get; set; }
     
         public virtual DONVITINH DONVITINH { get; set; }
-        public virtual HOADONXUAT HOADONXUAT { get; set; }
         public virtual THUOC THUOC { get; set; }
+        public virtual HOADONXUAT HOADONXUAT { get; set; }
     }
 }

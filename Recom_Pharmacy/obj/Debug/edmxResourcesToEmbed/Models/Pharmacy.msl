@@ -136,19 +136,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HOADONXUATs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONXUAT">
-        <MappingFragment StoreEntitySet="HOADONXUAT">
-          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
-          <ScalarProperty Name="VAT" ColumnName="VAT" />
-          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
-          <ScalarProperty Name="NGAYXUAT" ColumnName="NGAYXUAT" />
-          <ScalarProperty Name="MAKH" ColumnName="MAKH" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="THUOCs">
       <EntityTypeMapping TypeName="RecomPharmacyModel.THUOC">
         <MappingFragment StoreEntitySet="THUOC">
@@ -197,6 +184,22 @@
           <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONXUATs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONXUAT">
+        <MappingFragment StoreEntitySet="HOADONXUAT">
+          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+          <ScalarProperty Name="XULY" ColumnName="XULY" />
+          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="TTGIAOHANG" ColumnName="TTGIAOHANG" />
+          <ScalarProperty Name="NGAYGIAOHANG" ColumnName="NGAYGIAOHANG" />
+          <ScalarProperty Name="VAT" ColumnName="VAT" />
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+          <ScalarProperty Name="NGAYXUAT" ColumnName="NGAYXUAT" />
+          <ScalarProperty Name="MAKH" ColumnName="MAKH" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
