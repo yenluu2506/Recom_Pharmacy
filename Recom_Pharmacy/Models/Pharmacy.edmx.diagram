@@ -33,11 +33,12 @@
         <AssociationConnector Association="RecomPharmacyModel.FK_CTTONKHO_TONKHO" />
         <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_LOAITHUOC" />
         <AssociationConnector Association="RecomPharmacyModel.FK_THUOC_NCC" />
-        <EntityTypeShape EntityType="RecomPharmacyModel.KHACHHANG" Width="1.5" PointX="3" PointY="19.625" />
-        <AssociationConnector Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" />
         <EntityTypeShape EntityType="RecomPharmacyModel.HOADONXUAT" Width="1.5" PointX="5.25" PointY="19.75" />
         <AssociationConnector Association="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.Feedback" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.KHACHHANG" Width="1.5" PointX="3" PointY="19.5" />
         <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" />
+        <AssociationConnector Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

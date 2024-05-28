@@ -58,6 +58,16 @@
           <Property Name="TENDVT" Type="nvarchar" MaxLength="100" />
           <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
+          <Property Name="MOTA" Type="nvarchar(max)" />
+          <Property Name="CHITIET" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="HOADONNHAP">
           <Key>
             <PropertyRef Name="ID" />
@@ -95,6 +105,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENKH" Type="nvarchar" MaxLength="50" />
           <Property Name="SDT" Type="varchar" MaxLength="20" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="150" />
           <Property Name="GIOITINH" Type="nvarchar" MaxLength="10" />
           <Property Name="NGAYSINH" Type="date" />
           <Property Name="MATINH" Type="int" />
@@ -404,6 +415,7 @@
           <EntitySet Name="CHITIETHDX" EntityType="Self.CHITIETHDX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CTTONKHO" EntityType="Self.CTTONKHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DONVITINH" EntityType="Self.DONVITINH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOADONNHAP" EntityType="Self.HOADONNHAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOADONXUAT" EntityType="Self.HOADONXUAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
@@ -634,19 +646,20 @@
             <End Role="NCC" EntitySet="NCCs" />
             <End Role="THUOC" EntitySet="THUOCs" />
           </AssociationSet>
-          <EntitySet Name="KHACHHANGs" EntityType="RecomPharmacyModel.KHACHHANG" />
-          <AssociationSet Name="FK_KHACHHANG_TINHTHANH" Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH">
-            <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
-            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
-          </AssociationSet>
           <EntitySet Name="HOADONXUATs" EntityType="RecomPharmacyModel.HOADONXUAT" />
           <AssociationSet Name="FK_CHITIETHDX_HOADONXUAT" Association="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT">
             <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
             <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
           </AssociationSet>
+          <EntitySet Name="Feedbacks" EntityType="RecomPharmacyModel.Feedback" />
+          <EntitySet Name="KHACHHANGs" EntityType="RecomPharmacyModel.KHACHHANG" />
           <AssociationSet Name="FK_HOADONXUAT_KHACHHANG" Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG">
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KHACHHANG_TINHTHANH" Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH">
+            <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Admin">
@@ -930,36 +943,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="KHACHHANG">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TENKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="GIOITINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
-          <Property Name="MATINH" Type="Int32" />
-          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="Passwords" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Payment" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TINHTHANH" Relationship="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" FromRole="KHACHHANG" ToRole="TINHTHANH" />
-          <NavigationProperty Name="HOADONXUATs" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="KHACHHANG" ToRole="HOADONXUAT" />
-        </EntityType>
-        <Association Name="FK_KHACHHANG_TINHTHANH">
-          <End Type="RecomPharmacyModel.TINHTHANH" Role="TINHTHANH" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINHTHANH">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="KHACHHANG">
-              <PropertyRef Name="MATINH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="HOADONXUAT">
           <Key>
             <PropertyRef Name="ID" />
@@ -989,6 +972,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HOTEN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CHITIET" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="GIOITINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+          <Property Name="MATINH" Type="Int32" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Passwords" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Payment" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOADONXUATs" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="KHACHHANG" ToRole="HOADONXUAT" />
+          <NavigationProperty Name="TINHTHANH" Relationship="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" FromRole="KHACHHANG" ToRole="TINHTHANH" />
+        </EntityType>
         <Association Name="FK_HOADONXUAT_KHACHHANG">
           <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
           <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
@@ -998,6 +1010,18 @@
             </Principal>
             <Dependent Role="HOADONXUAT">
               <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KHACHHANG_TINHTHANH">
+          <End Type="RecomPharmacyModel.TINHTHANH" Role="TINHTHANH" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINHTHANH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHACHHANG">
+              <PropertyRef Name="MATINH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1177,23 +1201,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="KHACHHANGs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
-              <MappingFragment StoreEntitySet="KHACHHANG">
-                <ScalarProperty Name="Payment" ColumnName="Payment" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-                <ScalarProperty Name="MATINH" ColumnName="MATINH" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HOADONXUATs">
             <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONXUAT">
               <MappingFragment StoreEntitySet="HOADONXUAT">
@@ -1206,6 +1213,35 @@
                 <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
                 <ScalarProperty Name="NGAYXUAT" ColumnName="NGAYXUAT" />
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="CHITIET" ColumnName="CHITIET" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="MATINH" ColumnName="MATINH" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

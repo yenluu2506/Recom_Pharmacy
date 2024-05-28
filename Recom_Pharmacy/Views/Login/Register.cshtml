@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
 
-<h2 style="text-align: center; padding-top: 50px"><FONT color="#FF000">ĐĂNG KÝ	</FONT></h2>
+@*<h2 style="text-align: center; padding-top: 50px"><FONT color="#FF000">ĐĂNG KÝ	</FONT></h2>
 
 
 @using (Html.BeginForm("Register", "Login", FormMethod.Post, new
@@ -79,4 +79,102 @@
 
 
     </div>
-}
+}*@
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">Đăng kí</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">ĐĂNG KÍ TÀI KHOẢN</h2>
+            </div>
+            <div class="col-md-12">
+
+                <form action="#" method="post">
+                    @using (Html.BeginForm("Register", "Login", FormMethod.Post, new
+                    {
+                        enctype = "multipart/form-data"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="p-3 p-lg-5 border">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_fname" class="text-black">Họ Tên <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="Name" name="Name">
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_email" class="text-black">Tài khoản <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="Username" name="Username" placeholder="">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_subject" class="text-black">Mật khẩu <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="Password" name="Password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_subject" class="text-black">Nhập lại mật khẩu <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword">
+                                </div>
+                            </div>
+                            <span style="color:red">@ViewBag.Confirm</span>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_subject" class="text-black">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="Email" name="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_subject" class="text-black">Số điện thoại <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="PhoneNumber" name="PhoneNumber">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="c_subject" class="text-black">Địa chỉ <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="Address" name="Address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="Gender" class="text-black">Giới tính <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="Gender" name="Gender">
+                                        <option value="" disabled selected>Chọn giới tính</option>
+                                        <option value="male">Nam</option>
+                                        <option value="female">Nữ</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Birthday" class="text-black">Ngày sinh <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="Birthday" name="Birthday">
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Đăng ký" title="Đăng ký">
+                            Đã có tài khoản?<a href="/login/login"> Đăng Nhập</a>
+                        </div>
+                    }
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

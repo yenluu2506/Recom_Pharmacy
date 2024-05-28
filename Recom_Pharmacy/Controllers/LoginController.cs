@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using HieuThuoc.Models;
@@ -49,89 +51,76 @@ namespace HieuThuoc.Controllers
 		[HttpPost]
 		public ActionResult Register(FormCollection collection)
 		{
-			string userName = collection["Username"];
-			string passWord = collection["Password"];
-			string conFirmPassWord = collection["ConfirmPassword"];
-			string name = collection["Name"];
-			//var Birthday = String.Format("{0:MM/dd/yyyy}", collection["Birthday"]);
-			string Email = collection["Email"];
-			string address = collection["Address"];
-			//int Gender = Convert.ToInt32(collection["Gender"]);
-			string phoneNumber = collection["PhoneNumber"];
-			//string picTure = collection["Picture"];
-			//if (userName == "")
-			//{
-			//	ViewBag.username = "Please enter UserName";
-			//}else
-			//	if(passWord==""){
-			//	ViewBag.password = "Please enter Password";
-			//}
-			//else
-			//	if (conFirmPassWord !=passWord)
-			//{
-			//	ViewBag.password = "Confirm Password not correct";
-
-			//}
-			//else
-			//	if (name == "")
-			//{
-			//	ViewBag.password = "Please enter name";
-			//}
-			//else
-			//	if (Email == "")
-			//{
-			//	ViewBag.password = "Please enter Email";
-			//}
-
-			//else
-			//	if (address == "")
-			//{
-			//	ViewBag.password = "Please enter Address";
-			//}
-			//else
-			//	if (phoneNumber == "")
-			//{
-			//	ViewBag.password = "Please enter PhoneNumber";
-			//}
-			//passWord = Encryption.ComputeHash(passWord, "SHA512", GetBytes("acc"));
-			//conFirmPassWord = Encryption.ComputeHash(conFirmPassWord, "SHA512", GetBytes("acc"));
-			if (userName != null && passWord == conFirmPassWord)
+			try
 			{
+				string userName = collection["Username"];
+				string passWord = collection["Password"];
+				string conFirmPassWord = collection["ConfirmPassword"];
+				string name = collection["Name"];
+				DateTime Birthday;
+				string Email = collection["Email"];
+				string address = collection["Address"];
+				string Gender = collection["Gender"];
+				string phoneNumber = collection["PhoneNumber"];
+                ViewBag.Username = userName;
+                ViewBag.Password = passWord;
+                ViewBag.ConfirmPassword = conFirmPassWord;
+                ViewBag.Name = name;
+                ViewBag.Email = Email;
+                ViewBag.Address = address;
+                ViewBag.Gender = Gender;
+                ViewBag.PhoneNumber = phoneNumber;
+                ViewBag.Birthday = collection["Birthday"];
+                if (!DateTime.TryParse(collection["Birthday"], out Birthday))
+                {
+                    ModelState.AddModelError("Birthday", "Please enter a valid Birthday");
+                }
+                if (userName != null && passWord == conFirmPassWord)
+				{
 			
 				
-					var tem = db.KHACHHANGs.SingleOrDefault(a => a.Username == userName);
-					if (tem == null)
-					{
-						KHACHHANG cs = new KHACHHANG();
-						cs.Username = userName;
-						cs.Passwords = passWord;
-						cs.TENKH = name;
-						//cs.EmailAddress = Email;
-						//cs.Birthday = DateTime.Parse(Birthday);
-						cs.DIACHI = address;
-						//cs.Gender = Gender;
-						cs.SDT = phoneNumber;
-						//cs.Picture = picTure;
-						db.KHACHHANGs.Add(cs);
-						db.SaveChanges();
-					}
+						var tem = db.KHACHHANGs.SingleOrDefault(a => a.Username == userName);
+						if (tem == null)
+						{
+							KHACHHANG cs = new KHACHHANG();
+							cs.Username = userName;
+							cs.Passwords = passWord;
+							cs.TENKH = name;
+							cs.EMAIL = Email;
+							cs.NGAYSINH = Birthday;
+							cs.DIACHI = address;
+							cs.GIOITINH = Gender;
+							cs.SDT = phoneNumber;
+							db.KHACHHANGs.Add(cs);
+							db.SaveChanges();
+						}
 			
+					else
+					{
+						ModelState.AddModelError("", "Tài khoản đã tồn tại !");
+						return View();
+					}
+					return RedirectToAction("Login", "Login");
+				}
 				else
 				{
-					ModelState.AddModelError("", "Tài khoản đã tồn tại !");
-					return View();
+					ViewBag.Confirm = "Mật khẩu không trùng khớp";
 				}
-				return RedirectToAction("Login", "Login");
-			}
-			else
-			{
-				ViewBag.Confirm = "Mật khẩu không trùng khớp";
-			}
 
+				
+			}
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        ModelState.AddModelError("", validationError.ErrorMessage);
+                    }
+                }
+            }
 			return View();
-
-
-		}
+        }
 		public ActionResult Forgotpassword()
 		{
 			if (Session["usr"] == null)
@@ -146,15 +135,6 @@ namespace HieuThuoc.Controllers
 
 		public ActionResult Forgotpassword(FormCollection fc)
 		{
-			//string userName = collection["Username"];
-			//string passWord = collection["Password"];
-			//string conFirmPassWord = collection["ConfirmPassword"];
-			//string name = collection["Name"];
-			//var Birthday = String.Format("{0:MM/dd/yyyy}", collection["Birthday"]);
-			//string Email = collection["Email"];
-			//string address = collection["Address"];
-			//int Gender = Convert.ToInt32(collection["Gender"]);
-			//string phoneNumber = collection["PhoneNumber"];
 			var ac = ((KHACHHANG)Session["usr"]);
 
 			if (Session["usr"] != null)
@@ -224,16 +204,13 @@ namespace HieuThuoc.Controllers
 					temp.Passwords = fc["newpass"];
 					db.SaveChanges();
 					Session["usr"] = temp;
-					return RedirectToAction("Profile", "AuraStore");
+					return RedirectToAction("Profile", "UserInterface");
 
 				}
-
-
-
 			}
 			else
 			{
-				return RedirectToAction("Index", "AuraStore");
+				return RedirectToAction("Index", "UserInterface");
 			}
 			ModelState.AddModelError("", "Không thể thay đổi mật khẩu..");
 			return View(new AccountClientEntity(ac));

@@ -191,6 +191,9 @@
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Encryption.cs" />
+    <Compile Include="Models\Feedback.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HOADONNHAP.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
@@ -5528,6 +5531,9 @@
     <Content Include="Views\UserInterface\Profile.cshtml" />
     <Content Include="Views\UserInterface\ListOrderClient.cshtml" />
     <Content Include="Views\UserInterface\ListOrderDetailClient.cshtml" />
+    <Content Include="Views\UserInterface\Contact.cshtml" />
+    <Content Include="Views\UserInterface\Thankyou.cshtml" />
+    <Content Include="Views\UserInterface\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

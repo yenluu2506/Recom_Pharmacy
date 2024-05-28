@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Xml.Linq;
 
 namespace Recom_Pharmacy.Controllers
 {
@@ -124,6 +125,41 @@ namespace Recom_Pharmacy.Controllers
             db.SaveChanges();
             return RedirectToAction("ListOrderClient");
 
+        }
+
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Contact(FormCollection collection)
+        {
+            string Name = collection["Name"];
+            string Email = collection["Email"];
+            string Mota = collection["Mota"];
+            string Chitiet = collection["Chitiet"];
+
+            if (ModelState.IsValid)
+            {
+                    Feedback cs = new Feedback();
+                    cs.HOTEN = Name;
+                    cs.EMAIL = Email;
+                    cs.MOTA = Mota;
+                    cs.CHITIET = Chitiet;
+                    db.Feedbacks.Add(cs);
+                    db.SaveChanges();
+                return RedirectToAction("ThankYou");
+            }
+            return View();
+        }
+        public ActionResult Thankyou()
+        {
+            return View();
+        }
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Recom_Pharmacy.Models
         public int ID { get; set; }
         public string TENKH { get; set; }
         public string SDT { get; set; }
+        public string EMAIL { get; set; }
         public string GIOITINH { get; set; }
         public Nullable<System.DateTime> NGAYSINH { get; set; }
         public Nullable<int> MATINH { get; set; }
@@ -32,8 +33,8 @@ namespace Recom_Pharmacy.Models
         public string Picture { get; set; }
         public string Payment { get; set; }
     
-        public virtual TINHTHANH TINHTHANH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONXUAT> HOADONXUATs { get; set; }
+        public virtual TINHTHANH TINHTHANH { get; set; }
     }
 }
