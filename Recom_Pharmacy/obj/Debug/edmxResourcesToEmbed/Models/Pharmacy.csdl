@@ -161,6 +161,7 @@
       <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
       <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
     </AssociationSet>
+    <EntitySet Name="Blogs" EntityType="RecomPharmacyModel.Blog" />
   </EntityContainer>
   <EntityType Name="Admin">
     <Key>
@@ -525,4 +526,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NGAYVIET" Type="DateTime" Precision="3" />
+    <Property Name="TIEUDE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MOTANGAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MOTACT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ANH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

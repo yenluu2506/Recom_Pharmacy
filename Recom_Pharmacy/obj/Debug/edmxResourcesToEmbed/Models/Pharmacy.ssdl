@@ -9,6 +9,17 @@
     <Property Name="Name" Type="nvarchar" MaxLength="400" />
     <Property Name="Picture" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NGAYVIET" Type="datetime" />
+    <Property Name="TIEUDE" Type="nvarchar(max)" />
+    <Property Name="MOTANGAN" Type="nvarchar(max)" />
+    <Property Name="MOTACT" Type="nvarchar(max)" />
+    <Property Name="ANH" Type="nvarchar" MaxLength="500" />
+  </EntityType>
   <EntityType Name="CHITIETHDN">
     <Key>
       <PropertyRef Name="ID" />
@@ -406,6 +417,7 @@
   </Association>
   <EntityContainer Name="RecomPharmacyModelStoreContainer">
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETHDN" EntityType="Self.CHITIETHDN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETHDX" EntityType="Self.CHITIETHDX" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CTTONKHO" EntityType="Self.CTTONKHO" Schema="dbo" store:Type="Tables" />

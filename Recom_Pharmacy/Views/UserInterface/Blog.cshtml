@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.Blog>
+
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">Blog</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="site-section bg-light custom-border-bottom" data-aos="fade">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="block-16">
+                        <figure>
+                            <a href="@Url.Action("BlogDetail", "UserInterface", new { id=item.ID})"><img src="@item.ANH" alt="Image placeholder" class="img-fluid rounded"></a>
+
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+
+
+                    <div class="site-section-heading pt-3 mb-4">
+                        <a href="@Url.Action("BlogDetail", "UserInterface", new { id=item.ID})"><h2 class="text-black">@item.TIEUDE</h2> </a>
+                    </div>
+                    <p>
+                        @item.MOTANGAN
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -152,6 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CTHDNController.cs" />
     <Compile Include="Controllers\CTTonKhoController.cs" />
@@ -175,6 +176,9 @@
     </Compile>
     <Compile Include="Models\AccountClientEntity.cs" />
     <Compile Include="Models\Admin.cs">
+      <DependentUpon>Pharmacy.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Blog.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CartEntity.cs" />
@@ -5536,6 +5540,11 @@
     <Content Include="Views\UserInterface\Thankyou.cshtml" />
     <Content Include="Views\UserInterface\About.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Blog\Edit.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\UserInterface\Blog.cshtml" />
+    <Content Include="Views\UserInterface\BlogDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -161,5 +161,27 @@ namespace Recom_Pharmacy.Controllers
         {
             return View();
         }
+        private List<Blog> NewBlogs(int count)
+        {
+            return db.Blogs.OrderByDescending(a => a.NGAYVIET).Take(count).ToList();
+        }
+        public ActionResult Blog()
+        {
+
+            return View(NewBlogs(5));
+        }
+        public ActionResult BlogDetail(long id)
+        {
+
+            var blog = from t in db.Blogs
+                       where t.ID == id
+                       select t;
+            return View(blog.Single());
+        }
+        public ActionResult RecentBlog()
+        {
+
+            return PartialView(NewBlogs(4));
+        }
     }
 }

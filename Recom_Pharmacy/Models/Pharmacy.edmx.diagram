@@ -39,6 +39,7 @@
         <EntityTypeShape EntityType="RecomPharmacyModel.KHACHHANG" Width="1.5" PointX="3" PointY="19.5" />
         <AssociationConnector Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" />
         <AssociationConnector Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" />
+        <EntityTypeShape EntityType="RecomPharmacyModel.Blog" Width="1.5" PointX="2.125" PointY="8.625" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

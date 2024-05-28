@@ -14,6 +14,17 @@
           <Property Name="Name" Type="nvarchar" MaxLength="400" />
           <Property Name="Picture" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYVIET" Type="datetime" />
+          <Property Name="TIEUDE" Type="nvarchar(max)" />
+          <Property Name="MOTANGAN" Type="nvarchar(max)" />
+          <Property Name="MOTACT" Type="nvarchar(max)" />
+          <Property Name="ANH" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="CHITIETHDN">
           <Key>
             <PropertyRef Name="ID" />
@@ -411,6 +422,7 @@
         </Association>
         <EntityContainer Name="RecomPharmacyModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETHDN" EntityType="Self.CHITIETHDN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETHDX" EntityType="Self.CHITIETHDX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CTTONKHO" EntityType="Self.CTTONKHO" Schema="dbo" store:Type="Tables" />
@@ -661,6 +673,7 @@
             <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
           </AssociationSet>
+          <EntitySet Name="Blogs" EntityType="RecomPharmacyModel.Blog" />
           </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -1025,6 +1038,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYVIET" Type="DateTime" Precision="3" />
+          <Property Name="TIEUDE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOTANGAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOTACT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ANH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1242,6 +1266,18 @@
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.Blog">
+              <MappingFragment StoreEntitySet="Blog">
+                <ScalarProperty Name="ANH" ColumnName="ANH" />
+                <ScalarProperty Name="MOTACT" ColumnName="MOTACT" />
+                <ScalarProperty Name="MOTANGAN" ColumnName="MOTANGAN" />
+                <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+                <ScalarProperty Name="NGAYVIET" ColumnName="NGAYVIET" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -216,5 +216,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Blogs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.Blog">
+        <MappingFragment StoreEntitySet="Blog">
+          <ScalarProperty Name="ANH" ColumnName="ANH" />
+          <ScalarProperty Name="MOTACT" ColumnName="MOTACT" />
+          <ScalarProperty Name="MOTANGAN" ColumnName="MOTANGAN" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="NGAYVIET" ColumnName="NGAYVIET" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
