@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.OrderDetailEntity>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <table class="table">
+            <tr>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Mã Đơn
+                </th>
+                <th>
+                    Tổng giá
+                </th>
+                <th>
+                    Sản phẩm
+                </th>
+                <th>
+                    Ảnh
+                </th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SOLUONG)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MAHDX)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TONGTIEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.THUOC.TENTHUOC)
+                    </td>
+                    <td>
+                        <img width="170" height="270" class="resize-image-cart" src="@Html.DisplayFor(modelItem => item.THUOC.ANH)" />
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

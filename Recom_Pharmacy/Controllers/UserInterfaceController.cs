@@ -75,5 +75,55 @@ namespace Recom_Pharmacy.Controllers
             var item = db.THUOCs.Find(id);
             return View(item);
         }
+        public ActionResult ListOrderClient()
+        {
+            var ac = (KHACHHANG)Session["usr"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Acction");
+            }
+
+            var temp = db.HOADONXUATs.Where(p => p.KHACHHANG.Username == ac.Username);
+            List<OrderEntity> listProdcut = new List<OrderEntity>();
+            foreach (var item in temp)
+            {
+                OrderEntity pr = new OrderEntity();
+                pr.TypeOf_OrderEntity(item);
+                listProdcut.Add(pr);
+            }
+
+
+            return View(listProdcut);
+
+
+        }
+        public ActionResult ListOrderDetailClient(long? id)
+        {
+            var temp = db.CHITIETHDXes.Where(d => d.MAHDX == id);
+            List<OrderDetailEntity> listdetail = new List<OrderDetailEntity>();
+            foreach (var item in temp)
+            {
+                OrderDetailEntity or = new OrderDetailEntity();
+                or.TypeOf_OrderEntity(item);
+                listdetail.Add(or);
+            }
+
+
+            return PartialView(listdetail);
+
+        }
+        [HttpGet]
+        public ActionResult CancelOrder(long? id)
+        {
+
+            var temp = db.CHITIETHDXes.Where(d => d.MAHDX == id).ToList();
+            db.CHITIETHDXes.RemoveRange(temp);
+            db.SaveChanges();
+            var tem = db.HOADONXUATs.SingleOrDefault(d => d.ID == id);
+            db.HOADONXUATs.Remove(tem);
+            db.SaveChanges();
+            return RedirectToAction("ListOrderClient");
+
+        }
     }
 }

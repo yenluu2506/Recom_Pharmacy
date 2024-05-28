@@ -4,50 +4,55 @@
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
 
-<h2 class="text-center" style="padding-top: 50px">Thông tin </h2>
 
 
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Tài khoản</strong> / <strong class="text-black">Hồ sơ người dùng</strong></div>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-center" style="padding-top: 50px; color: #51eaea">THÔNG TIN </h2>
 <div class="container">
     <div class="row">
         <div class="col-sm-12"></div>
         @foreach (var item in Model)
         {
-
-
             <table class="table">
                 <tr>
                     <td rowspan="8" width="30%">
 
-                        <img src="~/Content/Image/user_icon.png">
+                        <img width="200" height="200" src="~/Content/Image/user_icon.png">
                         <br />
 
                     </td>
                     <th> Tên</th>
-                    <td> @item.Name</td>
+                    <td> @item.TENKH</td>
                 </tr>
                 <tr>
-                    <th>  Địa chỉ</th>
-                    <td>     @item.Address</td>
-
+                    <th>  Số điện thoại</th>
+                    <td>     @item.SDT</td>
                 </tr>
-
-
                 <tr>
-                    <th>    Số điện thoại</th>
-                    <td>      @item.Phone</td>
-
+                    <th>    Địa chỉ</th>
+                    <td>      @item.DIACHI</td>
                 </tr>
-
-
                 <tr>
-
+                    <th>    Giới tính</th>
+                    <td>      @item.GIOITINH</td>
+                </tr>
+                <tr>
+                    <th>    Ngày sinh</th>
+                    <td>      @item.NGAYSINH</td>
+                </tr>
+                <tr>
+                <tr>
                     <td></td>
-
                     <td>
                         <a href="@Url.Action("Changepassword","Login")" class="btn btn-success"> Đổi mật khẩu</a>
-
                     </td>
-
                     <td></td>
                 </tr>
             </table>

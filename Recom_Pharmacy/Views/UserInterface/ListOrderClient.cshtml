@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.OrderEntity>
+@{
+    ViewBag.Title = "ListOrderClient";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Tài khoản</strong> / <strong class="text-black">Đơn hàng</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center">Lịch sử đơn hàng của bạn</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ngày đặt hàng</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Trạng thái</th>
+                    <th>Tên</th>
+                    <th>Địa chỉ</th>
+                    <th>Ghi Chú</th>
+                    <th>Hủy</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.NGAYXUAT)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NGAYGIAOHANG)</td>
+                        <td>
+                            @if (item.XULY == true)
+                            {
+                                <span class="badge badge-success">Đã giao</span>
+                            }
+                            else if (item.TRANGTHAI == true || item.XULY == false)
+                            {
+                                <span class="badge badge-danger">Hủy Đơn</span>
+                            }
+                            else if (item.XULY == false)
+                            {
+                                <span class="badge badge-warning">Đang giao</span>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.KHACHHANG.TENKH)</td>
+                        <td>@Html.DisplayFor(modelItem => item.KHACHHANG.DIACHI)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GHICHU)</td>
+                        <td>
+                            @if (item.TRANGTHAI == false)
+                            {
+                                @Html.ActionLink("Hủy", "CancelOrder", new { id = item.ID }, new { onclick = "return confirm('Bạn chắc chắn muốn hủy đơn hàng ?');", @class = "btn btn-danger btn-sm" })
+                            }
+                        </td>
+                        <td>
+                            <button type="button" class="pest_btn" data-toggle="collapse" data-target="#collapse-@item.ID" aria-expanded="false" aria-controls="collapse-@item.ID">
+                                Chi tiết
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td colspan="9" class="p-0">
+                                <div class="collapse" id="collapse-@item.ID">
+                                    <div class="card card-body collapse-card">
+                                        @Html.Action("ListOrderDetailClient", "UserInterface", new { id = item.ID })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
