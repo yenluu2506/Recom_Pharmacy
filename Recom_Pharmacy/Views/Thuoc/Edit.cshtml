@@ -106,8 +106,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Công dụng</label>
-                            @Html.TextBoxFor(x => x.CONGDUNG, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                            @Html.ValidationMessageFor(x => x.CONGDUNG, null, new { @class = "text-danger" })
+                            @Html.TextAreaFor(x => x.CONGDUNG, new { @class = "form-control", @id = "txtDetail" })
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Giá nhập</label>
@@ -118,6 +117,11 @@
                             <label for="exampleInputEmail1">Giá bán</label>
                             @Html.TextBoxFor(x => x.GIABAN, new { @class = "form-control", @placeholder = "Nhập vào tên" })
                             @Html.ValidationMessageFor(x => x.GIABAN, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số lượng</label>
+                            @Html.TextBoxFor(x => x.SOLUONG, new { @class = "form-control", @placeholder = "Nhập vào tên" })
+                            @Html.ValidationMessageFor(x => x.SOLUONG, null, new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Hiển thị</label>

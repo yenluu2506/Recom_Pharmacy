@@ -21,7 +21,7 @@ namespace Recom_Pharmacy.Controllers
         public ActionResult Index(string Searchtext, int? page, int? SelectedDM)
         {
             ViewBag.DMThuoc = new SelectList(db.MENUTHUOCs.ToList(), "ID", "TENDM");
-            var pageSize = 5;
+            var pageSize = 30;
             if (page == null)
             {
                 page = 1;

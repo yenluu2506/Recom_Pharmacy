@@ -3,56 +3,30 @@
     ViewBag.Title = "BlogDetail";
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
-
-<section class="main_blog_area p_100">
+<section class="main_blog_area py-5">
     <div class="container">
         <div class="row blog_area_inner">
-            <div class="col-lg-9">
-                <div class="main_blog_inner single_blog_inner">
+            <div class="col-lg-9 mx-auto">
+                <div class="main_blog_inner single_blog_inner bg-white p-4 rounded shadow-sm">
 
-                    <div class="blog_item">
-                        <div class="blog_img">
-                            <img class="img-fluid" width="840" height="360" src="@Model.ANH" alt="">
+                    <div class="blog_item mb-4">
+                        <div class="blog_img mb-3">
+                            <img class="img-fluid rounded" src="@Model.ANH" alt="" style="width: 100%; height: auto;">
                         </div>
                         <div class="blog_text">
-                            <div class="blog_time">
-                                <div class="float-left">
-                                    <a href="#">@Model.NGAYVIET</a>
-                                </div>
-                                <div class="float-right">
-                                    <ul class="list_style">
-                                        <li><a href="#">By :  Admin</a></li>
-                                    </ul>
-                                </div>
+                            <div class="blog_time d-flex justify-content-between align-items-center mb-3">
+                                <a href="#" class="text-muted">@Model.NGAYVIET</a>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item"><a href="#" class="text-muted">By: Admin</a></li>
+                                </ul>
                             </div>
-                            <a href="#"><h4>@Model.TIEUDE</h4></a>
-                            <p>@Model.MOTANGAN</p>
+                            <a href="#"><h4 class="fw-bold">@Model.TIEUDE</h4></a>
+                            @Html.Raw(Model.MOTANGAN)
                         </div>
                     </div>
 
-                    <div class="single_element_text">
-                        <p>@Model.MOTACT</p>
-                    </div>
-
-                    
-                    <div class="s_comment_area">
-                        <h3 class="cm_title_br">Leave a Comment</h3>
-                        <div class="s_comment_inner">
-                            <form class="row contact_us_form" action="http://galaxyanalytics.net/demos/cake/theme/cake-html/contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <textarea class="form-control" name="message" id="message" rows="1" placeholder="Wrtie message"></textarea>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <button type="submit" value="submit" class="btn order_s_btn form-control">submit now</button>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="single_element_text mb-4 text-justify">
+                        @Html.Raw(Model.MOTACT)
                     </div>
                 </div>
             </div>

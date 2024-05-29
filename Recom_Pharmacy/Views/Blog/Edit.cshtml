@@ -61,15 +61,14 @@
                             @Html.TextBoxFor(x => x.TIEUDE, new { @class = "form-control", @placeholder = "Nhập vào tên" })
                             @Html.ValidationMessageFor(x => x.TIEUDE, null, new { @class = "text-danger" })
                         </div>
+                        
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mô tả ngắn</label>
-                            @Html.TextBoxFor(x => x.MOTANGAN, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                            @Html.ValidationMessageFor(x => x.MOTANGAN, null, new { @class = "text-danger" })
+                            @Html.TextAreaFor(x => x.MOTANGAN, new { @class = "form-control", @id = "txtDetail" })
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mô tả chi tiết</label>
-                            @Html.TextAreaFor(x => x.MOTACT, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                            @Html.ValidationMessageFor(x => x.MOTACT, null, new { @class = "text-danger" })
+                            @Html.TextAreaFor(x => x.MOTACT, new { @class = "form-control", @id = "txtmotact" })
                         </div>
                         <div class="form-group">
                             <a href="/blog" class="btn btn-danger">Quay lại</a>
@@ -88,6 +87,12 @@
     <script>
         $(document).ready(function () {
             CKEDITOR.replace('txtDetail', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+        $(document).ready(function () {
+            CKEDITOR.replace('txtmotact', {
                 customConfig: '/content/ckeditor/config.js',
                 extraAllowedContent: 'span',
             });

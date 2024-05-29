@@ -11,7 +11,8 @@ namespace Recom_Pharmacy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class THUOC
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -34,6 +35,7 @@ namespace Recom_Pharmacy.Models
         public string NHASX { get; set; }
         public string NUOCSX { get; set; }
         public string DOITUONGSD { get; set; }
+        [AllowHtml]
         public string CONGDUNG { get; set; }
         public Nullable<decimal> GIANHAP { get; set; }
         public Nullable<decimal> GIABAN { get; set; }

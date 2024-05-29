@@ -36,10 +36,7 @@
                     <div class="site-section-heading pt-3 mb-4">
                         <a href="@Url.Action("BlogDetail", "UserInterface", new { id=item.ID})"><h2 class="text-black">@item.TIEUDE</h2> </a>
                     </div>
-                    <p>
-                        @item.MOTANGAN
-                    </p>
-
+                        @Html.Raw(@item.MOTANGAN)
                 </div>
             </div>
         </div>

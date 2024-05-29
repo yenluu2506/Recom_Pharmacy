@@ -11,13 +11,16 @@ namespace Recom_Pharmacy.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Blog
     {
         public int ID { get; set; }
         public Nullable<System.DateTime> NGAYVIET { get; set; }
         public string TIEUDE { get; set; }
+        [AllowHtml]
         public string MOTANGAN { get; set; }
+        [AllowHtml]
         public string MOTACT { get; set; }
         public string ANH { get; set; }
     }
