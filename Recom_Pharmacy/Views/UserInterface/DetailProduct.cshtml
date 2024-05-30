@@ -1,6 +1,8 @@
 ﻿@model Recom_Pharmacy.Models.THUOC
 @{
     ViewBag.Title = "DetailProduct";
+    IEnumerable<Recom_Pharmacy.Models.THUOC> tatcasp = ViewBag.tatcasanpham as IEnumerable<Recom_Pharmacy.Models.THUOC>;
+    IEnumerable<string> sanPhamGoiY = ViewBag.HienThiSanPhamGoiY as IEnumerable<string>;
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
 
@@ -112,3 +114,32 @@
         </div>
     </div>
 }
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="title-section text-center col-12">
+                <h2 class="text-uppercase">Gợi ý cho bạn</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var item in tatcasp)
+            {
+                foreach (var itemgoiy in sanPhamGoiY)
+                {
+                    if(string.Compare(item.TENTHUOC, itemgoiy) == 0)
+                    {
+                        <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                            @*<span class="tag">Sale</span>*@
+                            <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+                            <h3 class="text-dark"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
+                            <p class="price">@item.GIABAN VND</p>
+                        </div>
+                    }
+                }
+                
+            }
+        </div>
+    </div>
+</div>

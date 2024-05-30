@@ -195,6 +195,7 @@
     <Compile Include="Models\DONVITINH.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\ProductRespone.cs" />
     <Compile Include="Models\Encryption.cs" />
     <Compile Include="Models\Feedback.cs">
       <DependentUpon>Pharmacy.tt</DependentUpon>

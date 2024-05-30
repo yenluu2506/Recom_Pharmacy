@@ -1,7 +1,12 @@
-﻿using Recom_Pharmacy.Models;
+﻿using Newtonsoft.Json;
+using Recom_Pharmacy.Models;
+using Recom_Pharmacy.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -12,7 +17,7 @@ namespace Recom_Pharmacy.Controllers
     public class UserInterfaceController : Controller
     {
         RecomPharmacyEntities db = new RecomPharmacyEntities();
-
+        string baseURL = "http://localhost:5555";
         public ActionResult Signout()
         {
             FormsAuthentication.SignOut();
@@ -71,9 +76,27 @@ namespace Recom_Pharmacy.Controllers
             var pr = from d in db.THUOCs where d.MALOAI == id && d.TRANGTHAI == true select d;
             return View(pr);
         }
-        public ActionResult DetailProduct(int id)
+        public async Task<ActionResult> DetailProduct(int id)
         {
-            var item = db.THUOCs.Find(id);
+            List<string> sanphamgoiy = new List<string>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage getData = await client.GetAsync($"api?id={id}");
+                if (getData.IsSuccessStatusCode)
+                {
+                    string results = getData.Content.ReadAsStringAsync().Result;
+                    var productRespone = JsonConvert.DeserializeObject<ProductRespone>(results);
+
+                    sanphamgoiy = productRespone.SanPhamGoiY;
+                    ViewBag.HienThiSanPhamGoiY = sanphamgoiy;
+                }
+            }
+            ViewBag.tatcasanpham = db.THUOCs.ToList();
+            THUOC item = db.THUOCs.Find(id);
             return View(item);
         }
         public ActionResult ListOrderClient()
