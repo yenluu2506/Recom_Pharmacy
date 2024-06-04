@@ -253,6 +253,7 @@ namespace Recom_Pharmacy.Controllers
                 it.SOLUONG = (it.SOLUONG) - item.soLuong;
 
                 db.SaveChanges();
+                
             }
             if (TypePayment != 1)
             {
@@ -260,6 +261,43 @@ namespace Recom_Pharmacy.Controllers
                 return Redirect(url);
             }
             db.SaveChanges();
+            //send mail cho khachs hang
+            var strSanPham = "";
+            var thanhtien = decimal.Zero;
+            var TongTien = decimal.Zero;
+            foreach (var sp in crt)
+            {
+                strSanPham += "<tr>";
+                strSanPham += "<td>" + sp.tenThuoc + "</td>";
+                strSanPham += "<td>" + sp.soLuong + "</td>";
+                strSanPham += "<td>" + Recom_Pharmacy.Common.Common.FormatNumber(sp.tongGia, 0) + "</td>";
+                strSanPham += "</tr>";
+                thanhtien = sp.soLuong * (decimal)sp.giaBan;
+            }
+            TongTien = thanhtien;
+            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
+            contentCustomer = contentCustomer.Replace("{{MaDon}}", or.ID.ToString());
+            contentCustomer = contentCustomer.Replace("{{SanPham}}", strSanPham);
+            contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+            contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", cus.TENKH);
+            contentCustomer = contentCustomer.Replace("{{Phone}}", cus.SDT);
+            contentCustomer = contentCustomer.Replace("{{Email}}", cus.EMAIL);
+            contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", cus.DIACHI);
+            contentCustomer = contentCustomer.Replace("{{ThanhTien}}", Recom_Pharmacy.Common.Common.FormatNumber(thanhtien, 0));
+            contentCustomer = contentCustomer.Replace("{{TongTien}}", Recom_Pharmacy.Common.Common.FormatNumber(TongTien, 0));
+            Recom_Pharmacy.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + or.ID, contentCustomer.ToString(), cus.EMAIL);
+
+            string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send1.html"));
+            contentAdmin = contentAdmin.Replace("{{MaDon}}", or.ID.ToString());
+            contentAdmin = contentAdmin.Replace("{{SanPham}}", strSanPham);
+            contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+            contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", cus.TENKH);
+            contentAdmin = contentAdmin.Replace("{{Phone}}", cus.SDT);
+            contentAdmin = contentAdmin.Replace("{{Email}}", cus.EMAIL);
+            contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", cus.DIACHI);
+            contentAdmin = contentAdmin.Replace("{{ThanhTien}}", Recom_Pharmacy.Common.Common.FormatNumber(thanhtien, 0));
+            contentAdmin = contentAdmin.Replace("{{TongTien}}", Recom_Pharmacy.Common.Common.FormatNumber(TongTien, 0));
+            Recom_Pharmacy.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + or.ID, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
             Session["Cart"] = null;
 
 

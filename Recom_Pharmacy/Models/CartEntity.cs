@@ -30,5 +30,10 @@ namespace Recom_Pharmacy.Models
             giaBan = Double.Parse(product.GIABAN.ToString());
             soLuong = 1;
         }
+        public List<CartEntity> Items { get; set; }
+        public CartEntity()
+        {
+            this.Items = new List<CartEntity>();
+        }
     }
 }
