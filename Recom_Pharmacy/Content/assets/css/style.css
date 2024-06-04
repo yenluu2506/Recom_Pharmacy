@@ -69,6 +69,15 @@ a {
     .btn.btn-black:hover, .btn.btn-black:active, .btn.btn-black:focus {
       background-color: #51eaea;
       color: #000; }
+.btn-red {
+    background-color: red;
+    border-color: red;
+}
+
+    .btn-red:hover {
+        background-color: darkred; /* Optional: a darker shade for the hover effect */
+        border-color: darkred;
+    }
 
 .form-control {
   height: 43px; }

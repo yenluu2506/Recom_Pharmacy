@@ -60,8 +60,8 @@
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="active"><a href="@Url.Action("Index", "UserInterface")">Trang chủ</a></li>
-                                <li><a href="@Url.Action("ViewAllProduct", "UserInterface")">Store</a></li>
+                                <li><a href="@Url.Action("Index", "UserInterface")">Trang chủ</a></li>
+                                <li><a href="@Url.Action("ViewAllProduct", "UserInterface")">Cửa hàng</a></li>
                                 <li><a href="@Url.Action("Blog", "UserInterface")">Blog</a></li>
                                 <li><a href="@Url.Action("About", "UserInterface")">About</a></li>
                                 <li><a href="@Url.Action("Contact", "UserInterface")">Contact</a></li>
@@ -176,16 +176,15 @@
         </footer>
     </div>
 
-    <script src="/Content/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
     <script src="/Content/assets/js/jquery-ui.js"></script>
     <script src="/Content/assets/js/popper.min.js"></script>
     <script src="/Content/assets/js/bootstrap.min.js"></script>
     <script src="/Content/assets/js/owl.carousel.min.js"></script>
     <script src="/Content/assets/js/jquery.magnific-popup.min.js"></script>
     <script src="/Content/assets/js/aos.js"></script>
-
+    <script src="~/Content/assets/plugins/Isotope/isotope.pkgd.min.js"></script>
     <script src="/Content/assets/js/main.js"></script>
-
     @RenderSection("scripts", required: false)
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger intent="WELCOME"

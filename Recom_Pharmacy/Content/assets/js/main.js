@@ -7,7 +7,6 @@
 jQuery(document).ready(function($) {
 
 	"use strict";
-
 	var slider = function() {
 		$('.nonloop-block-3').owlCarousel({
 	    center: false,
@@ -146,20 +145,20 @@ jQuery(document).ready(function($) {
 	//	});
 	//};
 	//sitePlusMinus();
-	var siteSliderRange = function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-	};
-	siteSliderRange();
+	//var siteSliderRange = function() {
+ //   $( "#slider-range" ).slider({
+ //     range: true,
+ //     min: 0,
+ //     max: 500,
+ //     values: [ 75, 300 ],
+ //     slide: function( event, ui ) {
+ //       $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+ //     }
+ //   });
+ //   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+ //     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	//};
+	//siteSliderRange();
 
 
 	var siteMagnificPopup = function() {
@@ -224,5 +223,4 @@ jQuery(document).ready(function($) {
 		$('.sidebar_subcategories').not($subcategories).slideUp(); // Ẩn tất cả các danh mục con khác
 		$subcategories.slideToggle(); // Hiển thị hoặc ẩn danh mục con hiện tại
 	});
-
 });

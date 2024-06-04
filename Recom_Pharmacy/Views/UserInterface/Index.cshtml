@@ -68,18 +68,44 @@
                 <h2 class="text-uppercase">TẤT CẢ SẢN PHẨM</h2>
             </div>
         </div>
-
+        @*@Html.Action("NewProduct", "UserInterface")*@
         <div class="row">
             @foreach (var item in Model)
             {
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    @*<span class="tag">Sale</span>*@
+                <div class="col-sm-6 col-lg-4 text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   ">
                     <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+                    <div style="border-bottom: 1px solid #ccc;"> </div>
                     <h3 class="text-dark"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
                     <p class="price">@item.GIABAN VND</p>
                 </div>
             }
         </div>
+
+        @*<section style="background-color: #eee;">
+            <div class="container py-5">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+                            <div class="card">
+                                <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">
+                                    <img src="@item.ANH"
+                                         class="card-img-top" alt="@item.TENTHUOC" />
+                                </a>
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">@item.TENTHUOC</h5>
+                                        <h5 class="text-dark mb-0">@item.GIABAN</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section>*@
         @*View all Product*@
         <div class="row mt-5">
             <div class="col-12 text-center">

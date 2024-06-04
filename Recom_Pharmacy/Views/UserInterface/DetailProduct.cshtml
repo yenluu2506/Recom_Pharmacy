@@ -12,7 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0">
-                    <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="shop.html"></a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@Model.TENTHUOC</strong>
+                    <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="@Url.Action("ViewAllProduct", "UserInterface")"></a>Cửa hàng <span class="mx-2 mb-0">/</span> <strong class="text-black">@Model.TENTHUOC</strong>
                 </div>
             </div>
         </div>
@@ -27,30 +27,62 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h2 class="text-black">@Model.TENTHUOC</h2>
-                    <p>
-                        @Model.DONGGOI
-                    </p>
+
+                    @if (Model.MALOAI == 2)
+                    {
+                        <h2 class="text-black">@Model.TENTHUOC</h2>
+                        <p>
+                            @Model.DONGGOI
+                        </p>
 
 
-                    <p><del>$95.00</del>  <strong class="text-primary h4">@Model.GIABAN</strong></p>
+                        @*<p><del>$95.00</del>  <strong class="text-primary h4">@Model.GIABAN</strong></p>
 
 
 
-                    <div class="mb-5">
-                        <div class="input-group mb-3" style="max-width: 220px;">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                        <div class="mb-5">
+                            <div class="input-group mb-3" style="max-width: 220px;">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                </div>
+                                <input type="text" class="form-control text-center" value="1" placeholder=""
+                                       aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                </div>
                             </div>
-                            <input type="text" class="form-control text-center" value="1" placeholder=""
-                                   aria-label="Example text with button addon" aria-describedby="button-addon1">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+
+                        </div>*@
+                        <p><a href="@Url.Action("ConsultPharmacist", "Cart", new { @id = @Model.ID, @strURL = Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary ">Cần được tư vấn của dược sĩ</a></p>
+                    }
+                    else
+                    {
+                        <h2 class="text-black">@Model.TENTHUOC</h2>
+                        <p>
+                            @Model.DONGGOI
+                        </p>
+
+
+                        <p><del>$95.00</del>  <strong class="text-primary h4">@Model.GIABAN</strong></p>
+
+
+
+                        <div class="mb-5">
+                            <div class="input-group mb-3" style="max-width: 220px;">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                </div>
+                                <input type="text" class="form-control text-center" value="1" placeholder=""
+                                       aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                </div>
                             </div>
+
                         </div>
-
-                    </div>
-                    <p><a href="@Url.Action("AddtoCart", "Cart",new {@id=@Model.ID,@strURL=Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+                        <p><a href="@Url.Action("AddtoCart", "Cart", new { @id = @Model.ID, @strURL = Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+                    }
+                    @*<p><a href="@Url.Action("AddtoCart", "Cart",new {@id=@Model.ID,@strURL=Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>*@
 
                     <div class="mt-5">
                         <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
@@ -68,24 +100,24 @@
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                 <table class="table custom-table">
                                     @*<thead>
-                                        <th></th>
-                                        <th></th>
-                                    </thead>*@
+                            <th></th>
+                            <th></th>
+                        </thead>*@
                                     <tbody>
                                         <tr>
-                                            <th >Nhà cung cấp</th>
+                                            <th>Nhà cung cấp</th>
                                             <td>@Model.NCC.TENNCC</td>
                                         </tr>
                                         <tr>
-                                            <th >Nước sản xuất</th>
+                                            <th>Nước sản xuất</th>
                                             <td>@Model.NUOCSX</td>
                                         </tr>
                                         <tr>
-                                            <th >Quy cách</th>
+                                            <th>Quy cách</th>
                                             <td>@Model.DONGGOI</td>
                                         </tr>
                                         <tr>
-                                            <th >Đối tượng sử dụng</th>
+                                            <th>Đối tượng sử dụng</th>
                                             <td>@Model.DOITUONGSD</td>
                                         </tr>
                                         <tr>
@@ -130,9 +162,10 @@
                 {
                     if(string.Compare(item.TENTHUOC, itemgoiy) == 0)
                     {
-                        <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <div class="col-sm-6 col-lg-4 text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   ">
                             @*<span class="tag">Sale</span>*@
                             <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+                            <div style="border-bottom: 1px solid #ccc;"> </div>
                             <h3 class="text-dark"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
                             <p class="price">@item.GIABAN VND</p>
                         </div>

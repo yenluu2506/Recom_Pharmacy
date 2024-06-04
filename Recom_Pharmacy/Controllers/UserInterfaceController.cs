@@ -30,7 +30,7 @@ namespace Recom_Pharmacy.Controllers
         // GET: UserInterface
         public ActionResult Index(string search)
         {
-            var model = db.THUOCs.Where(x => x.TRANGTHAI == true).OrderByDescending(c => c.NGAYSX).Where(nv => nv.TENTHUOC.Contains(search) || search == null && nv.TRANGTHAI == true).ToList();
+            var model = db.THUOCs.Where(x => x.TRANGTHAI == true).OrderByDescending(c => c.NGAYSX).Where(nv => nv.TENTHUOC.Contains(search) || search == null && nv.TRANGTHAI == true).Take(9).ToList();
 
             return View(model);
         }
@@ -44,6 +44,18 @@ namespace Recom_Pharmacy.Controllers
             var t = from a in db.KHACHHANGs where a.Username == ac.Username select a;
             return View(t.ToList());
         }
+        public ActionResult AllProduct(string search)
+        {
+            var model = db.THUOCs
+                          .Where(x => x.TRANGTHAI == true)
+                          .OrderByDescending(c => c.NGAYSX)
+                          .Where(nv => nv.TENTHUOC.Contains(search) || (search == null && nv.TRANGTHAI == true))
+                          .Take(10)
+                          .ToList();
+
+            return View(model);
+        }
+
 
         public ActionResult ViewAllProduct(string search)
         {
@@ -74,8 +86,23 @@ namespace Recom_Pharmacy.Controllers
         public ActionResult ProductByLT(int id)
         {
             var pr = from d in db.THUOCs where d.MALOAI == id && d.TRANGTHAI == true select d;
+            ViewBag.CategoryId = id;
             return View(pr);
         }
+        public ActionResult FilterByPrice(decimal from, decimal to)
+        {
+            var filteredProducts = db.THUOCs.Where(p => p.GIABAN >= from && p.GIABAN <= to).ToList();
+            return PartialView("_ProductList", filteredProducts);
+        }
+        public ActionResult FilterByPriceByLT(decimal from, decimal to, int categoryId)
+        {
+            var filteredProducts = db.THUOCs
+                                    .Where(p => p.GIABAN >= from && p.GIABAN <= to && p.MALOAI == categoryId)
+                                    .ToList();
+            return PartialView("_ProductList", filteredProducts);
+        }
+
+
         public async Task<ActionResult> DetailProduct(int id)
         {
             List<string> sanphamgoiy = new List<string>();

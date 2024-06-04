@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Recom_Pharmacy.Models.THUOC>
 
-<div class="nonloop-block-3 owl-carousel">
+<div class="col-md-12 block-3 products-wrap">
+    <div class="nonloop-block-3 owl-carousel">
 
-    @foreach (var item in Model)
-    {
-        <div class="text-center item mb-4">
-            @*<span class="tag">Sale</span>*@
-            <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
-            <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
-            <p class="price">@item.GIABAN VND</p>
-        </div>
-    }
+        @foreach (var item in Model)
+        {
+            <div class="text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   ">
+                @*<span class="tag">Sale</span>*@
+                <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
+                <div style="border-bottom: 1px solid #ccc;"> </div>
+                <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
+                <p class="price">@item.GIABAN VND</p>
+            </div>
+        }
 
+    </div>
 </div>

@@ -19,7 +19,7 @@
                 <div class="sidebar">
                     <div class="sidebar_section">
                         <div class="sidebar_title">
-                            <h5>Product Category</h5>
+                            <h5>DANH MỤC</h5>
                         </div>
                         @Html.Action("Menu", "UserInterface")
                     </div>
@@ -27,30 +27,36 @@
                     <!-- Price Range Filtering -->
                     <div class="sidebar_section">
                         <div class="sidebar_title">
-                            <h5>Filter by Price</h5>
+                            <h5>LỌC GIÁ</h5>
                         </div>
                         <p>
                             <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                            <input type="hidden" id="FromAmount" />
+                            <input type="hidden" id="ToAmount" />
+                            <input type="hidden" id="CategoryId" value="@ViewBag.CategoryId" />
                         </p>
                         <div id="slider-range"></div>
-                        <div class="filter_button"><span>filter</span></div>
+                        <div class="filter_button"><span>LỌC</span></div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="row">
+                @*<div class="row">
                     @foreach (var item in Model)
                     {
-                        <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <div class="col-sm-6 col-lg-4 text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   ">
                             <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
-                            <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
+                            <div style="border-bottom: 1px solid #ccc;"> </div>
+                            <h3 class="text-dark"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
                             <p class="price">@item.GIABAN VND</p>
                         </div>
                     }
+                </div>*@
+                <div id="product-list" class="row">
+                    @Html.Partial("_ProductList", Model)
                 </div>
-                
             </div>
-            
+
         </div>
         <div class="row mt-5">
             <div class="col-md-12 text-center">
@@ -69,3 +75,52 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+    $(document).ready(function() {
+    var minPrice = 0; // Giá tối thiểu của sản phẩm
+    var maxPrice = 1000000; // Giá tối đa của sản phẩm
+
+    $("#slider-range").slider({
+        range: true,
+        min: minPrice,
+        max: maxPrice,
+        values: [minPrice, maxPrice],
+        slide: function(event, ui) {
+            $("#amount").val(ui.values[0].toLocaleString() + " - " + ui.values[1].toLocaleString());
+            $("#FromAmount").val(ui.values[0]);
+            $("#ToAmount").val(ui.values[1]);
+        }
+    });
+
+    $("#amount").val($("#slider-range").slider("values", 0).toLocaleString() +
+        " - " + $("#slider-range").slider("values", 1).toLocaleString());
+    $("#FromAmount").val($("#slider-range").slider("values", 0));
+    $("#ToAmount").val($("#slider-range").slider("values", 1));
+
+    // Sự kiện lọc giá
+    $(".filter_button").click(function() {
+        var fromPrice = $("#FromAmount").val();
+        var toPrice = $("#ToAmount").val();
+        var categoryId = $("#CategoryId").val();
+
+        $.ajax({
+            url: '@Url.Action("FilterByPriceByLT", "UserInterface")',
+            type: 'GET',
+            data: {
+                from: fromPrice,
+                to: toPrice,
+                categoryId: categoryId
+            },
+            success: function(data) {
+                $("#product-list").html(data);
+            }
+        });
+    });
+});
+
+</script>
