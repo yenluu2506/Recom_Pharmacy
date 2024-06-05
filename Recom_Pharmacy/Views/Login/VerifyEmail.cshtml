@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "VerifyEmail";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+@{
+    ViewBag.Title = "Verify Email";
+}
+
+@*<h2>Verify Email</h2>
+
+    @using (Html.BeginForm("VerifyEmail", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.Label("Verification Code")
+            @Html.TextBox("code", null, new { @class = "form-control" })
+            @Html.ValidationMessage("code", "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Verify</button>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }*@
+
+@using (Html.BeginForm("VerifyEmail", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h3 class="text-center mb-4" style="color: #51eaea">Email Verification</h3>
+                <div class="form-group">
+                    @Html.Label("Mã xác nhận Email", htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBox("code", null, new { @class = "form-control", @placeholder = "Nhập vào mã xác nhận" })
+                    @Html.ValidationMessage("code", "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Verify</button>
+
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="alert alert-info mt-3">
+                        @ViewBag.Message
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <div class="alert alert-danger mt-3">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

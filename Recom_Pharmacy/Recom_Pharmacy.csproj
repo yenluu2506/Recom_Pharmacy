@@ -5562,6 +5562,8 @@
     <Content Include="Views\Login\ChangepasswordConfirm.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Login\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Login\VerifyEmail.cshtml" />
+    <Content Include="Views\Login\VerifyEmailConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

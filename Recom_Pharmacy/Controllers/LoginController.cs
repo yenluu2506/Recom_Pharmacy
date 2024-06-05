@@ -53,7 +53,7 @@ namespace HieuThuoc.Controllers
 			return View();
 		}
 		[HttpPost]
-		public ActionResult Register(FormCollection collection)
+		public ActionResult Register(FormCollection collection, string email)
 		{
 			try
 			{
@@ -80,39 +80,60 @@ namespace HieuThuoc.Controllers
                     ModelState.AddModelError("Birthday", "Please enter a valid Birthday");
                 }
                 if (userName != null && passWord == conFirmPassWord)
-				{
-			
-				
-						var tem = db.KHACHHANGs.SingleOrDefault(a => a.Username == userName);
-						if (tem == null)
-						{
-							KHACHHANG cs = new KHACHHANG();
-							cs.Username = userName;
-							cs.Passwords = passWord;
-							cs.TENKH = name;
-							cs.EMAIL = Email;
-							cs.NGAYSINH = Birthday;
-							cs.DIACHI = address;
-							cs.GIOITINH = Gender;
-							cs.SDT = phoneNumber;
-							db.KHACHHANGs.Add(cs);
-							db.SaveChanges();
-						}
-			
-					else
-					{
-						ModelState.AddModelError("", "Tài khoản đã tồn tại !");
-						return View();
-					}
-					return RedirectToAction("Login", "Login");
-				}
-				else
-				{
-					ViewBag.Confirm = "Mật khẩu không trùng khớp";
-				}
+                {
+                    var tem = db.KHACHHANGs.SingleOrDefault(a => a.Username == userName);
+                    if (tem == null)
+                    {
+                        var existingUser = db.KHACHHANGs.SingleOrDefault(a => a.Username == userName);
+                        var existingEmail = db.KHACHHANGs.SingleOrDefault(a => a.EMAIL == Email);
 
-				
-			}
+                        if (existingUser != null)
+                        {
+                            ModelState.AddModelError("", "Tài khoản đã tồn tại!");
+                            return View();
+                        }
+
+                        if (existingEmail != null)
+                        {
+                            ModelState.AddModelError("", "Email đã tồn tại!");
+                            return View();
+                        }
+                        // Generate verification code
+                        string verificationCode = Guid.NewGuid().ToString();
+
+                        // Create callback URL
+                        string callbackUrl = Url.Action("VerifyEmail", "Login", new { code = verificationCode }, protocol: Request.Url.Scheme);
+
+                        // Send verification email
+                        SendVerificationEmail(Email, callbackUrl);
+
+                        // Temporarily store user data (e.g., in session or a temporary table)
+                        TempData["RegisterData"] = new
+                        {
+                            Username = userName,
+                            Password = passWord,
+                            Name = name,
+                            Birthday = Birthday,
+                            Email = Email,
+                            Address = address,
+                            Gender = Gender,
+                            PhoneNumber = phoneNumber,
+                            VerificationCode = verificationCode
+                        };
+
+                        return RedirectToAction("VerifyEmail");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Tài khoản đã tồn tại !");
+                        return View();
+                    }
+                }
+                else
+                {
+                    ViewBag.Confirm = "Mật khẩu không trùng khớp";
+                }
+            }
             catch (DbEntityValidationException ex)
             {
                 foreach (var validationErrors in ex.EntityValidationErrors)
@@ -124,6 +145,73 @@ namespace HieuThuoc.Controllers
                 }
             }
 			return View();
+        }
+
+        private void SendVerificationEmail(string email, string callbackUrl)
+        {
+            var fromAddress = new MailAddress("thienlinh0112000@gmail.com", "Pharmacy");
+            var toAddress = new MailAddress(email);
+            const string fromPassword = "yxvkzrvlohrojeco";
+            const string subject = "Email Verification";
+            string body = $"Please verify your email by clicking the following link: {callbackUrl}";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
+        }
+        public ActionResult VerifyEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VerifyEmail(string code)
+        {
+            var registerData = TempData["RegisterData"] as dynamic;
+            if (registerData != null && registerData.VerificationCode == code)
+            {
+                // Save the user to the database
+                KHACHHANG cs = new KHACHHANG
+                {
+                    Username = registerData.Username,
+                    Passwords = registerData.Password,
+                    TENKH = registerData.Name,
+                    EMAIL = registerData.Email,
+                    NGAYSINH = registerData.Birthday,
+                    DIACHI = registerData.Address,
+                    GIOITINH = registerData.Gender,
+                    SDT = registerData.PhoneNumber
+                };
+                db.KHACHHANGs.Add(cs);
+                db.SaveChanges();
+
+                ViewBag.Message = "Email verified successfully!";
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Invalid verification code.";
+                return View();
+            }
+        }
+        public ActionResult VerifyEmailConfirm()
+        {
+            return View();
         }
 
         public ActionResult Forgotpassword()
