@@ -12,6 +12,10 @@ using HieuThuoc.Models;
 using Recom_Pharmacy;
 using Recom_Pharmacy.Models;
 using System.Threading.Tasks;
+using Vonage.Messaging;
+using Vonage;
+using System.Configuration;
+using Vonage.Request;
 
 namespace HieuThuoc.Controllers
 {
@@ -86,6 +90,7 @@ namespace HieuThuoc.Controllers
                     {
                         var existingUser = db.KHACHHANGs.SingleOrDefault(a => a.Username == userName);
                         var existingEmail = db.KHACHHANGs.SingleOrDefault(a => a.EMAIL == Email);
+                        var existingSDT = db.KHACHHANGs.SingleOrDefault(a => a.SDT == phoneNumber);
 
                         if (existingUser != null)
                         {
@@ -98,14 +103,22 @@ namespace HieuThuoc.Controllers
                             ModelState.AddModelError("", "Email đã tồn tại!");
                             return View();
                         }
+                        if (existingSDT != null)
+                        {
+                            ModelState.AddModelError("", "Số điện thoại đã tồn tại!");
+                            return View();
+                        }
                         // Generate verification code
                         string verificationCode = Guid.NewGuid().ToString();
+                        //string phoneVerificationCode = new Random().Next(100000, 999999).ToString();
 
                         // Create callback URL
                         string callbackUrl = Url.Action("VerifyEmail", "Login", new { code = verificationCode }, protocol: Request.Url.Scheme);
 
                         // Send verification email
                         SendVerificationEmail(Email, callbackUrl);
+                        //send verification phone
+                        //SendVerificationSms(phoneNumber, phoneVerificationCode);
 
                         // Temporarily store user data (e.g., in session or a temporary table)
                         TempData["RegisterData"] = new
@@ -118,7 +131,9 @@ namespace HieuThuoc.Controllers
                             Address = address,
                             Gender = Gender,
                             PhoneNumber = phoneNumber,
-                            VerificationCode = verificationCode
+                            VerificationCode = verificationCode,
+                            ExpiryDate = DateTime.Now.AddMinutes(3)
+                            //PhoneVerificationCode = phoneVerificationCode
                         };
 
                         return RedirectToAction("VerifyEmail");
@@ -173,6 +188,33 @@ namespace HieuThuoc.Controllers
                 smtp.Send(message);
             }
         }
+        //private async Task SendVerificationSms(string phoneNumber, string verificationCode)
+        //{
+        //    // Lấy thông tin cấu hình từ appSettings
+        //    var apiKey = ConfigurationManager.AppSettings["NexmoApiKey"];
+        //    var apiSecret = ConfigurationManager.AppSettings["NexmoApiSecret"];
+        //    var fromPhoneNumber = ConfigurationManager.AppSettings["NexmoPhoneNumber"];
+
+        //    // Tạo cấu hình cho Vonage client
+        //    var credentials = Credentials.FromApiKeyAndSecret(apiKey, apiSecret);
+        //    var client = new VonageClient(credentials);
+
+        //    // Tạo yêu cầu gửi SMS
+        //    var request = new SendSmsRequest
+        //    {
+        //        To = phoneNumber,
+        //        From = fromPhoneNumber,
+        //        Text = $"Mã xác nhận của bạn là: {verificationCode}"
+        //    };
+
+        //    // Gửi SMS và lấy phản hồi
+        //    var response = await client.SmsClient.SendAnSmsAsync(request);
+
+        //    if (response.Messages[0].Status != "0")
+        //    {
+        //        throw new Exception($"Failed to send SMS: {response.Messages[0].ErrorText}");
+        //    }
+        //}
         public ActionResult VerifyEmail()
         {
             return View();
@@ -183,31 +225,101 @@ namespace HieuThuoc.Controllers
         public ActionResult VerifyEmail(string code)
         {
             var registerData = TempData["RegisterData"] as dynamic;
-            if (registerData != null && registerData.VerificationCode == code)
+            if (registerData != null && (registerData.VerificationCode == code))
             {
                 // Save the user to the database
-                KHACHHANG cs = new KHACHHANG
-                {
-                    Username = registerData.Username,
-                    Passwords = registerData.Password,
-                    TENKH = registerData.Name,
-                    EMAIL = registerData.Email,
-                    NGAYSINH = registerData.Birthday,
-                    DIACHI = registerData.Address,
-                    GIOITINH = registerData.Gender,
-                    SDT = registerData.PhoneNumber
-                };
-                db.KHACHHANGs.Add(cs);
-                db.SaveChanges();
+                //KHACHHANG cs = new KHACHHANG
+                //{
+                //    Username = registerData.Username,
+                //    Passwords = registerData.Password,
+                //    TENKH = registerData.Name,
+                //    EMAIL = registerData.Email,
+                //    NGAYSINH = registerData.Birthday,
+                //    DIACHI = registerData.Address,
+                //    GIOITINH = registerData.Gender,
+                //    SDT = registerData.PhoneNumber
+                //};
+                //db.KHACHHANGs.Add(cs);
+                //db.SaveChanges();
 
-                ViewBag.Message = "Email verified successfully!";
-                return RedirectToAction("Login", "Login");
+                //ViewBag.Message = "Email verified successfully!";
+                //return RedirectToAction("Login", "Login");
+                if (DateTime.Now <= registerData.ExpiryDate)
+                {
+                    // Mã xác nhận hợp lệ và chưa hết hạn
+                    // Thêm người dùng vào cơ sở dữ liệu và chuyển hướng
+                    KHACHHANG cs = new KHACHHANG
+                    {
+                        Username = registerData.Username,
+                        Passwords = registerData.Password,
+                        TENKH = registerData.Name,
+                        EMAIL = registerData.Email,
+                        NGAYSINH = registerData.Birthday,
+                        DIACHI = registerData.Address,
+                        GIOITINH = registerData.Gender,
+                        SDT = registerData.PhoneNumber
+                    };
+                    db.KHACHHANGs.Add(cs);
+                    db.SaveChanges();
+
+                    ViewBag.Message = "Email verified successfully!";
+                    return RedirectToAction("Login", "Login");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Mã xác nhận đã hết hạn. Vui lòng yêu cầu gửi lại mã.";
+                    ViewBag.ShowResendButton = true; // Hiển thị nút "Gửi lại mã"
+                }
             }
             else
             {
-                ViewBag.ErrorMessage = "Invalid verification code.";
-                return View();
+                ViewBag.ErrorMessage = "Mã xác nhận không chính xác hoặc đã hết hạn. Vui lòng nhập lại.";
+                // Tạo một đối tượng mới với mã xác nhận mới và thời gian hết hạn mới
+                var newRegisterData = new
+                {
+                    Username = registerData.Username,
+                    Password = registerData.Password,
+                    Name = registerData.Name,
+                    Birthday = registerData.Birthday,
+                    Email = registerData.Email,
+                    Address = registerData.Address,
+                    Gender = registerData.Gender,
+                    PhoneNumber = registerData.PhoneNumber,
+                    VerificationCode = Guid.NewGuid().ToString(),
+                    ExpiryDate = DateTime.Now.AddMinutes(3) // Ví dụ: hết hạn sau 30 phút
+                };
+
+                // Cập nhật lại TempData với đối tượng mới
+                TempData["RegisterData"] = newRegisterData;
+
+                ViewBag.ShowResendButton = true; // Hiển thị nút "Gửi lại mã"
+            } 
+            return View();
+        }
+        public ActionResult ResendVerificationEmail()
+        {
+            var registerData = TempData["RegisterData"] as dynamic;
+            if (registerData != null)
+            {
+                // Cập nhật lại mã xác nhận và thời gian hết hạn mới
+                registerData.VerificationCode = Guid.NewGuid().ToString();
+                registerData.ExpiryDate = DateTime.Now.AddMinutes(3); // Ví dụ: hết hạn sau 30 phút
+
+                // Cập nhật lại TempData
+                TempData["RegisterData"] = registerData;
+
+                // Gửi email mới
+                string newCallbackUrl = Url.Action("VerifyEmail", "Login", new { code = registerData.VerificationCode }, protocol: Request.Url.Scheme);
+                SendVerificationEmail(registerData.Email, newCallbackUrl);
+
+                ViewBag.Message = "Mã xác nhận mới đã được gửi qua email.";
+                return RedirectToAction("VerifyEmail");
             }
+            else
+            {
+                ViewBag.ErrorMessage = "Có lỗi xảy ra. Vui lòng thử lại sau.";
+            }
+            return View("VerifyEmail");
         }
         public ActionResult VerifyEmailConfirm()
         {

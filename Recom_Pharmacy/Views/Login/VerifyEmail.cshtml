@@ -8,34 +8,6 @@
     ViewBag.Title = "Verify Email";
 }
 
-@*<h2>Verify Email</h2>
-
-    @using (Html.BeginForm("VerifyEmail", "Login", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-group">
-            @Html.Label("Verification Code")
-            @Html.TextBox("code", null, new { @class = "form-control" })
-            @Html.ValidationMessage("code", "", new { @class = "text-danger" })
-        </div>
-
-        <button type="submit" class="btn btn-primary">Verify</button>
-    }
-
-    @if (!string.IsNullOrEmpty(ViewBag.Message))
-    {
-        <div class="alert alert-info">
-            @ViewBag.Message
-        </div>
-    }
-
-    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-    {
-        <div class="alert alert-danger">
-            @ViewBag.ErrorMessage
-        </div>
-    }*@
-
 @using (Html.BeginForm("VerifyEmail", "Login", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -50,6 +22,13 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Verify</button>
+
+                @if (ViewBag.ShowResendButton != null && ViewBag.ShowResendButton)
+                {
+                    <div class="text-center mt-3">
+                        <a href="@Url.Action("ResendVerificationEmail", "Login")" class="btn btn-link">Gửi lại mã</a>
+                    </div>
+                }
 
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
