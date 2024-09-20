@@ -21,19 +21,13 @@
 
 <div class="site-section">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-12">
-                <div class="bg-light rounded p-3">
-                    <p class="mb-0">Bạn đã có tài khoản chưa? <a href="@Url.Action("Login", "Login")" class="d-inline-block">BẤM VÀO ĐÂY </a> để đăng nhập</p>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">Chi tiết thanh toán</h2>
                 <div class="p-3 p-lg-5 border">
                     @using (Html.BeginForm())
                     {
+
                         @Html.ValidationSummary(true)
                         <div class="form-group">
                             <label for="c_country" class="text-black">Họ tên<span class="text-danger">*</span></label>
@@ -54,7 +48,6 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="c_address" class="text-black">Địa chỉ <span class="text-danger">*</span></label>
-                                @*<input type="text" value="@cus.TINHTHANH.TENTINH" class="form-control" id="c_address" name="c_address" placeholder="Street address">*@
                             </div>
                         </div>
 
@@ -86,10 +79,10 @@
                         <div class="form-group" id="load_send"></div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-lg btn-block" id="btnCheckOut">
-                                Place
-                                Order
+                                Đặt hàng
                             </button>
                         </div>
+                        <input type="number" name="pointsToUse" value=@ViewBag.PointsUsed hidden />
                     }
                 </div>
             </div>
@@ -97,25 +90,33 @@
 
                 <div class="row mb-5">
                     <div class="col-md-12">
-                        <h2 class="h3 mb-3 text-black">Your Order</h2>
+                        <h2 class="h3 mb-3 text-black">Đơn hàng</h2>
                         <div class="p-3 p-lg-5 border">
                             <table class="table site-block-order-table mb-5">
                                 <thead>
-                                    <th>Product</th>
-                                    <th>Total</th>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>ĐVT</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
                                         <tr>
                                             <td>@item.tenThuoc <strong class="mx-2">x</strong> @item.soLuong</td>
+                                            <td>@item.tendvt</td>
                                             <td>@String.Format("{0:0,0}", @item.tongGia)</td>
                                         </tr>
 
                                     }
                                     <tr>
-                                        <td class="text-black font-weight-bold"><strong>Tổng tiền đặt hàng</strong></td>
-                                        <td class="text-black font-weight-bold"><strong>@String.Format("{0:0,0}", ViewBag.ToTalPrice)</strong></td>
+                                        <td class="text-black font-weight-bold">Giảm giá</td>
+                                        <td class="text-black">@String.Format("{0:0,0}", ViewBag.PointsUsed)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-black font-weight-bold">Tổng tiền đặt hàng</td>
+                                        <td class="text-black">@String.Format("{0:0,0}", ViewBag.FinalPriceAfterPoints)</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -163,8 +164,8 @@
                 }
             }
         }
-            //function OnFailure() {
+                //function OnFailure() {
 
-            //}
+                //}
     </script>
 }

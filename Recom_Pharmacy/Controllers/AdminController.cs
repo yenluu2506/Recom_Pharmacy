@@ -29,7 +29,7 @@ namespace Recom_Pharmacy.Controllers
             //{
 
             //    dateX[i] = (dateTimeNow.Month.ToString() + "/" + dateTimeNow.Year.ToString()).ToString();
-            //    var temp = db.Orders.Where(a => a.Orderdate.Value.Month == dateTimeNow.Month).Sum(s => s.Totalprice);
+            //    var temp = db.HOADONXUATs.Where(a => a.NGAYXUAT.Month == dateTimeNow.Month).Sum(s => s.TONGTIEN);
             //    if (temp == null)
             //    {
             //        temp = 0;
@@ -40,14 +40,59 @@ namespace Recom_Pharmacy.Controllers
             //ViewBag.dateX = dateX;
             //ViewBag.data = data;
 
-            //// DatachartLine();
+            //DatachartLine();
             //var ac = (Admin)Session["Account"];
             //if (ac == null)
             //{
             //    return RedirectToAction("Login", "Admin");
             //}
             //else { return View(); }
-            return View();
+            //return View();
+
+
+            //DateTime dateTimeNow = DateTime.Now.Date;
+            //dateTimeNow = dateTimeNow.AddYears(-1);
+            DateTime startDate = new DateTime(2024, 1, 1);
+
+            string[] dateX = new string[12];
+            int[] data = new int[12];
+
+            for (int i = 0; i < 12; i++)
+            {
+                dateX[i] = startDate.Month.ToString() + "/" + startDate.Year.ToString();
+                var temp = db.HOADONXUATs
+                              .Where(a => a.NGAYXUAT.Month == startDate.Month && a.NGAYXUAT.Year == startDate.Year)
+                              .Sum(s => (int?)s.TONGTIEN) ?? 0;
+                data[i] = temp;
+                startDate = startDate.AddMonths(1);
+            }
+
+            ViewBag.DateX = dateX;
+            ViewBag.Data = data;
+
+            var topSellingProducts = db.CHITIETHDXes
+                               .GroupBy(h => h.THUOC)
+                               .Select(g => new
+                               {
+                                   ProductName = g.Key.TENTHUOC,
+                                   TotalSold = g.Sum(h => h.SOLUONG)
+                               })
+                               .OrderByDescending(g => g.TotalSold)
+                               .Take(5)
+                               .ToList();
+
+            ViewBag.TopSellingProducts = topSellingProducts.Select(p => p.ProductName).ToArray();
+            ViewBag.TopSellingData = topSellingProducts.Select(p => p.TotalSold).ToArray();
+
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Login()
         {
@@ -115,7 +160,7 @@ namespace Recom_Pharmacy.Controllers
 
         public ActionResult ListOrder()
         {
-            var temp = db.HOADONXUATs.Where(o => o.TRANGTHAI == false).ToList();
+            var temp = db.HOADONXUATs.Where(o => o.HOANTHANH == false && o.TRANGTHAI == true).ToList();
             List<OrderEntity> lisorder = new List<OrderEntity>();
             foreach (var item in temp)
             {
@@ -125,7 +170,16 @@ namespace Recom_Pharmacy.Controllers
 
 
             }
-            return View(lisorder);
+            
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(lisorder);
+            }
         }
 
         // xacs nhan
@@ -160,16 +214,47 @@ namespace Recom_Pharmacy.Controllers
             string action = fc["action"];
             if (action == "Duyet")
             {
-                tem.XULY = true;
+                tem.HOANTHANH = true;
                 tem.TTGIAOHANG = true;
+                tem.DATHANHTOAN = true;
+                // Cập nhật điểm tích lũy khi XULY = TRUE
+                if ((bool)tem.HOANTHANH)
+                {
+                    // Chuyển đổi 0.01 thành kiểu decimal
+                    double conversionRate = 0.01;
+                    double totalPoints = (double)tem.TONGTIEN * conversionRate;
+                    var customer = db.KHACHHANGs.SingleOrDefault(c => c.ID == tem.MAKH);
+                    if (customer != null)
+                    {
+                        customer.TICHDIEM +=(int)totalPoints;
+                    }
+                }
             }
             else if (action == "KhongDuyet")
             {
-                tem.XULY = false;
+                tem.TRANGTHAI = false;
+                tem.HOANTHANH = true;
                 tem.TTGIAOHANG = false;
+                // Cập nhật điểm tích lũy khi HOANTHANH = FALSE
+                if ((bool)tem.HOANTHANH)
+                {
+                    // Chuyển đổi 0.01 thành kiểu decimal
+                    double conversionRate = 0.01;
+                    double totalPoints = (double)tem.TONGTIEN * conversionRate;
+                    var customer = db.KHACHHANGs.SingleOrDefault(c => c.ID == tem.MAKH);
+                 
+                    if (customer != null)
+                    {
+                        customer.TICHDIEM += tem.DIEMTLSD;
+                    }
+                }
             }
 
             tem.GHICHU = fc["note"];
+            if(tem.DATHANHTOAN == true && tem.TRANGTHAI == false && tem.HOANTHANH==true && tem.TTGIAOHANG == false)//neu admin huy don hang da thanh toan
+            {
+                tem.GHICHU += " - Hoàn tiền";
+            }
             db.SaveChanges();
 
             return RedirectToAction("ListOrder");
@@ -200,7 +285,15 @@ namespace Recom_Pharmacy.Controllers
             }
 
 
-            return View(lisorder);
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(lisorder);
+            }
         }
 
         // xacs nhan

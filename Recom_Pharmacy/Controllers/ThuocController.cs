@@ -1,16 +1,14 @@
-﻿using System;
+﻿using PagedList;
+using Recom_Pharmacy.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using PagedList;
-using System.Web.UI;
-using Recom_Pharmacy.Models;
 using Filter = Recom_Pharmacy.Models.Common.Filter;
-using System.Data.Entity.Validation;
 
 namespace Recom_Pharmacy.Controllers
 {
@@ -22,7 +20,6 @@ namespace Recom_Pharmacy.Controllers
         public ActionResult Index(string Searchtext, int? page, int? SelectedLT, int? SelectedNCC)
         {
             ViewBag.LoaiThuoc = new SelectList(db.LOAITHUOCs.ToList(), "ID", "TENLOAI");
-            ViewBag.NCC = new SelectList(db.NCCs.ToList(), "ID", "TENNCC");
             var pageSize = 10;
             if (page == null)
             {
@@ -41,30 +38,27 @@ namespace Recom_Pharmacy.Controllers
             {
                 items = items.Where(x => x.LOAITHUOC.ID == SelectedLT.Value);
             }
-            if (SelectedNCC.HasValue)
-            {
-                items = items.Where(x => x.NCC.ID == SelectedNCC.Value);
-            }
-            foreach (var item in items)
-            {
-                if (item.SOLUONG == 0)
-                {
-                    item.TRANGTHAI = false;
-                }
-            }
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.SelectedLT = SelectedLT;
             ViewBag.SelectedNCC = SelectedNCC;
             ViewBag.page = page;
-            return View(items);
+            //return View(items);
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(items);
+            }
         }
         //// GET: Thuoc/Create
         public ActionResult Add()
         {
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI");
-            ViewBag.MANCC = new SelectList(db.NCCs, "ID", "TENNCC");
             return View();
         }
 
@@ -73,15 +67,28 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,SOLUONG,TRANGTHAI")] THUOC tHUOC)
+        public ActionResult Add([Bind(Include = "ID,ANH,MALOAI,MADVT,TENTHUOC,TENCT,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,MOTA,GIANHAP,GIABAN,SOLUONG,TRANGTHAI")] THUOC tHUOC, List<int> unitSelected, List<int> numberOfUnit)
         {
             if (ModelState.IsValid)
             {
-                
+
                 try
                 {
-                    tHUOC.SOLUONG = 0;
                     db.THUOCs.Add(tHUOC);
+                    if (unitSelected != null && unitSelected.Count > 0 && numberOfUnit.Count > 0)
+                    {
+                        for (int i = 0; i < unitSelected.Count; i++)
+                        {
+
+                            db.QUYDOIDVs.Add(new QUYDOIDV
+                            {
+                                MATHUOC = tHUOC.ID,
+                                MADVT = unitSelected[i],
+                                TILEQUYDOI = numberOfUnit[i]
+                            });
+
+                        }
+                    }
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -98,7 +105,6 @@ namespace Recom_Pharmacy.Controllers
             }
 
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI", tHUOC.MALOAI);
-            ViewBag.MANCC = new SelectList(db.NCCs, "ID", "TENNCC", tHUOC.MANCC);
             return View(tHUOC);
         }
 
@@ -115,7 +121,7 @@ namespace Recom_Pharmacy.Controllers
                 return HttpNotFound();
             }
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI", tHUOC.MALOAI);
-            ViewBag.MANCC = new SelectList(db.NCCs, "ID", "TENNCC", tHUOC.MANCC);
+            ViewBag.DVT = new SelectList(db.QUYDOIDVs, "MATHUOC", "MADVT", "TILEQUYDOI", tHUOC.ID);
             return View(tHUOC);
         }
 
@@ -124,7 +130,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ANH,MALOAI,MADVT,MANCC,TENTHUOC,HINHTHUC,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,GIANHAP,GIABAN,SOLUONG,TRANGTHAI")] THUOC tHUOC)
+        public ActionResult Edit([Bind(Include = "ID,ANH,MALOAI,MADVT,TENTHUOC,TENCT,DONGGOI,NGAYSX,HSD,NHASX,NUOCSX,DOITUONGSD,CONGDUNG,MOTA,GIABAN,TRANGTHAI")] THUOC tHUOC)
         {
             if (ModelState.IsValid)
             {
@@ -145,10 +151,9 @@ namespace Recom_Pharmacy.Controllers
                     }
                 }
 
-                
+
             }
             ViewBag.MALOAI = new SelectList(db.LOAITHUOCs, "ID", "TENLOAI", tHUOC.MALOAI);
-            ViewBag.MANCC = new SelectList(db.NCCs, "ID", "TENNCC", tHUOC.MANCC);
             return View(tHUOC);
         }
 
@@ -172,7 +177,7 @@ namespace Recom_Pharmacy.Controllers
             var item = db.THUOCs.Find(id);
             if (item != null)
             {
-                db.THUOCs.Remove(item);
+                item.TRANGTHAI = false;
                 db.SaveChanges();
                 return Json(new { success = true });
             }
@@ -190,13 +195,19 @@ namespace Recom_Pharmacy.Controllers
                     foreach (var item in items)
                     {
                         var obj = db.THUOCs.Find(Convert.ToInt32(item));
-                        db.THUOCs.Remove(obj);
+                        obj.TRANGTHAI = false;
                         db.SaveChanges();
                     }
                 }
                 return Json(new { success = true });
             }
             return Json(new { success = false });
+        }
+
+        public ActionResult Partial_DVT()
+        {
+            ViewBag.dvt = new SelectList(db.DONVITINHs.ToList(), "ID", "TENDVT");
+            return PartialView();
         }
     }
 }

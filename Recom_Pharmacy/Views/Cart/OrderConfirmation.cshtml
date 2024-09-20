@@ -3,6 +3,14 @@
     ViewBag.Title = "OrderConfirmation";
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
 
 <div class="bg-light py-3">
     <div class="container">

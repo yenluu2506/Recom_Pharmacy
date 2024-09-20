@@ -14,21 +14,21 @@ namespace Recom_Pharmacy.Models
     
     public partial class CTTONKHO
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CTTONKHO()
-        {
-            this.CHITIETHDNs = new HashSet<CHITIETHDN>();
-        }
-    
         public int ID { get; set; }
-        public Nullable<int> MATHUOC { get; set; }
-        public Nullable<int> MATONKHO { get; set; }
+        public int MATHUOC { get; set; }
+        public int DVT { get; set; }
+        public int MAKHO { get; set; }
+        public string KE { get; set; }
+        public string LOSX { get; set; }
+        public Nullable<System.DateTime> NGAYSX { get; set; }
+        public Nullable<System.DateTime> NGAYHH { get; set; }
         public Nullable<int> SLTON { get; set; }
         public bool TRANGTHAI { get; set; }
+        public Nullable<decimal> GIANHAP { get; set; }
+        public Nullable<decimal> GIABAN { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }
+        public virtual DONVITINH DONVITINH { get; set; }
+        public virtual KHO KHO { get; set; }
         public virtual THUOC THUOC { get; set; }
-        public virtual TONKHO TONKHO { get; set; }
     }
 }

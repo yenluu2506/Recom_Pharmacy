@@ -20,41 +20,56 @@
     <Property Name="MOTACT" Type="nvarchar(max)" />
     <Property Name="ANH" Type="nvarchar" MaxLength="500" />
   </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MAKH" Type="int" />
+    <Property Name="MATHUOC" Type="int" />
+    <Property Name="SOLUONG" Type="int" />
+  </EntityType>
   <EntityType Name="CHITIETHDN">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MAHDN" Type="int" />
-    <Property Name="MACTTONKHO" Type="int" />
-    <Property Name="MATHUOC" Type="int" />
+    <Property Name="MAHDN" Type="int" Nullable="false" />
+    <Property Name="MATHUOC" Type="int" Nullable="false" />
     <Property Name="SOLUONG" Type="int" Nullable="false" />
     <Property Name="DONGIA" Type="money" Nullable="false" />
     <Property Name="MADVT" Type="int" Nullable="false" />
-    <Property Name="CHIETKHAU" Type="float" Nullable="false" />
+    <Property Name="LOSX" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CHITIETHDX">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MAHDX" Type="int" />
-    <Property Name="MATHUOC" Type="int" />
+    <Property Name="MAHDX" Type="int" Nullable="false" />
+    <Property Name="MATHUOC" Type="int" Nullable="false" />
     <Property Name="SOLUONG" Type="int" Nullable="false" />
+    <Property Name="LOSX" Type="nvarchar" MaxLength="50" />
     <Property Name="DONGIA" Type="money" Nullable="false" />
-    <Property Name="MADVT" Type="int" />
-    <Property Name="CHIETKHAU" Type="float" />
-    <Property Name="TONGTIEN" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="MADVT" Type="int" Nullable="false" />
+    <Property Name="TONGTIEN" Type="decimal" Precision="18" Scale="0" Nullable="false" />
   </EntityType>
   <EntityType Name="CTTONKHO">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MATHUOC" Type="int" />
-    <Property Name="MATONKHO" Type="int" />
+    <Property Name="MATHUOC" Type="int" Nullable="false" />
+    <Property Name="DVT" Type="int" Nullable="false" />
+    <Property Name="MAKHO" Type="int" Nullable="false" />
+    <Property Name="KE" Type="nvarchar" MaxLength="50" />
+    <Property Name="LOSX" Type="nvarchar" MaxLength="200" />
+    <Property Name="NGAYSX" Type="date" />
+    <Property Name="NGAYHH" Type="date" />
     <Property Name="SLTON" Type="int" />
     <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
+    <Property Name="GIANHAP" Type="money" />
+    <Property Name="GIABAN" Type="money" />
   </EntityType>
   <EntityType Name="DONVITINH">
     <Key>
@@ -81,6 +96,8 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SOHD" Type="nvarchar" MaxLength="50" />
     <Property Name="MATDV" Type="int" Nullable="false" />
+    <Property Name="MAKHO" Type="int" />
+    <Property Name="MANCC" Type="int" />
     <Property Name="NGAYNHAP" Type="date" Nullable="false" />
     <Property Name="TONGTIEN" Type="money" Nullable="false" />
     <Property Name="MALOAITIEN" Type="nvarchar" MaxLength="500" />
@@ -95,14 +112,18 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MAKH" Type="int" />
+    <Property Name="MATDV" Type="int" />
     <Property Name="NGAYXUAT" Type="date" Nullable="false" />
     <Property Name="TONGTIEN" Type="money" Nullable="false" />
     <Property Name="VAT" Type="float" />
     <Property Name="NGAYGIAOHANG" Type="date" />
+    <Property Name="DIEMTLSD" Type="int" />
     <Property Name="TTGIAOHANG" Type="bit" />
+    <Property Name="DATHANHTOAN" Type="bit" />
     <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
-    <Property Name="XULY" Type="bit" />
+    <Property Name="HOANTHANH" Type="bit" />
     <Property Name="GHICHU" Type="nvarchar" MaxLength="100" />
+    <Property Name="BANLE" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="KHACHHANG">
     <Key>
@@ -116,10 +137,23 @@
     <Property Name="NGAYSINH" Type="date" />
     <Property Name="MATINH" Type="int" />
     <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+    <Property Name="TICHDIEM" Type="int" />
+    <Property Name="HANGTV" Type="nvarchar" MaxLength="100" />
     <Property Name="Username" Type="nvarchar" MaxLength="400" />
     <Property Name="Passwords" Type="nvarchar" MaxLength="400" />
     <Property Name="Picture" Type="nvarchar(max)" />
     <Property Name="Payment" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="KHO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENKHO" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="NGAYLAP" Type="datetime" Nullable="false" />
+    <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="20" />
+    <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="LOAITHUOC">
     <Key>
@@ -157,6 +191,33 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TENQG" Type="nvarchar" MaxLength="500" Nullable="false" />
   </EntityType>
+  <EntityType Name="QUYDOIDV">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MATHUOC" Type="int" Nullable="false" />
+    <Property Name="MADVT" Type="int" Nullable="false" />
+    <Property Name="TILEQUYDOI" Type="int" />
+    <Property Name="DONVIBANONL" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_SEQUENCE">
+    <Key>
+      <PropertyRef Name="SEQNAME" />
+    </Key>
+    <Property Name="SEQNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SEQVALUE" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="THUOC">
     <Key>
       <PropertyRef Name="ID" />
@@ -164,9 +225,8 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ANH" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MALOAI" Type="int" Nullable="false" />
-    <Property Name="MANCC" Type="int" Nullable="false" />
     <Property Name="TENTHUOC" Type="nvarchar" MaxLength="500" Nullable="false" />
-    <Property Name="HINHTHUC" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="TENCT" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="DONGGOI" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="NGAYSX" Type="date" Nullable="false" />
     <Property Name="HSD" Type="date" Nullable="false" />
@@ -174,9 +234,8 @@
     <Property Name="NUOCSX" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="DOITUONGSD" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="CONGDUNG" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="GIANHAP" Type="money" />
+    <Property Name="MOTA" Type="nvarchar(max)" />
     <Property Name="GIABAN" Type="money" />
-    <Property Name="SOLUONG" Type="int" Nullable="false" />
     <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="TINHTHANH">
@@ -185,17 +244,6 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TENTINH" Type="nvarchar" MaxLength="500" />
-  </EntityType>
-  <EntityType Name="TONKHO">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TENKHO" Type="nvarchar" MaxLength="300" Nullable="false" />
-    <Property Name="NGAYLAP" Type="datetime" Nullable="false" />
-    <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
-    <Property Name="SDT" Type="nvarchar" MaxLength="20" />
-    <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="TRINHDUOCVIEN">
     <Key>
@@ -209,15 +257,27 @@
     <Property Name="DIACHI" Type="nvarchar" MaxLength="50" />
     <Property Name="SDT" Type="nvarchar" MaxLength="20" />
   </EntityType>
-  <Association Name="FK_CHITIETHDN_CTTONKHO">
-    <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="0..1" />
-    <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
+  <Association Name="FK_Cart_KHACHHANG">
+    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="CTTONKHO">
+      <Principal Role="KHACHHANG">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="CHITIETHDN">
-        <PropertyRef Name="MACTTONKHO" />
+      <Dependent Role="Cart">
+        <PropertyRef Name="MAKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_THUOC">
+    <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUOC">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="MATHUOC" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -234,9 +294,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDN_HOADONNHAP">
-    <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="1" />
     <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HOADONNHAP">
@@ -248,7 +306,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDN_THUOC">
-    <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+    <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
     <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="THUOC">
@@ -260,7 +318,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDX_DONVITINH">
-    <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="0..1" />
+    <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
     <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DONVITINH">
@@ -272,7 +330,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDX_HOADONXUAT">
-    <End Role="HOADONXUAT" Type="Self.HOADONXUAT" Multiplicity="0..1" />
+    <End Role="HOADONXUAT" Type="Self.HOADONXUAT" Multiplicity="1" />
     <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HOADONXUAT">
@@ -284,7 +342,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CHITIETHDX_THUOC">
-    <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+    <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
     <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="THUOC">
@@ -295,8 +353,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CTTONKHO_DONVITINH">
+    <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
+    <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONVITINH">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CTTONKHO">
+        <PropertyRef Name="DVT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CTTONKHO_THUOC">
-    <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+    <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
     <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="THUOC">
@@ -308,14 +378,38 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CTTONKHO_TONKHO">
-    <End Role="TONKHO" Type="Self.TONKHO" Multiplicity="0..1" />
+    <End Role="KHO" Type="Self.KHO" Multiplicity="1" />
     <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="TONKHO">
+      <Principal Role="KHO">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="CTTONKHO">
-        <PropertyRef Name="MATONKHO" />
+        <PropertyRef Name="MAKHO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOADONNHAP_KHO">
+    <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
+    <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHO">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADONNHAP">
+        <PropertyRef Name="MAKHO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOADONNHAP_NCC">
+    <End Role="NCC" Type="Self.NCC" Multiplicity="0..1" />
+    <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NCC">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADONNHAP">
+        <PropertyRef Name="MANCC" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -379,6 +473,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_QUYDOIDV_DONVITINH">
+    <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
+    <End Role="QUYDOIDV" Type="Self.QUYDOIDV" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONVITINH">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="QUYDOIDV">
+        <PropertyRef Name="MADVT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUYDOIDV_THUOC">
+    <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
+    <End Role="QUYDOIDV" Type="Self.QUYDOIDV" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THUOC">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="QUYDOIDV">
+        <PropertyRef Name="MATHUOC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_THUOC_LOAITHUOC">
     <End Role="LOAITHUOC" Type="Self.LOAITHUOC" Multiplicity="1" />
     <End Role="THUOC" Type="Self.THUOC" Multiplicity="*" />
@@ -388,18 +506,6 @@
       </Principal>
       <Dependent Role="THUOC">
         <PropertyRef Name="MALOAI" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_THUOC_NCC">
-    <End Role="NCC" Type="Self.NCC" Multiplicity="1" />
-    <End Role="THUOC" Type="Self.THUOC" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NCC">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="THUOC">
-        <PropertyRef Name="MANCC" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -418,6 +524,7 @@
   <EntityContainer Name="RecomPharmacyModelStoreContainer">
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETHDN" EntityType="Self.CHITIETHDN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETHDX" EntityType="Self.CHITIETHDX" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CTTONKHO" EntityType="Self.CTTONKHO" Schema="dbo" store:Type="Tables" />
@@ -426,17 +533,24 @@
     <EntitySet Name="HOADONNHAP" EntityType="Self.HOADONNHAP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HOADONXUAT" EntityType="Self.HOADONXUAT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOAITHUOC" EntityType="Self.LOAITHUOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MENUTHUOC" EntityType="Self.MENUTHUOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NCC" EntityType="Self.NCC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QUOCGIA" EntityType="Self.QUOCGIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QUYDOIDV" EntityType="Self.QUYDOIDV" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SYS_SEQUENCE" EntityType="Self.SYS_SEQUENCE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="THUOC" EntityType="Self.THUOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TINHTHANH" EntityType="Self.TINHTHANH" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="TONKHO" EntityType="Self.TONKHO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TRINHDUOCVIEN" EntityType="Self.TRINHDUOCVIEN" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_CHITIETHDN_CTTONKHO" Association="Self.FK_CHITIETHDN_CTTONKHO">
-      <End Role="CTTONKHO" EntitySet="CTTONKHO" />
-      <End Role="CHITIETHDN" EntitySet="CHITIETHDN" />
+    <AssociationSet Name="FK_Cart_KHACHHANG" Association="Self.FK_Cart_KHACHHANG">
+      <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_THUOC" Association="Self.FK_Cart_THUOC">
+      <End Role="THUOC" EntitySet="THUOC" />
+      <End Role="Cart" EntitySet="Cart" />
     </AssociationSet>
     <AssociationSet Name="FK_CHITIETHDN_DONVITINH" Association="Self.FK_CHITIETHDN_DONVITINH">
       <End Role="DONVITINH" EntitySet="DONVITINH" />
@@ -462,13 +576,25 @@
       <End Role="THUOC" EntitySet="THUOC" />
       <End Role="CHITIETHDX" EntitySet="CHITIETHDX" />
     </AssociationSet>
+    <AssociationSet Name="FK_CTTONKHO_DONVITINH" Association="Self.FK_CTTONKHO_DONVITINH">
+      <End Role="DONVITINH" EntitySet="DONVITINH" />
+      <End Role="CTTONKHO" EntitySet="CTTONKHO" />
+    </AssociationSet>
     <AssociationSet Name="FK_CTTONKHO_THUOC" Association="Self.FK_CTTONKHO_THUOC">
       <End Role="THUOC" EntitySet="THUOC" />
       <End Role="CTTONKHO" EntitySet="CTTONKHO" />
     </AssociationSet>
     <AssociationSet Name="FK_CTTONKHO_TONKHO" Association="Self.FK_CTTONKHO_TONKHO">
-      <End Role="TONKHO" EntitySet="TONKHO" />
+      <End Role="KHO" EntitySet="KHO" />
       <End Role="CTTONKHO" EntitySet="CTTONKHO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOADONNHAP_KHO" Association="Self.FK_HOADONNHAP_KHO">
+      <End Role="KHO" EntitySet="KHO" />
+      <End Role="HOADONNHAP" EntitySet="HOADONNHAP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOADONNHAP_NCC" Association="Self.FK_HOADONNHAP_NCC">
+      <End Role="NCC" EntitySet="NCC" />
+      <End Role="HOADONNHAP" EntitySet="HOADONNHAP" />
     </AssociationSet>
     <AssociationSet Name="FK_HOADONNHAP_TRINHDUOCVIEN" Association="Self.FK_HOADONNHAP_TRINHDUOCVIEN">
       <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIEN" />
@@ -490,12 +616,16 @@
       <End Role="QUOCGIA" EntitySet="QUOCGIA" />
       <End Role="NCC" EntitySet="NCC" />
     </AssociationSet>
+    <AssociationSet Name="FK_QUYDOIDV_DONVITINH" Association="Self.FK_QUYDOIDV_DONVITINH">
+      <End Role="DONVITINH" EntitySet="DONVITINH" />
+      <End Role="QUYDOIDV" EntitySet="QUYDOIDV" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUYDOIDV_THUOC" Association="Self.FK_QUYDOIDV_THUOC">
+      <End Role="THUOC" EntitySet="THUOC" />
+      <End Role="QUYDOIDV" EntitySet="QUYDOIDV" />
+    </AssociationSet>
     <AssociationSet Name="FK_THUOC_LOAITHUOC" Association="Self.FK_THUOC_LOAITHUOC">
       <End Role="LOAITHUOC" EntitySet="LOAITHUOC" />
-      <End Role="THUOC" EntitySet="THUOC" />
-    </AssociationSet>
-    <AssociationSet Name="FK_THUOC_NCC" Association="Self.FK_THUOC_NCC">
-      <End Role="NCC" EntitySet="NCC" />
       <End Role="THUOC" EntitySet="THUOC" />
     </AssociationSet>
     <AssociationSet Name="FK_TRINHDUOCVIEN_TINHTHANH" Association="Self.FK_TRINHDUOCVIEN_TINHTHANH">

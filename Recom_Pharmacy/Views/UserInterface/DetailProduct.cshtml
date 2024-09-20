@@ -5,9 +5,18 @@
     IEnumerable<string> sanPhamGoiY = ViewBag.HienThiSanPhamGoiY as IEnumerable<string>;
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
 }
-
+<style>
+    .btnUnit{
+        background-color:white !important;
+    }
+        .btnUnit.active {
+            background-color: #51eaea !important;
+        }
+</style>
 @if (Model != null)
 {
+    var giaBan = Model.CTTONKHOes.FirstOrDefault()?.GIABAN ?? Model.GIABAN;
+
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
@@ -34,45 +43,37 @@
                         <p>
                             @Model.DONGGOI
                         </p>
-
-
-                        @*<p><del>$95.00</del>  <strong class="text-primary h4">@Model.GIABAN</strong></p>
-
-
-
-                        <div class="mb-5">
-                            <div class="input-group mb-3" style="max-width: 220px;">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                                </div>
-                                <input type="text" class="form-control text-center" value="1" placeholder=""
-                                       aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                                </div>
-                            </div>
-
-                        </div>*@
                         <p><a href="@Url.Action("ConsultPharmacist", "Cart", new { @id = @Model.ID, @strURL = Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary ">Cần được tư vấn của dược sĩ</a></p>
                     }
                     else
                     {
                         <h2 class="text-black">@Model.TENTHUOC</h2>
                         <p>
-                            @Model.DONGGOI
+                            @Model.TENCT
                         </p>
-
-
-                        <p><del>$95.00</del>  <strong class="text-primary h4">@Model.GIABAN</strong></p>
-
-
-
+                        <p class="giaBan"><strong class="text-primary h4">@String.Format("{0:0,0}", giaBan) VNĐ</strong></p>
+                        <div class="mb-3">
+                            <strong>
+                                <label>Phân loại sản phẩm</label>
+                            </strong>
+                            <div class="productUnit">
+                                @{int i = 0;}
+                                @foreach (var quydoi in Model.QUYDOIDVs)
+                                {
+                                    if (quydoi.DONVIBANONL)
+                                    {
+                                        <button class="btn btn-outline-primary btnUnit @(i == 0 ? "active" : "")" data-id="@quydoi.MADVT">@quydoi.DONVITINH.TENDVT</button>
+                                        i++;
+                                    }
+                                }
+                            </div>
+                        </div>
                         <div class="mb-5">
                             <div class="input-group mb-3" style="max-width: 220px;">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                 </div>
-                                <input type="text" class="form-control text-center" value="1" placeholder=""
+                                <input type="text" class="form-control text-center" id="product-quantity" value="1" placeholder=""
                                        aria-label="Example text with button addon" aria-describedby="button-addon1">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
@@ -80,7 +81,10 @@
                             </div>
 
                         </div>
-                        <p><a href="@Url.Action("AddtoCart", "Cart", new { @id = @Model.ID, @strURL = Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+                                            var tonkho = Model.CTTONKHOes.FirstOrDefault();
+                                            var tkID = tonkho?.ID ?? -1;
+                        <input type="hidden" id="tkID" name="tkID" value="@tkID"/>
+                        <p><a href="#" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
                     }
                     @*<p><a href="@Url.Action("AddtoCart", "Cart",new {@id=@Model.ID,@strURL=Request.Url.ToString() })" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>*@
 
@@ -105,10 +109,6 @@
                         </thead>*@
                                     <tbody>
                                         <tr>
-                                            <th>Nhà cung cấp</th>
-                                            <td>@Model.NCC.TENNCC</td>
-                                        </tr>
-                                        <tr>
                                             <th>Nước sản xuất</th>
                                             <td>@Model.NUOCSX</td>
                                         </tr>
@@ -121,19 +121,16 @@
                                             <td>@Model.DOITUONGSD</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Ngày Sản xuất</th>
-                                            <td>@Model.NGAYSX</td>
+                                            <th>Công dụng</th>
+                                            <td>@Model.CONGDUNG</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Hạn sử dụng</th>
-                                            <td>@Model.HSD</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-                                <p>@Html.Raw(Model.CONGDUNG)</p>
+                                <p>@Html.Raw(Model.MOTA)</p>
 
                             </div>
 
@@ -154,16 +151,14 @@
                 <h2 class="text-uppercase">Gợi ý cho bạn</h2>
             </div>
         </div>
-
         <div class="row">
             @foreach (var item in tatcasp)
             {
                 foreach (var itemgoiy in sanPhamGoiY)
                 {
-                    if(string.Compare(item.TENTHUOC, itemgoiy) == 0)
+                    if (string.Compare(item.TENTHUOC, itemgoiy) == 0)
                     {
                         <div class="col-sm-6 col-lg-4 text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   ">
-                            @*<span class="tag">Sale</span>*@
                             <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
                             <div style="border-bottom: 1px solid #ccc;"> </div>
                             <h3 class="text-dark"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
@@ -171,8 +166,91 @@
                         </div>
                     }
                 }
-                
+
             }
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.btnUnit').click(function () {
+                $('.btnUnit').removeClass('active');
+                $(this).addClass('active');
+            })
+
+        var sitePlusMinus = function () {
+            $('.js-btn-minus').on('click', function (e) {
+                e.preventDefault();
+                let currentValue = parseInt($('#product-quantity').val());
+
+                if (currentValue > 1) {
+                    $('#product-quantity').val(currentValue -1);
+                } else {
+                    $('#product-quantity').val(1);
+                }
+            });
+            $('.js-btn-plus').on('click', function (e) {
+                e.preventDefault();
+                let currentValue = parseInt($('#product-quantity').val());
+
+                if (currentValue < 10) {
+                    $('#product-quantity').val(currentValue + 1);
+                }
+            });
+        };
+        sitePlusMinus();
+
+            $('#product-quantity').on('input', function () {
+                let numberRegex = /^[1-9]\d*$/;
+                let value = $(this).val();
+
+                if (value !== '' && !numberRegex.test(value)) {
+                    $(this).val(1);
+                }
+                if (parseInt(value) > 10) {
+                    $(this).val(10);
+                }
+            });
+
+            $('#product-quantity').on('blur', function () {
+                if ($(this).val() == '') {
+                    $(this).val(1);
+                }
+            });
+        function checkStockStatus(productId) {
+            setInterval(function () {
+                $.ajax({
+                    url: '@Url.Action("CheckStock","UserInterface")',
+                    type: 'GET',
+                    data: { productId: productId },
+                    success: function (response) {
+                        if (response.stockStatus === 'outOfStock') {
+                            $('.buy-now').replaceWith('<button class="buy-now btn btn-sm height-auto px-4 py-3 btn-secondary" disabled>Hết hàng</button>');
+                        }
+                    },
+                    error: function () {
+                        console.log('Đã có lỗi xảy ra khi kiểm tra số lượng tồn kho.');
+                    }
+                });
+            }, 2000);
+        }
+            let id = '@Model.ID';
+            checkStockStatus(id);
+
+
+            function addToCart(productId) {
+                var quantity = $('#product-quantity').val();
+                var loThuoc = $('#tkID').val();
+                var currentUrl = '@Request.Url.ToString()';
+                // Redirect to AddtoCart action with quantity parameter
+                window.location.href = '@Url.Action("AddtoCart", "Cart")' + '?id=' + productId + '&quantity=' + quantity + '&loThuoc=' + loThuoc + '&strURL=' + encodeURIComponent(currentUrl);
+            }
+
+            $('.buy-now').click(function (e) {
+                e.preventDefault();
+                addToCart(id);
+            })
+    });
+    </script>
+}

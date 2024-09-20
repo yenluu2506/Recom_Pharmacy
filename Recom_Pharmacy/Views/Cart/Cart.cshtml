@@ -21,7 +21,7 @@
     <div class="site-section">
         <div class="container">
             <div class="row mb-5">
-                <div class="site-blocks-table">
+                <div class="site-blocks-table" style="width:100%">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -47,25 +47,13 @@
                                             <h2 class="h5 text-black">@item.tenThuoc</h2>
                                         </td>
                                         <td>@String.Format("{0:0,0}", @item.giaBan)</td>
-                                        @*<td>
-                                                    <div class="input-group mb-3" style="max-width: 120px;">
-                                                        <div class="input-group-prepend">
-                                                            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                                                        </div>
-                                                        <input type="text" class="form-control text-center" value="@item.soLuong" name="txtSoluong" placeholder=""
-                                                               aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                                                        </div>
-                                                    </div>
-
-                                            </td>*@
+                       
                                         <td>
                                             <div class="input-group mb-3" style="max-width: 120px;">
                                                 <div class="input-group-prepend">
                                                     <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                                 </div>
-                                                <input class="form-control text-center" value="@item.soLuong" name="txtSoluong" data-max="@item.maxSoLuong" max="@item.maxSoLuong" placeholder=""
+                                                <input id="product-quantity" class="form-control text-center" value="@item.soLuong" name="txtSoluong" data-max="@item.maxSoLuong" max="@item.maxSoLuong" placeholder=""
                                                        aria-label="Example text with button addon" aria-describedby="button-addon1">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
@@ -115,15 +103,55 @@
                                     <span class="text-black">Tổng tiền</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">@String.Format("{0:0,0}", ViewBag.ToTalPrice)</strong>
+                                    <strong class="text-black">@String.Format("{0:0,0}", TempData["ToTalPrice"])</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <span class="text-black">Điểm tích lũy của bạn</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <strong class="text-black"> @TempData["AvailablePoints"]</strong>
                                 </div>
                             </div>
 
+                            @using (Html.BeginForm("Cart", "Cart", FormMethod.Post))
+                            {
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="pointsToUse" class="text-black">Sử dụng điểm</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" name="pointsToUse" class="form-control" min="0" max=" @TempData["AvailablePoints"]" value=" @TempData["PointsUsed"]" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <span class="text-black">Giảm giá từ điểm</span>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <strong class="text-black">@String.Format("{0:0,0}", TempData["DiscountFromPoints"])</strong>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-6">
+                                        <span class="text-black">Tổng tiền sau giảm giá</span>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <strong class="text-black">@String.Format("{0:0,0}", TempData["FinalPriceAfterPoints"] ?? 0)</strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Áp dụng điểm" class="btn btn-primary btn-lg btn-block" />
+                                    </div>
+                                </div>
+                                <br />
+                            }
                             <div class="row">
                                 <div class="col-md-12">
                                     <button class="btn btn-primary btn-lg btn-block" onclick="window.location='@Url.Action("Order","Cart")'">
-                                        Proceed To
-                                        Checkout
+                                        Mua Hàng
                                     </button>
                                 </div>
                             </div>
@@ -135,48 +163,65 @@
     </div>
 
 }
+@section scripts{
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var incrementButtons = document.querySelectorAll('.js-btn-plus');
-        var decrementButtons = document.querySelectorAll('.js-btn-minus');
-        console.log(incrementButtons)
-        incrementButtons.forEach(function (button) {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                incrementQuantity(button);
+    <script>
+        $(document).ready(function () {
+
+            var sitePlusMinus = function () {
+                $('.js-btn-minus').on('click', function (e) {
+                    e.preventDefault();
+                    let currentValue = parseInt($('#product-quantity').val());
+
+                    if (currentValue > 1) {
+                        $('#product-quantity').val(currentValue - 1);
+                    } else {
+                        $('#product-quantity').val(1);
+                    }
+                });
+                $('.js-btn-plus').on('click', function (e) {
+                    e.preventDefault();
+                    let currentValue = parseInt($('#product-quantity').val());
+
+                    if (currentValue < 10) {
+                        $('#product-quantity').val(currentValue + 1);
+                    }
+
+                    if (currentValue > maxInput) {
+                        alert('Số lượng tối đa: ' + maxInput); 
+                        $(this).val(maxInput);
+                    }
+                });
+            };
+            sitePlusMinus();
+
+            $('#product-quantity').on('input', function () {
+                let numberRegex = /^[1-9]\d*$/;
+                let value = $(this).val();
+                let maxInput = checkSoLuong();
+                if (value !== '' && !numberRegex.test(value)) {
+                    $(this).val(1);
+                }
+                if (parseInt(value) > 10) {
+                    $(this).val(10);
+                }
+                if (parseInt(value) > maxInput) {
+                    alert('Số lượng tối đa: ' + maxInput); 
+                    $(this).val(maxInput);
+                }
+            });
+
+            $('#product-quantity').on('blur', function () {
+                if ($(this).val() == '') {
+                    $(this).val(1);
+                }
             });
         });
 
-        decrementButtons.forEach(function (button) {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                decrementQuantity(button);
-            });
-        });
-    });
-
-    function incrementQuantity(button) {
-        var input = button.parentElement.previousElementSibling;
-        var maxSoLuong = parseInt(input.getAttribute('data-max'));
-        var currentValue = parseInt(input.value);
-        var newValue = currentValue + 1;
-        console.log('new:', newValue, 'maxSL: ', maxSoLuong,'input value',
-        input.value)
-        if (newValue > maxSoLuong) {
-            alert("Số lượng đặt hàng không được vượt quá số lượng hiện có.");
-            input.value = currentValue;
-            console.log('input = ', currentValue)
-        } else {
-            input.value = newValue;
+        function checkSoLuong() {
+            var input = $('#product-quantity');
+            var maxSoLuong = parseInt(input.attr('data-max'));   
+            return maxSoLuong;
         }
+    </script>
     }
-
-    function decrementQuantity(button) {
-        var input = button.parentElement.nextElementSibling;
-        var currentValue = parseInt(input.value);
-        if (currentValue > 1) {
-            input.value = currentValue-1;
-        }
-    }
-</script>

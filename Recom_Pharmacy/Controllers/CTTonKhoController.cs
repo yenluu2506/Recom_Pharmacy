@@ -9,6 +9,10 @@ using System.Web.Mvc;
 using PagedList;
 using System.Web.UI;
 using Recom_Pharmacy.Models;
+using System.Drawing.Printing;
+using Recom_Pharmacy.Models.Common;
+using Twilio.Base;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Recom_Pharmacy.Controllers
 {
@@ -19,17 +23,17 @@ namespace Recom_Pharmacy.Controllers
         // GET: CTTonKho
         public ActionResult Index(string Searchtext, int? page, int? SelectedTonKho, int? SelectedThuoc, int? id)
         {
-            ViewBag.TonKho = new SelectList(db.TONKHOes.ToList(), "ID");
-            ViewBag.Thuoc = new SelectList(db.TONKHOes.ToList(), "ID", "TENTHUOC");
+            ViewBag.TonKho = new SelectList(db.KHOes.ToList(), "ID");
+            ViewBag.Thuoc = new SelectList(db.KHOes.ToList(), "ID", "TENTHUOC");
             var pageSize = 5;
             if (page == null)
             {
                 page = 1;
             }
-            IEnumerable<CTTONKHO> items = db.CTTONKHOes.OrderByDescending(x => x.ID).Where(x=> x.TONKHO.ID == id);
+            IEnumerable<CTTONKHO> items = db.CTTONKHOes.OrderByDescending(x => x.ID).Where(x=> x.KHO.ID == id);
             if (SelectedTonKho.HasValue)
             {
-                items = items.Where(x => x.TONKHO.ID == SelectedTonKho.Value);
+                items = items.Where(x => x.KHO.ID == SelectedTonKho.Value);
             }
             if (SelectedThuoc.HasValue)
             {
@@ -43,6 +47,87 @@ namespace Recom_Pharmacy.Controllers
             ViewBag.page = page;
             return View(items);
         }
+
+        public ActionResult ThuocDenHan(string Searchtext, int? page, int? thoiHan)
+        {
+            var pageSize = 5;
+            if (page == null)
+            {
+                page = 1;
+            }
+            var options = Constant.selectThuocHetHan();
+            var selectThoiHan = new SelectList(options,nameof(SelectItem.value),nameof(SelectItem.optionName),nameof(SelectItem.value));
+            DateTime today = DateTime.Now;
+            var currentDate = today.Date;
+            DateTime? expireDate = null;
+            IEnumerable<CTTONKHO> thuocDenHan = db.CTTONKHOes.AsQueryable();
+            if (thoiHan.HasValue)
+            {
+                expireDate = today.AddMonths(thoiHan.Value).Date;
+
+                if (expireDate != null && thoiHan != 0)
+                {
+                    thuocDenHan = thuocDenHan.Where(t => t.NGAYHH <= expireDate && t.NGAYHH > currentDate);
+                }
+                else
+                {
+                    thuocDenHan = thuocDenHan.Where(t => t.NGAYHH <= currentDate);
+                }
+            }
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                thuocDenHan = thuocDenHan.Where(t => t.THUOC.TENTHUOC.Contains(Searchtext) || t.THUOC.TENCT.Contains(Searchtext)).ToList();
+            }
+            thuocDenHan = thuocDenHan.OrderByDescending(x => x.ID).ToList();
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            thuocDenHan = thuocDenHan.ToPagedList(pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.page = page;
+            ViewBag.thoiHan = selectThoiHan;
+            return View(thuocDenHan);
+        }
+
+        public ActionResult TonKhoLauNam(string Searchtext, int? page, int? thoiHan=1)
+        {
+            var pageSize = 5;
+            if (page == null || page < 1)
+            {
+                page = 1;
+            }
+            var options = Constant.selectTonKhoLauNam();
+            var selectThoiHan = new SelectList(options, nameof(SelectItem.value), nameof(SelectItem.optionName), nameof(SelectItem.value));
+            DateTime today = DateTime.Now;
+            var currentDate = today.Date;
+            DateTime? fromDate = null;
+
+
+            var viewModel = new TonKhoLauNamViewModel();
+            var data = viewModel.getTonKhoLauNam(); // Retrieve data using your method
+
+            if (thoiHan.HasValue)
+            {
+                fromDate = today.AddMonths(-thoiHan.Value).Date;
+
+                if (fromDate != null)
+                {
+                    data = data.Where(t => t.NGAYNHAP <= currentDate&& t.NGAYNHAP >= fromDate); //fromDate <= ngaynhap <= currentDate
+                }
+            }
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                data = data.Where(t => t.TENTHUOC.Contains(Searchtext) || t.TENCT.Contains(Searchtext));
+            }
+
+            // Pagination
+            var pageIndex = page ?? 1;
+            var pagedTonKhoLauNam = data.OrderBy(x=>x.DABAN).ToPagedList(pageIndex, pageSize);
+
+            ViewBag.PageSize = pageSize;
+            ViewBag.page = page;
+            ViewBag.thoiHan = selectThoiHan;
+            return View(pagedTonKhoLauNam);
+        }
+
 
         // GET: CTTonKho/Details/5
         public ActionResult Details(int? id)
@@ -62,7 +147,7 @@ namespace Recom_Pharmacy.Controllers
         // GET: CTTonKho/Create
         public ActionResult Add(int? id)
         {
-            ViewBag.MATONKHO = new SelectList(db.TONKHOes, "ID", "ID");
+            ViewBag.MATONKHO = new SelectList(db.KHOes, "ID", "ID");
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", id);
             return View();
         }
@@ -82,7 +167,7 @@ namespace Recom_Pharmacy.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MATONKHO = new SelectList(db.TONKHOes, "ID", "ID", cTTONKHO.MATONKHO);
+            ViewBag.MATONKHO = new SelectList(db.KHOes, "ID", "ID", cTTONKHO.MAKHO);
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", cTTONKHO.MATHUOC);
             return View(cTTONKHO);
         }
@@ -99,7 +184,7 @@ namespace Recom_Pharmacy.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MATONKHO = new SelectList(db.TONKHOes, "ID", "ID", cTTONKHO.MATONKHO);
+            ViewBag.MATONKHO = new SelectList(db.KHOes, "ID", "ID", cTTONKHO.MAKHO);
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", cTTONKHO.MATHUOC);
             return View(cTTONKHO);
         }
@@ -118,7 +203,7 @@ namespace Recom_Pharmacy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MATONKHO = new SelectList(db.TONKHOes, "ID", "ID", cTTONKHO.MATONKHO);
+            ViewBag.MATONKHO = new SelectList(db.KHOes, "ID", "ID", cTTONKHO.MAKHO);
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", cTTONKHO.MATHUOC);
             return View(cTTONKHO);
         }
@@ -143,7 +228,7 @@ namespace Recom_Pharmacy.Controllers
             var item = db.CTTONKHOes.Find(id);
             if (item != null)
             {
-                db.CTTONKHOes.Remove(item);
+                item.TRANGTHAI = false;
                 db.SaveChanges();
                 return Json(new { success = true });
             }
@@ -161,7 +246,7 @@ namespace Recom_Pharmacy.Controllers
                     foreach (var item in items)
                     {
                         var obj = db.CTTONKHOes.Find(Convert.ToInt32(item));
-                        db.CTTONKHOes.Remove(obj);
+                        obj.TRANGTHAI = false;
                         db.SaveChanges();
                     }
                 }

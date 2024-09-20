@@ -1,54 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="RecomPharmacyModelStoreContainer" CdmEntityContainer="RecomPharmacyEntities">
-    <EntitySetMapping Name="LOAITHUOCs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.LOAITHUOC">
-        <MappingFragment StoreEntitySet="LOAITHUOC">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="MAMENU" ColumnName="MAMENU" />
-          <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
-          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MENUTHUOCs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.MENUTHUOC">
-        <MappingFragment StoreEntitySet="MENUTHUOC">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="TENDM" ColumnName="TENDM" />
-          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="QUOCGIAs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.QUOCGIA">
-        <MappingFragment StoreEntitySet="QUOCGIA">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="TENQG" ColumnName="TENQG" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TINHTHANHs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.TINHTHANH">
-        <MappingFragment StoreEntitySet="TINHTHANH">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="TENTINH" ColumnName="TENTINH" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TRINHDUOCVIENs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.TRINHDUOCVIEN">
-        <MappingFragment StoreEntitySet="TRINHDUOCVIEN">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="MATINH" ColumnName="MATINH" />
-          <ScalarProperty Name="TENNV" ColumnName="TENNV" />
-          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Admins">
       <EntityTypeMapping TypeName="RecomPharmacyModel.Admin">
         <MappingFragment StoreEntitySet="Admin">
@@ -56,6 +8,117 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Passwords" ColumnName="Passwords" />
           <ScalarProperty Name="Username" ColumnName="Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Blogs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.Blog">
+        <MappingFragment StoreEntitySet="Blog">
+          <ScalarProperty Name="ANH" ColumnName="ANH" />
+          <ScalarProperty Name="MOTACT" ColumnName="MOTACT" />
+          <ScalarProperty Name="MOTANGAN" ColumnName="MOTANGAN" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="NGAYVIET" ColumnName="NGAYVIET" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+          <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DONVITINHs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.DONVITINH">
+        <MappingFragment StoreEntitySet="DONVITINH">
+          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="TENDVT" ColumnName="TENDVT" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedbacks">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.Feedback">
+        <MappingFragment StoreEntitySet="Feedback">
+          <ScalarProperty Name="CHITIET" ColumnName="CHITIET" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONNHAPs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONNHAP">
+        <MappingFragment StoreEntitySet="HOADONNHAP">
+          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+          <ScalarProperty Name="TIENNO" ColumnName="TIENNO" />
+          <ScalarProperty Name="VAT" ColumnName="VAT" />
+          <ScalarProperty Name="MALOAITIEN" ColumnName="MALOAITIEN" />
+          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+          <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
+          <ScalarProperty Name="MANCC" ColumnName="MANCC" />
+          <ScalarProperty Name="MAKHO" ColumnName="MAKHO" />
+          <ScalarProperty Name="MATDV" ColumnName="MATDV" />
+          <ScalarProperty Name="SOHD" ColumnName="SOHD" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHACHHANGs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
+        <MappingFragment StoreEntitySet="KHACHHANG">
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="HANGTV" ColumnName="HANGTV" />
+          <ScalarProperty Name="TICHDIEM" ColumnName="TICHDIEM" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="MATINH" ColumnName="MATINH" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHOes">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.KHO">
+        <MappingFragment StoreEntitySet="KHO">
+          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+          <ScalarProperty Name="TENKHO" ColumnName="TENKHO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAITHUOCs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.LOAITHUOC">
+        <MappingFragment StoreEntitySet="LOAITHUOC">
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+          <ScalarProperty Name="MAMENU" ColumnName="MAMENU" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENUTHUOCs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.MENUTHUOC">
+        <MappingFragment StoreEntitySet="MENUTHUOC">
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="TENDM" ColumnName="TENDM" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -72,41 +135,61 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DONVITINHs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.DONVITINH">
-        <MappingFragment StoreEntitySet="DONVITINH">
-          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-          <ScalarProperty Name="TENDVT" ColumnName="TENDVT" />
+    <EntitySetMapping Name="QUOCGIAs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.QUOCGIA">
+        <MappingFragment StoreEntitySet="QUOCGIA">
+          <ScalarProperty Name="TENQG" ColumnName="TENQG" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HOADONNHAPs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONNHAP">
-        <MappingFragment StoreEntitySet="HOADONNHAP">
-          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-          <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
-          <ScalarProperty Name="TIENNO" ColumnName="TIENNO" />
-          <ScalarProperty Name="VAT" ColumnName="VAT" />
-          <ScalarProperty Name="MALOAITIEN" ColumnName="MALOAITIEN" />
-          <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
-          <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
-          <ScalarProperty Name="MATDV" ColumnName="MATDV" />
-          <ScalarProperty Name="SOHD" ColumnName="SOHD" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CHITIETHDNs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDN">
-        <MappingFragment StoreEntitySet="CHITIETHDN">
-          <ScalarProperty Name="CHIETKHAU" ColumnName="CHIETKHAU" />
+    <EntitySetMapping Name="QUYDOIDVs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.QUYDOIDV">
+        <MappingFragment StoreEntitySet="QUYDOIDV">
+          <ScalarProperty Name="DONVIBANONL" ColumnName="DONVIBANONL" />
+          <ScalarProperty Name="TILEQUYDOI" ColumnName="TILEQUYDOI" />
           <ScalarProperty Name="MADVT" ColumnName="MADVT" />
-          <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
-          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
           <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
-          <ScalarProperty Name="MACTTONKHO" ColumnName="MACTTONKHO" />
-          <ScalarProperty Name="MAHDN" ColumnName="MAHDN" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SYS_SEQUENCE">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.SYS_SEQUENCE">
+        <MappingFragment StoreEntitySet="SYS_SEQUENCE">
+          <ScalarProperty Name="SEQVALUE" ColumnName="SEQVALUE" />
+          <ScalarProperty Name="SEQNAME" ColumnName="SEQNAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TINHTHANHs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.TINHTHANH">
+        <MappingFragment StoreEntitySet="TINHTHANH">
+          <ScalarProperty Name="TENTINH" ColumnName="TENTINH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRINHDUOCVIENs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.TRINHDUOCVIEN">
+        <MappingFragment StoreEntitySet="TRINHDUOCVIEN">
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+          <ScalarProperty Name="TENNV" ColumnName="TENNV" />
+          <ScalarProperty Name="MATINH" ColumnName="MATINH" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -115,9 +198,9 @@
       <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDX">
         <MappingFragment StoreEntitySet="CHITIETHDX">
           <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
-          <ScalarProperty Name="CHIETKHAU" ColumnName="CHIETKHAU" />
           <ScalarProperty Name="MADVT" ColumnName="MADVT" />
           <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+          <ScalarProperty Name="LOSX" ColumnName="LOSX" />
           <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
           <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
           <ScalarProperty Name="MAHDX" ColumnName="MAHDX" />
@@ -128,10 +211,30 @@
     <EntitySetMapping Name="CTTONKHOes">
       <EntityTypeMapping TypeName="RecomPharmacyModel.CTTONKHO">
         <MappingFragment StoreEntitySet="CTTONKHO">
+          <ScalarProperty Name="GIABAN" ColumnName="GIABAN" />
+          <ScalarProperty Name="GIANHAP" ColumnName="GIANHAP" />
           <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
           <ScalarProperty Name="SLTON" ColumnName="SLTON" />
-          <ScalarProperty Name="MATONKHO" ColumnName="MATONKHO" />
+          <ScalarProperty Name="NGAYHH" ColumnName="NGAYHH" />
+          <ScalarProperty Name="NGAYSX" ColumnName="NGAYSX" />
+          <ScalarProperty Name="LOSX" ColumnName="LOSX" />
+          <ScalarProperty Name="KE" ColumnName="KE" />
+          <ScalarProperty Name="MAKHO" ColumnName="MAKHO" />
+          <ScalarProperty Name="DVT" ColumnName="DVT" />
           <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIETHDNs">
+      <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDN">
+        <MappingFragment StoreEntitySet="CHITIETHDN">
+          <ScalarProperty Name="LOSX" ColumnName="LOSX" />
+          <ScalarProperty Name="MADVT" ColumnName="MADVT" />
+          <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+          <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+          <ScalarProperty Name="MAHDN" ColumnName="MAHDN" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -140,9 +243,8 @@
       <EntityTypeMapping TypeName="RecomPharmacyModel.THUOC">
         <MappingFragment StoreEntitySet="THUOC">
           <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
           <ScalarProperty Name="GIABAN" ColumnName="GIABAN" />
-          <ScalarProperty Name="GIANHAP" ColumnName="GIANHAP" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
           <ScalarProperty Name="CONGDUNG" ColumnName="CONGDUNG" />
           <ScalarProperty Name="DOITUONGSD" ColumnName="DOITUONGSD" />
           <ScalarProperty Name="NUOCSX" ColumnName="NUOCSX" />
@@ -150,23 +252,10 @@
           <ScalarProperty Name="HSD" ColumnName="HSD" />
           <ScalarProperty Name="NGAYSX" ColumnName="NGAYSX" />
           <ScalarProperty Name="DONGGOI" ColumnName="DONGGOI" />
-          <ScalarProperty Name="HINHTHUC" ColumnName="HINHTHUC" />
+          <ScalarProperty Name="TENCT" ColumnName="TENCT" />
           <ScalarProperty Name="TENTHUOC" ColumnName="TENTHUOC" />
-          <ScalarProperty Name="MANCC" ColumnName="MANCC" />
           <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
           <ScalarProperty Name="ANH" ColumnName="ANH" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TONKHOes">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.TONKHO">
-        <MappingFragment StoreEntitySet="TONKHO">
-          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-          <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
-          <ScalarProperty Name="TENKHO" ColumnName="TENKHO" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -174,56 +263,19 @@
     <EntitySetMapping Name="HOADONXUATs">
       <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONXUAT">
         <MappingFragment StoreEntitySet="HOADONXUAT">
+          <ScalarProperty Name="BANLE" ColumnName="BANLE" />
           <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
-          <ScalarProperty Name="XULY" ColumnName="XULY" />
+          <ScalarProperty Name="HOANTHANH" ColumnName="HOANTHANH" />
           <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+          <ScalarProperty Name="DATHANHTOAN" ColumnName="DATHANHTOAN" />
           <ScalarProperty Name="TTGIAOHANG" ColumnName="TTGIAOHANG" />
+          <ScalarProperty Name="DIEMTLSD" ColumnName="DIEMTLSD" />
           <ScalarProperty Name="NGAYGIAOHANG" ColumnName="NGAYGIAOHANG" />
           <ScalarProperty Name="VAT" ColumnName="VAT" />
           <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
           <ScalarProperty Name="NGAYXUAT" ColumnName="NGAYXUAT" />
+          <ScalarProperty Name="MATDV" ColumnName="MATDV" />
           <ScalarProperty Name="MAKH" ColumnName="MAKH" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Feedbacks">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.Feedback">
-        <MappingFragment StoreEntitySet="Feedback">
-          <ScalarProperty Name="CHITIET" ColumnName="CHITIET" />
-          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="KHACHHANGs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
-        <MappingFragment StoreEntitySet="KHACHHANG">
-          <ScalarProperty Name="Payment" ColumnName="Payment" />
-          <ScalarProperty Name="Picture" ColumnName="Picture" />
-          <ScalarProperty Name="Passwords" ColumnName="Passwords" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-          <ScalarProperty Name="MATINH" ColumnName="MATINH" />
-          <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-          <ScalarProperty Name="TENKH" ColumnName="TENKH" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Blogs">
-      <EntityTypeMapping TypeName="RecomPharmacyModel.Blog">
-        <MappingFragment StoreEntitySet="Blog">
-          <ScalarProperty Name="ANH" ColumnName="ANH" />
-          <ScalarProperty Name="MOTACT" ColumnName="MOTACT" />
-          <ScalarProperty Name="MOTANGAN" ColumnName="MOTANGAN" />
-          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
-          <ScalarProperty Name="NGAYVIET" ColumnName="NGAYVIET" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
                 <div class="site-block-cover-content text-center">
-                    <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
+                    <h2 class="sub-title">Thuốc Hiệu Quả, Thuốc Mới Mỗi Ngày</h2>
                     <h1>Welcome To Pharma</h1>
                     <p>
                         <a href="@Url.Action("ViewAllProduct", "UserInterface")" class="btn btn-primary px-5 py-3">Shop Now</a>
@@ -25,10 +25,10 @@
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <div class="banner-wrap bg-primary h-100">
                     <a href="#" class="h-100">
-                        <h5>Free <br> Shipping</h5>
+                        <h5>Miễn Phí <br> Vận Chuyển</h5>
                         <p>
-                            Amet sit amet dolor
-                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                            Miễn Phí Vận Chuyển
+                            <strong>Vận chuyển nhanh, miễn phí cho mọi đơn hàng!</strong>
                         </p>
                     </a>
                 </div>
@@ -36,10 +36,10 @@
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <div class="banner-wrap h-100">
                     <a href="#" class="h-100">
-                        <h5>Season <br> Sale 50% Off</h5>
+                        <h5>Mua hàng <br> Nhanh chóng</h5>
                         <p>
-                            Amet sit amet dolor
-                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                            Chất Lượng An Toàn
+                            <strong>Chất lượng vượt trội, an toàn tuyệt đối - đó là cam kết của chúng tôi</strong>
                         </p>
                     </a>
                 </div>
@@ -47,10 +47,10 @@
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <div class="banner-wrap bg-warning h-100">
                     <a href="#" class="h-100">
-                        <h5>Buy <br> A Gift Card</h5>
+                        <h5>Phù Hợp <br> Giá Tiêu Dùng</h5>
                         <p>
-                            Amet sit amet dolor
-                            <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                            Giá Cả Phải Chăng
+                            <strong>Chất lượng đảm bảo, giá cả không thể hợp lý hơn.</strong>
                         </p>
                     </a>
                 </div>
@@ -72,44 +72,18 @@
         <div class="row">
             @foreach (var item in Model)
             {
+                var giaBan = item.CTTONKHOes.FirstOrDefault()?.GIABAN ?? item.GIABAN;
                 <div class="col-sm-6 col-lg-4 text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   ">
                     <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
                     <div style="border-bottom: 1px solid #ccc;"> </div>
                     <h3 class="text-dark"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
-                    <p class="price">@item.GIABAN VND</p>
+                    <p class="price">@String.Format("{0:0,0}", giaBan) VND</p>
                 </div>
             }
         </div>
-
-        @*<section style="background-color: #eee;">
-            <div class="container py-5">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
-                            <div class="card">
-                                <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">
-                                    <img src="@item.ANH"
-                                         class="card-img-top" alt="@item.TENTHUOC" />
-                                </a>
-                                <div class="card-body">
-
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <h5 class="mb-0">@item.TENTHUOC</h5>
-                                        <h5 class="text-dark mb-0">@item.GIABAN</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-                </div>
-            </div>
-        </section>*@
-        @*View all Product*@
         <div class="row mt-5">
             <div class="col-12 text-center">
-                <a href="@Url.Action("ViewAllProduct", "UserInterface")" class="btn btn-primary px-4 py-3">View All Products</a>
+                <a href="@Url.Action("ViewAllProduct", "UserInterface")" class="btn btn-primary px-4 py-3">Xem tất cả sản phẩm</a>
             </div>
         </div>
     </div>
@@ -120,7 +94,7 @@
     <div class="container">
         <div class="row">
             <div class="title-section text-center col-12">
-                <h2 class="text-uppercase">New Products</h2>
+                <h2 class="text-uppercase">Sản Phẩm Mới</h2>
             </div>
         </div>
         <div class="row">

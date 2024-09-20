@@ -37,7 +37,10 @@
             @Html.ValidationMessageFor(model => model.MACTTONKHO, "", new { @class = "text-danger" })
         </div>*@
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.MACTTONKHO, (IEnumerable<SelectListItem>)ViewBag.MACTTONKHO, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownListFor(model => model.MACTTONKHO, (IEnumerable<SelectListItem>)ViewBag.MACTTONKHO, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownList("MATHUOC", ViewBag.MATHUOC as SelectList, "-- Select Drug --")
+                <select id="MACTTONKHO" name="MACTTONKHO"></select>
+
                 @Html.ValidationMessageFor(model => model.MACTTONKHO, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -203,3 +206,18 @@
     </div>
 
 </section>*@
+
+<script>$(document).ready(function () {
+    $("#MATHUOC").change(function () {
+        var selectedDrugId = $(this).val();
+        $.getJSON("/ControllerName/Create", { selectedDrugId: selectedDrugId }, function (data) {
+            $("#MACTTONKHO").empty(); // Clear existing options
+            $.each(data, function (index, item) {
+                $("#MACTTONKHO").append($('<option/>', {
+                    value: item.id,
+                    text: item.text
+                }));
+            });
+        });
+    });
+});</script>

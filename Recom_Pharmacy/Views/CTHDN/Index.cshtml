@@ -96,8 +96,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="card-tools">
-                        <a href="/cthdn/create" class="btn btn-primary">Thêm mới</a>
-                        <a href="#" class="btn btn-danger" id="btnDeleteAll">Xóa</a>
+                        <p>Chi tiết hàng nhập</p>
                     </div>
                 </div>
             </div>
@@ -129,7 +128,7 @@
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
                             <th>Đơn vị tính</th>
-                            <th>Chiết khấu</th>
+                            <th>Lô SX</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,12 +141,12 @@
                                     <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
                                     <td>@i</td>
                                     <td>@item.HOADONNHAP.SOHD</td>
-                                    <td>@item.CTTONKHO.TONKHO.TENKHO</td>
+                                    <td>@item.HOADONNHAP.KHO.TENKHO</td>
                                     <td>@item.THUOC.TENTHUOC</td>
                                     <td>@item.SOLUONG</td>
                                     <td>@item.DONGIA</td>
                                     <td>@item.DONVITINH.TENDVT</td>
-                                    <td>@item.CHIETKHAU</td>
+                                    <td>@item.LOSX</td>
                                     <td>
                                         @*<a href="//index/@item.ID" class="btn btn-sm btn-primary">CT Tồn Kho</a>
                                         <a href="#" data-id="@item.ID" class="btn btn-sm btn-danger btnDelete">Xóa</a>*@

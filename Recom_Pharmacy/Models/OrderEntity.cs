@@ -14,8 +14,10 @@ namespace Recom_Pharmacy.Models
         public decimal TONGTIEN { get; set; }
         public Nullable<System.DateTime> NGAYGIAOHANG { get; set; }
         public Nullable<bool> TTGIAOHANG { get; set; }
+        public Nullable<bool> DATHANHTOAN { get; set; }
+        public Nullable<bool> HOANTHANH { get; set; }
+
         public bool TRANGTHAI { get; set; }
-        public Nullable<bool> XULY { get; set; }
         public string GHICHU { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

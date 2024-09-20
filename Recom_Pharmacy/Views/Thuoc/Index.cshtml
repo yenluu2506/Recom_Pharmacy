@@ -29,7 +29,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-lg-5">
-                    @using (Html.BeginForm("Index", "LoaiThuoc", FormMethod.Get))
+                    @using (Html.BeginForm("Index", "THUOC", FormMethod.Get))
                     {
                         <div class="form-group">
 
@@ -70,8 +70,7 @@
                             <th>Ảnh</th>
                             <th>Tên thuốc</th>
                             <th>Loại</th>
-                            <th>Nhà cung cấp</th>
-                            <th>Hình thức</th>
+                            <th>Tên chi tiết</th>
                             <th>Đóng gói</th>
                             <th>Ngày sản xuất</th>
                             <th>Hạn sử dụng</th>
@@ -79,9 +78,8 @@
                             <th>Nước sản xuất</th>
                             <th>Đối tượng sử dụng</th>
                             <th>Công dụng</th>
-                            <th>Giá nhập</th>
+                            <th>Mô tả</th>
                             <th>Giá bán</th>
-                            <th>Số lượng</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
@@ -98,8 +96,7 @@
                                     <td><img src="@item.ANH" width="50" /></td>
                                     <td>@item.TENTHUOC</td>
                                     <td>@item.LOAITHUOC.TENLOAI</td>
-                                    <td>@item.NCC.TENNCC</td>
-                                    <td>@item.HINHTHUC</td>
+                                    <td>@item.TENCT</td>
                                     <td>@item.DONGGOI</td>
                                     <td>@item.NGAYSX</td>
                                     <td>@item.HSD</td>
@@ -107,9 +104,10 @@
                                     <td>@item.NUOCSX</td>
                                     <td>@item.DOITUONGSD</td>
                                     <td>@item.CONGDUNG</td>
-                                    <td>@item.GIANHAP</td>
-                                    <td>@item.GIABAN</td>
-                                    <td>@item.SOLUONG</td>
+                                    <td class="d-inline-block text-truncate" style="max-width: 150px;">@item.MOTA</td>
+                                    <td>
+                                        @Recom_Pharmacy.Common.Common.FormatNumber(@item.GIABAN, 0)
+                                    </td>
                                     <td class="text-center">
                                         <a href='#' data-id="@item.ID" class="btnActive">@Html.Raw(strCheck)</a>
                                     </td>
@@ -147,7 +145,7 @@
 @section scripts{
     <script>
         $(document).ready(function myfunction() {
-            $('body').on('click', '#btnDeleteAll', function (e) {
+                $('body').on('click', '#btnDeleteAll', function (e) {
                 e.preventDefault();
                 var str = "";
                 var checkbox = $(this).parents('.card').find('tr td input:checkbox')
@@ -207,8 +205,7 @@
                         data: { id: id },
                         success: function (rs) {
                             if (rs.success) {
-                                $('#trow_' + id).remove();
-
+                                location.reload();
                             }
                         }
                     });
@@ -220,7 +217,7 @@
                 var btn = $(this);
                 var id = btn.data("id");
                 $.ajax({
-                    url: '/admin/Thuoc/IsActive',
+                    url: '/thuoc/IsActive',
                     type: 'POST',
                     data: { id: id },
                     success: function (rs) {

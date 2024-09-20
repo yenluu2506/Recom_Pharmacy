@@ -1,0 +1,112 @@
+﻿@model Recom_Pharmacy.Models.QUYDOIDV
+
+
+<div class="modal fade" id="AcceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Tên đơn vị</label>
+                    @Html.DropDownList("SelectedLT", ViewBag.dvt as SelectList, "Chọn đơn vị tính", new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Tỷ lệ quy đổi so với ĐVCS(viên,gói)</label>
+                    @Html.TextBoxFor(x => x.TILEQUYDOI, null, htmlAttributes: new { @class = "form-control numberOfUnit", @type = "number", @min = "1" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Đơn vị bán ONL</label>
+                    @Html.CheckBoxFor(x => x.DONVIBANONL, new { @class = "isOnlineCheck", @id = "customCheckbox2" })
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnAddUnit">Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function checkUnitExists(unitName) {
+            let isDuplicate = false;
+            $('body').find('#tbHtml tr').each(function () {
+                let existingUnitName = $(this).find('td:nth-child(2) p').text().trim();
+                if (existingUnitName === unitName) {
+                    isDuplicate = true;
+                    return false; // Thoát khỏi vòng lặp
+                }
+            });
+            return isDuplicate;
+        }
+
+        // Trước khi gắn sự kiện, gỡ bỏ sự kiện click để tránh gắn nhiều lần
+        $('body').off('click', '#btnAddUnit').on('click', '#btnAddUnit', async function () {
+            let str = "";
+            let unitSelected = $('#SelectedLT').val();
+            let textSelected = $('#SelectedLT').find("option:selected").text();
+            let numberOfUnit = $('.numberOfUnit').val();
+            let isCheck = $('.isOnlineCheck').prop('checked');
+            if (!unitSelected || !numberOfUnit) {
+                alert('Thông tin chưa hợp lệ!');
+                return;
+            }
+            if (checkUnitExists(textSelected)) {
+                alert('Đơn vị tính này đã tồn tại. Vui lòng chọn đơn vị khác.');
+                return;
+            } else {
+                let temp = $('#tCurrentId').val();
+                let currentId = parseInt(temp) + 1;
+                let url = window.location.pathname.split("/");
+                let action = url[2];
+
+                if (action === "add") {
+                    str += `<tr class="text-center" id="trow_${currentId}">
+                      <td class="rowNumber">${currentId}</td>
+                       <td>
+                          <p>${textSelected}</p>
+                          <input type='hidden' value="${unitSelected}" name="unitSelected"/>
+                       </td>
+                       <td>
+                           <p>${numberOfUnit}</p>
+                           <input type='hidden' value="${numberOfUnit}" name="numberOfUnit"/>
+                       </td>
+                         <td>
+                              ${isCheck ? ("<i class='fa fa-check text-success'></i>") : ("<i class='fa fa-times text-danger' ></i >")}
+                          </td>
+                       <td>
+                          <a href="#" data-id="${currentId}" class="btn btn-sm btn-danger btnDeleteUnit">Xóa</a>
+                       </td>
+                   </tr>`;
+                }
+                if (action === "edit") {
+                    let token = $('input[name="__RequestVerificationToken"]').val();
+                    let idThuoc = $('body').find('#idThuoc').val();
+                    await $.ajax({
+                        url: '/quydoidv/create',
+                        type: 'POST',
+                        data: {
+                            __RequestVerificationToken: token,
+                            MATHUOC: idThuoc, MADVT: unitSelected, TILEQUYDOI: numberOfUnit, DONVIBANONL: isCheck
+                        },
+                        success: function (rs) {
+                            if (rs.success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                $('#tbHtml').append(str);
+                $('#tCurrentId').val(currentId);
+            }
+        });
+    });
+
+</script>

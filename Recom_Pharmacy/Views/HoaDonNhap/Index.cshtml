@@ -59,6 +59,7 @@
                             <th>STT</th>
                             <th>Số hóa đơn</th>
                             <th>Nhân viên lập</th>
+                            <th>Nhà cung cấp</th>
                             <th>Ngày nhập</th>
                             <th>Tổng tiền</th>
                             <th>Loại tiền</th>
@@ -79,6 +80,7 @@
                                     <td>@i</td>
                                     <td>@item.SOHD</td>
                                     <td>@item.TRINHDUOCVIEN.TENNV</td>
+                                    <td>@(item.NCC?.TENNCC ?? "N/A")</td>
                                     <td>@item.NGAYNHAP</td>
                                     <td>@item.TONGTIEN</td>
                                     <td>@item.MALOAITIEN</td>

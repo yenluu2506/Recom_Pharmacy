@@ -28,7 +28,7 @@
                             Trạng Thái
                         </th>
                         <th>
-                            Duyệt
+                            Hoàn thành
                         </th>
                         <th>
                             Trạng trái thanh toán
@@ -64,32 +64,44 @@
                             </td>
 
                             <td>
-                                @if (item.TRANGTHAI == true)
+                                @if (item.HOANTHANH == true && item.TRANGTHAI == true && item.DATHANHTOAN==true && item.TTGIAOHANG == true)
                                 {
-                                    <p>Xử Lý</p>
+                                    <span class="badge badge-success">Đã giao </span>
                                 }
-                                else
+                                else if (item.TRANGTHAI == false && item.HOANTHANH == true)
                                 {
-                                    <p>Chưa Xử Lý</p>
+                                    <span class="badge badge-danger">Đã hủy</span>
+                                }
+                                else if (item.TTGIAOHANG == false && item.TRANGTHAI == true && item.HOANTHANH == false)
+                                {
+                                    <span class="badge badge-warning">Đang giao</span>
                                 }
                             </td>
                             <td>
-                                @if (item.TRANGTHAI == true || item.XULY == true)
+                                @if (item.TRANGTHAI == true && item.HOANTHANH == true && item.TTGIAOHANG == true)
                                 {
-                                    <p>Đã Duyệt</p>
+                                    <p>Đã hoàn thành</p>
                                 }
-                                else if (item.TRANGTHAI == true || item.XULY == false)
+                                else if (item.TRANGTHAI == false && item.HOANTHANH == true && item.TTGIAOHANG == false)
                                 {
-                                    <p>Hủy Đơn</p>
+                                    if (item.DATHANHTOAN == true)
+                                    {
+                                        <p>Hủy Đơn(Hoàn tiền)</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Hủy Đơn</p>
+
+                                    }
                                 }
                                 else
                                 {
-                                    <p>Chưa xử lý</p>
+                                    <p>Chưa hoàn thành</p>
                                 }
 
                             </td>
                             <td>
-                                @if (item.TTGIAOHANG == true)
+                                @if (item.DATHANHTOAN == true)
                                 {
                                     <p>Đã thanh toán</p>
                                 }

@@ -31,7 +31,7 @@
                 <div class="col-lg-5">
                     @using (Html.BeginForm("Index", "NhaCungCap", FormMethod.Get))
                     {
-                        <div class="form-group">
+                    <div class="form-group">
 
                             @Html.DropDownList("SelectedQG", ViewBag.QuocGia as SelectList, "Chọn Quốc Gia", new { @class = "form-control", onchange = "this.form.submit();" })
                         </div>

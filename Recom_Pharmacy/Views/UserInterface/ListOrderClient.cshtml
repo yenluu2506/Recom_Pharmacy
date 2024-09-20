@@ -18,9 +18,11 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Mã đơn</th>
                     <th>Ngày đặt hàng</th>
                     <th>Ngày giao hàng</th>
                     <th>Trạng thái</th>
+                    <th>Đã thanh toán</th>
                     <th>Tên</th>
                     <th>Địa chỉ</th>
                     <th>Ghi Chú</th>
@@ -32,33 +34,44 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td class="text-black">@Html.DisplayFor(modelItem => item.ID)</td>
                         <td>@Html.DisplayFor(modelItem => item.NGAYXUAT)</td>
                         <td>@Html.DisplayFor(modelItem => item.NGAYGIAOHANG)</td>
                         <td>
-                            @if (item.XULY == true)
+                            @if (item.HOANTHANH == true && item.TRANGTHAI == true && item.DATHANHTOAN == true && item.TTGIAOHANG == true)
                             {
-                                <span class="badge badge-success">Đã giao</span>
+                                <span class="badge badge-success">Đã giao </span>
                             }
-                            else if (item.TRANGTHAI == true || item.XULY == false)
+                            else if (item.TRANGTHAI == false && item.HOANTHANH == true)
                             {
-                                <span class="badge badge-danger">Hủy Đơn</span>
+                                <span class="badge badge-danger">Đã hủy</span>
                             }
-                            else if (item.XULY == false)
+                            else if (item.TTGIAOHANG == false && item.TRANGTHAI == true && item.HOANTHANH == false)
                             {
                                 <span class="badge badge-warning">Đang giao</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.DATHANHTOAN == true)
+                            {
+                                <p>Đã thanh toán</p>
+                            }
+                            else
+                            {
+                                <p>Chưa thanh toán</p>
                             }
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.KHACHHANG.TENKH)</td>
                         <td>@Html.DisplayFor(modelItem => item.KHACHHANG.DIACHI)</td>
                         <td>@Html.DisplayFor(modelItem => item.GHICHU)</td>
                         <td>
-                            @if (item.TRANGTHAI == false)
+                            @if (item.TRANGTHAI == true && item.HOANTHANH == false && item.TTGIAOHANG == false)
                             {
                                 @Html.ActionLink("Hủy", "CancelOrder", new { id = item.ID }, new { onclick = "return confirm('Bạn chắc chắn muốn hủy đơn hàng ?');", @class = "btn btn-danger btn-sm" })
                             }
                         </td>
                         <td>
-                            <button type="button" class="pest_btn" data-toggle="collapse" data-target="#collapse-@item.ID" aria-expanded="false" aria-controls="collapse-@item.ID">
+                            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse-@item.ID" aria-expanded="false" aria-controls="collapse-@item.ID">
                                 Chi tiết
                             </button>
                         </td>

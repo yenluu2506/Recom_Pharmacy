@@ -2,70 +2,140 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string[] dateX = ViewBag.DateX;
+    int[] data = ViewBag.Data;
+    string[] topSellingProducts = ViewBag.TopSellingProducts;
+    int[] topSellingData = ViewBag.TopSellingData;
 }
 
-@*<script src="~/Content/Admin/vendor/chart.js/Chart.js"></script>
-@{
-    string[] arrayList = new string[12];
-    arrayList = (string[])ViewBag.dateX;
-    string[] dt = new string[12];
-    dt = (string[])ViewBag.data;
-    string name = "Doanh thu";
-}*@
-@*hiện biểu đồ*@
-@*<canvas id="myChart" style="height :350px "></canvas>*@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="text-center">Thống kê</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <canvas id="myChart" height="280"></canvas>
+            </div>
+            <div class="col-6">
+                <canvas id="chartBanChay"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
-@*<script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Tháng 01", "Tháng 02", "Tháng 03", "Tháng 04", "Tháng 05", "Tháng 06", "Tháng 07", "Tháng 08", "Tháng 09", "Tháng 10", "Tháng 11","Tháng 12"],
-            datasets: [{
-                label: '@name',
-                data: [@dt[7],@dt[8],@dt[9],@dt[10],@dt[11],@dt[0],@dt[1],@dt[2],@dt[3],@dt[4],@dt[5],@dt[6]],
-                backgroundColor: [
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
+@section scripts {
+    <script>
+        Chart.defaults.font.size = 16;
+        $(document).ready(function () {
+            const dateX = @Html.Raw(Json.Encode(dateX));
+            const data = @Html.Raw(Json.Encode(data));
+            const topSellingProducts = @Html.Raw(Json.Encode(topSellingProducts));
+            const topSellingData = @Html.Raw(Json.Encode(topSellingData));
 
-                ],
-                borderColor: [
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 159, 64, 1)'
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+            const myChart = new Chart($('#myChart'), {
+                type: 'bar',
+                data: {
+                    labels: dateX,
+                    datasets: [{
+                        label: 'Doanh thu theo tháng',
+                        data: data,
+                        borderWidth: 1,
+                        fill: false,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 30000000
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Tổng hợp doanh thu bán hàng'
+                        },
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 18
+                                }
+                            }
+                        }
                     }
-                }]
-            }
-        }
-    });
-</script>*@
+                }
+            });
 
+            const pieData = {
+                labels: ['Red', 'Blue', 'Yellow', 'a', 'b'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [1500, 500],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(40, 167, 69)',
+                        'rgb(108, 117, 125)'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            const myChart1 = new Chart($('#chartBanChay'), {
+                type: 'pie',
+                data: {
+                    labels: topSellingProducts,
+                    datasets: [{
+                        label: 'Sản phẩm bán chạy',
+                        data: topSellingData,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(40, 167, 69)',
+                            'rgb(108, 117, 125)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Sản phẩm bán chạy'
+                        },
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 18
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

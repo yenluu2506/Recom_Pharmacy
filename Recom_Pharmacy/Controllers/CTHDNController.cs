@@ -17,7 +17,7 @@ namespace Recom_Pharmacy.Controllers
         private RecomPharmacyEntities db = new RecomPharmacyEntities();
 
         // GET: CTHDN
-        public ActionResult Index(string Searchtext, int? page, int? SelectedDVT, int? SelectedCTTonKho, int? SelectedThuoc, int? id, int? SelectedHDN)
+        public ActionResult Index(string Searchtext, int? page, int? SelectedDVT, int? SelectedThuoc, int? id, int? SelectedHDN)
         {
             //var cHITIETHDNs = db.CHITIETHDNs
             //            .Include(c => c.CTKHO)
@@ -28,7 +28,7 @@ namespace Recom_Pharmacy.Controllers
             //return View(cHITIETHDNs);
             //return RedirectToAction("index", new { id = id });
             ViewBag.CTTonKho = new SelectList(db.CTTONKHOes.ToList(), "ID", "ID");
-            ViewBag.Thuoc = new SelectList(db.TONKHOes.ToList(), "ID", "TENTHUOC");
+            ViewBag.Thuoc = new SelectList(db.KHOes.ToList(), "ID", "TENTHUOC");
             ViewBag.HDN = new SelectList(db.HOADONNHAPs.ToList(), "ID", "SOHD");
             ViewBag.DVT = new SelectList(db.HOADONNHAPs.ToList(), "ID", "TENDVT");
             var pageSize = 5;
@@ -37,10 +37,7 @@ namespace Recom_Pharmacy.Controllers
                 page = 1;
             }
             IEnumerable<CHITIETHDN> items = db.CHITIETHDNs.OrderByDescending(x => x.ID).Where(x => x.HOADONNHAP.ID == id);
-            if (SelectedCTTonKho.HasValue)
-            {
-                items = items.Where(x => x.CTTONKHO.ID == SelectedCTTonKho.Value);
-            }
+      
             if (SelectedThuoc.HasValue)
             {
                 items = items.Where(x => x.THUOC.ID == SelectedThuoc.Value);
@@ -56,7 +53,6 @@ namespace Recom_Pharmacy.Controllers
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;
-            ViewBag.SelectedTonKho = SelectedCTTonKho;
             ViewBag.SelectedThuoc = SelectedThuoc;
             ViewBag.SelectedHDN = SelectedHDN;
             ViewBag.SelectedDVT = SelectedDVT;
@@ -82,10 +78,40 @@ namespace Recom_Pharmacy.Controllers
         // GET: CTHDN/Create
         public ActionResult Create(int? id)
         {
-            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID");
+            //var selectList = db.CTTONKHOes
+            //     .Select(ct => new {
+            //         ID = ct.ID,
+            //         TenKho = ct.KHO.TENKHO // Assuming KHO is a navigation property in CTTONKHO
+            //     }).Distinct()
+            //     .ToList();
+            //ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID");
+            ////ViewBag.MACTTONKHO = new SelectList(selectList, "ID", "TenKho");
+            //ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT");
+            //ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC");
+            //ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", id);
+            //return View();
+
+
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT");
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC");
+
+            var selectListCTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID");
+
+            if (id.HasValue || Request.IsAjaxRequest()) // Check for edit or AJAX request
+            {
+                int selectedDrugId = id.HasValue ? id.Value : Convert.ToInt32(Request.Params["selectedDrugId"]); // Get drug ID from query string (assuming you pass it)
+                var ctTonKhoList = db.CTTONKHOes.Where(ct => ct.THUOC.ID == selectedDrugId).ToList();
+                selectListCTTONKHO = new SelectList(ctTonKhoList, "ID", "ID");
+
+                if (Request.IsAjaxRequest()) // Handle AJAX request
+                {
+                    return Json(selectListCTTONKHO.Select(item => new { id = item.Value, text = item.Text }), JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            ViewBag.MACTTONKHO = selectListCTTONKHO;
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", id);
+
             return View();
         }
 
@@ -103,7 +129,6 @@ namespace Recom_Pharmacy.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID", cHITIETHDN.MACTTONKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
             ViewBag.MATHUOC = new SelectList(db.THUOCs, "ID", "TENTHUOC", cHITIETHDN.MATHUOC);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
@@ -122,7 +147,6 @@ namespace Recom_Pharmacy.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID", cHITIETHDN.MACTTONKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
             return View(cHITIETHDN);
@@ -141,7 +165,6 @@ namespace Recom_Pharmacy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MACTTONKHO = new SelectList(db.CTTONKHOes, "ID", "ID", cHITIETHDN.MACTTONKHO);
             ViewBag.MADVT = new SelectList(db.DONVITINHs, "ID", "TENDVT", cHITIETHDN.MADVT);
             ViewBag.MAHDN = new SelectList(db.HOADONNHAPs, "ID", "SOHD", cHITIETHDN.MAHDN);
             return View(cHITIETHDN);

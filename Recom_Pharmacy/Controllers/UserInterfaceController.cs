@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using PagedList;
 using Recom_Pharmacy.Models;
 using Recom_Pharmacy.Models.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -17,6 +19,7 @@ namespace Recom_Pharmacy.Controllers
     public class UserInterfaceController : Controller
     {
         RecomPharmacyEntities db = new RecomPharmacyEntities();
+        ThuocViewModel thuoc = new ThuocViewModel();
         string baseURL = "http://localhost:5555";
         public ActionResult Signout()
         {
@@ -30,8 +33,7 @@ namespace Recom_Pharmacy.Controllers
         // GET: UserInterface
         public ActionResult Index(string search)
         {
-            var model = db.THUOCs.Where(x => x.TRANGTHAI == true).OrderByDescending(c => c.NGAYSX).Where(nv => nv.TENTHUOC.Contains(search) || search == null && nv.TRANGTHAI == true).Take(9).ToList();
-
+            var model = thuoc.getThuocWithTonKho(search);
             return View(model);
         }
         public ActionResult Sessionlogin()
@@ -46,22 +48,19 @@ namespace Recom_Pharmacy.Controllers
         }
         public ActionResult AllProduct(string search)
         {
-            var model = db.THUOCs
-                          .Where(x => x.TRANGTHAI == true)
-                          .OrderByDescending(c => c.NGAYSX)
-                          .Where(nv => nv.TENTHUOC.Contains(search) || (search == null && nv.TRANGTHAI == true))
-                          .Take(10)
-                          .ToList();
+            var model = thuoc.getThuocWithTonKho(search);
 
             return View(model);
         }
 
 
-        public ActionResult ViewAllProduct(string search)
+        public ActionResult ViewAllProduct(string search, int? page)
         {
-            var model = db.THUOCs.Where(x => x.TRANGTHAI == true).OrderByDescending(c => c.NGAYSX).Where(nv => nv.TENTHUOC.Contains(search) || search == null && nv.TRANGTHAI == true).ToList();
+            var model = thuoc.getThuocWithTonKho(search);
+            int pageSize = 9; 
+            int pageNumber = (page ?? 1); 
 
-            return View(model);
+            return View(model.ToPagedList(pageNumber, pageSize));
         }
         private List<THUOC> NewItem(int count)
         {
@@ -83,22 +82,23 @@ namespace Recom_Pharmacy.Controllers
             return PartialView(b);
         }
 
-        public ActionResult ProductByLT(int id)
+        public ActionResult ProductByLT(int id, int? page)
         {
-            var pr = from d in db.THUOCs where d.MALOAI == id && d.TRANGTHAI == true select d;
+            var pr = (from d in db.THUOCs where d.MALOAI == id && d.TRANGTHAI == true select d).ToList();
             ViewBag.CategoryId = id;
-            return View(pr);
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
+
+            return View(pr.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult FilterByPrice(decimal from, decimal to)
         {
-            var filteredProducts = db.THUOCs.Where(p => p.GIABAN >= from && p.GIABAN <= to).ToList();
+            var filteredProducts = thuoc.getByFilterByPrice(from, to);
             return PartialView("_ProductList", filteredProducts);
         }
         public ActionResult FilterByPriceByLT(decimal from, decimal to, int categoryId)
         {
-            var filteredProducts = db.THUOCs
-                                    .Where(p => p.GIABAN >= from && p.GIABAN <= to && p.MALOAI == categoryId)
-                                    .ToList();
+            var filteredProducts = thuoc.getByFilterByCategoryByPrice(from,to,categoryId);
             return PartialView("_ProductList", filteredProducts);
         }
 
@@ -123,18 +123,31 @@ namespace Recom_Pharmacy.Controllers
                 }
             }
             ViewBag.tatcasanpham = db.THUOCs.ToList();
-            THUOC item = db.THUOCs.Find(id);
+            THUOC item = thuoc.findById(id);
             return View(item);
         }
+        [HttpGet]
+        public ActionResult CheckStock(int productId)
+        {
+            var product = thuoc.findById(productId);
+            bool isOutOfStock = false;
+            var slTon = product?.CTTONKHOes.FirstOrDefault()?.SLTON;
+            if (slTon <= 0 || slTon == null)
+            {
+                isOutOfStock = true;
+            }
+            return Json(new { stockStatus = isOutOfStock ? "outOfStock" : "inStock" }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ListOrderClient()
         {
             var ac = (KHACHHANG)Session["usr"];
             if (ac == null)
             {
-                return RedirectToAction("Login", "Acction");
+                return RedirectToAction("Login", "Login");
             }
 
-            var temp = db.HOADONXUATs.Where(p => p.KHACHHANG.Username == ac.Username);
+            var temp = db.HOADONXUATs.Where(p => p.KHACHHANG.Username == ac.Username).OrderByDescending(x=>x.ID);
             List<OrderEntity> listProdcut = new List<OrderEntity>();
             foreach (var item in temp)
             {
@@ -166,12 +179,14 @@ namespace Recom_Pharmacy.Controllers
         [HttpGet]
         public ActionResult CancelOrder(long? id)
         {
-
-            var temp = db.CHITIETHDXes.Where(d => d.MAHDX == id).ToList();
-            db.CHITIETHDXes.RemoveRange(temp);
-            db.SaveChanges();
             var tem = db.HOADONXUATs.SingleOrDefault(d => d.ID == id);
-            db.HOADONXUATs.Remove(tem);
+            tem.TRANGTHAI = false;
+            tem.HOANTHANH = true;
+            tem.TTGIAOHANG = false;
+            if(tem.DATHANHTOAN == true)
+            {
+                tem.GHICHU = "Hoàn tiền";
+            }
             db.SaveChanges();
             return RedirectToAction("ListOrderClient");
 
@@ -232,6 +247,10 @@ namespace Recom_Pharmacy.Controllers
         {
 
             return PartialView(NewBlogs(4));
+        }
+        public ActionResult Search()
+        {
+            return PartialView();
         }
     }
 }

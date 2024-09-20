@@ -4,7 +4,29 @@
     ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<style>
+    .card {
+        position: relative;
+        z-index: 1;
+    }
 
+    .datetimepicker-input,.datetimepicker-input2 {
+        z-index: 2 !important; /* Increase the z-index */
+        position: relative;
+    }
+
+    .select2 {
+        z-index: 2;
+    }
+
+    .table-responsive {
+        overflow-y: visible;
+    }
+
+    #tbHtml tr td{
+        vertical-align:middle;
+    }
+</style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
@@ -32,85 +54,541 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
                 <!-- your steps content here -->
-                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Số hóa đơn</label>
-                        @Html.TextBoxFor(x => x.SOHD, new { @class = "form-control", @placeholder = "Nhập vào Địa chỉ cụ thể" })
-                        @Html.ValidationMessageFor(x => x.SOHD, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nhân viên lập</label>
-                        @Html.DropDownList("MATDV", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MATDV, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="startdate">Ngày lập hóa đơn</label>
-                        <div class="input-group date" id="startdate" data-target-input="nearest">
-                            @Html.TextBoxFor(x => x.NGAYNHAP, new { @class = "form-control datetimepicker-input", data_target = "#startdate" })
-                            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Thông tin chung</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Chi tiết</a></li>
+                    </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Số hóa đơn</label>
+                                        @Html.TextBoxFor(x => x.SOHD, new { @class = "form-control", @Value = @TempData["SOHD"], @readonly = true })
+                                        @Html.ValidationMessageFor(x => x.SOHD, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nhân viên lập</label>
+                                        @Html.DropDownList("MATDV", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MATDV, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Kho</label>
+                                        @Html.DropDownList("MAKHO", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MAKHO, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nhà cung cấp</label>
+                                        @Html.DropDownList("MANCC", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MANCC, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startdate">Ngày lập hóa đơn</label>
+                                        <div class="input-group date" id="startdate" data-target-input="nearest">
+                                            @Html.TextBoxFor(x => x.NGAYNHAP, new { @class = "form-control datetimepicker-input1", data_target = "#startdate" })
+                                            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Loại tiền</label>
+                                        @Html.TextBoxFor(x => x.MALOAITIEN, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.MALOAITIEN, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Thuế</label>
+                                        @Html.TextBoxFor(x => x.VAT, new { @class = "form-control", @id = "vatInput", @type = "number", @min = "0", @step = "0.25", @Value = "2" })
+                                        @Html.ValidationMessageFor(x => x.VAT, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tổng</label>
+                                        @*<input type="text" name="TONGTIEN" id="TONGTIEN" value="0" class="form-control auto" readonly>*@
+                                        @Html.TextBoxFor(x => x.TONGTIEN, new { @class = "form-control", @id = "tongtien", @Name = "tongtien", @Value = "0", @readonly = true })
+                                        @Html.ValidationMessageFor(x => x.TONGTIEN, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tiền nợ</label>
+                                        @*<input type="text" name="TIENNO" id="TIENNO" value="0" class="form-control auto">*@
+                                        @Html.TextBoxFor(x => x.TIENNO, new { @class = "form-control", @id = "tienno", @Name = "tienno", @Value = "0" })
+                                        @Html.ValidationMessageFor(x => x.TIENNO, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Ghi chú</label>
+                                        @Html.TextBoxFor(x => x.GHICHU, new { @class = "form-control", @placeholder = "", @id = "ghichu" })
+                                        @Html.ValidationMessageFor(x => x.GHICHU, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="customCheckbox2">Hiển thị</label>
+                                        @Html.CheckBoxFor(x => x.TRANGTHAI, new { @checked = "checked", @id = "customCheckbox2", @Name = "TRANGTHAI" })
+                                    </div>
+                                </div>
                             </div>
+                            <!-- your steps content here -->
+
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Loại tiền</label>
-                        @Html.TextBoxFor(x => x.MALOAITIEN, new { @class = "form-control", @placeholder = "Nhập vào Địa chỉ cụ thể" })
-                        @Html.ValidationMessageFor(x => x.MALOAITIEN, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Thuế</label>
-                        @Html.TextBoxFor(x => x.VAT, new { @class = "form-control", @placeholder = "Nhập vào SĐT" })
-                        @Html.ValidationMessageFor(x => x.VAT, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tiền nợ</label>
-                        @Html.TextBoxFor(x => x.MALOAITIEN, new { @class = "form-control", @placeholder = "Nhập vào Địa chỉ cụ thể" })
-                        @Html.ValidationMessageFor(x => x.MALOAITIEN, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Ghi chú</label>
-                        @Html.TextBoxFor(x => x.GHICHU, new { @class = "form-control", @placeholder = "Nhập vào SĐT" })
-                        @Html.ValidationMessageFor(x => x.GHICHU, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Hiển thị</label>
-                        @Html.CheckBoxFor(x => x.TRANGTHAI, new { @checked = "@checked" })
-                    </div>
-                    <div class="form-group">
-                        <a href="/ctkho" class="btn btn-danger">Quay lại</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="tab-pane" id="timeline">
+                            <div class="row">
+                                <div class="col-md-12 text-right my-3">
+                                    <select id="selectThuoc" style="width: 50%;" data-placeholder="Chọn thuốc để thêm"></select>
+                                </div>
+                                <div class="table-responsive" style="width:200%">
+                                    <table id="tbAnhSanPham" class="table">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>#</th>
+                                                <th>Mã</th>
+                                                <th>Tên thuốc</th>
+                                                <th style="min-width:150px">ĐVT</th>
+                                                <th>Giá nhập</th>
+                                                <th>Giá bán</th>
+                                                <th>Số lượng</th>
+                                                <th>Thành tiền</th>
+                                                <th>Lô SX</th>
+                                                <th style="min-width:200px">Ngày SX</th>
+                                                <th style="min-width:200px">Ngày HH</th>
+                                                <th>Vị trí</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbHtml">
+                                        </tbody>
+                                    </table>
+                                            <input type="hidden" id="tCurrentId" value="0" />
+                                        </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
-
+            </div>
+                <div class="form-group my-3">
+                    <a href="javascript:history.go(-1)" class="btn btn-danger">Quay lại</a>
+                    <button type="button" class="btn btn-primary" id="btnAddChiTiet">Submit</button>
+                </div>
             }
         </div>
     </div>
-
 </section>
 
 @section scripts{
     <script>
-        $(function () {
-            // Date picker for start date
-            $('#startdate').datetimepicker({
-                format: 'L',
-                icons: {
-                    time: 'far fa-clock',
-                    date: 'fa fa-calendar',
-                    up: 'fa fa-chevron-up',
-                    down: 'fa fa-chevron-down',
-                    previous: 'fa fa-chevron-left',
-                    next: 'fa fa-chevron-right',
-                    today: 'fa fa-calendar-check-o',
-                    clear: 'fa fa-trash',
-                    close: 'fa fa-times'
+        $(document).ready(function () {
+            function autonumeric(element){
+                new AutoNumeric(element, { currencySymbol: '$', modifyValueOnWheel: false });
+            }
+
+            autonumeric('#tongtien')
+            autonumeric('#tienno')
+            $(function () {
+                // Date picker for start date
+                $('#startdate').datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    minDate:Date(),
+                    icons: {
+                        time: 'far fa-clock',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-chevron-up',
+                        down: 'fa fa-chevron-down',
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-calendar-check-o',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-times'
+                    }
+                });
+            });
+            $('#selectThuoc').select2({
+                ajax: {
+                    url: '@Url.Action("getAllThuoc", "HoaDonNhap")',
+                    dataType: 'json',
+                    async: true,
+                    data: function (params) {
+                        return {
+                            pageSize: 5,
+                            pageNum: params.page || 1,
+                            searchTerm: params.term,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        params.pageSize = params.pageSize || 5;
+                        return {
+                            results: $.map(data.thuoc, function (obj) {
+                                return {
+                                    id: obj.ID,
+                                    tenthuoc: obj.TENTHUOC,
+                                    anh: obj.ANH,
+                                    donggoi: obj.DONGGOI,
+                                    doituongsd: obj.DOITUONGSD
+                                };
+                            }),
+                            pagination: {
+                                more: (params.page * params.pageSize) <= data.Total
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                templateResult: formatRepo,
+                templateSelection: formatRepoSelection
+            });
+
+            function checkHoaDon() {
+                let isEmpty = false;
+                let tabHoaDon = $('#activity').find('input[type="text"], input[type="number"], select');
+                tabHoaDon.each(function () {
+                    if ($(this).attr('id') !== 'ghichu') {
+                        if ($(this).val().trim() === '' && !$(this).prop('readonly')) {
+                            isEmpty = true;
+                            return false; // Thoát khỏi vòng lặp khi tìm thấy trường rỗng
+                        }
+                    }
+                })
+
+                return isEmpty
+            }
+
+            function checkTableData() {
+                let isEmpty = false;
+                let td = $('#tbHtml tr td');
+                if (td.length === 0) {
+                    isEmpty = true;
+                }
+                td.each(function () {
+                    let a = $(this).text();
+                    if ($(this).attr('id') === 'datetime'){
+                        $(this).find('input').val();
+                    }
+                    if ($(this).text() === '') {
+                        isEmpty = true;
+                        return;
+                    }
+                });
+                return isEmpty;
+            }
+
+            function getTableData() {
+                let tableData = [];
+                $('#tbHtml tr').each(function (index) {
+                    let row = {
+                        id: $(this).find('td:nth-child(2)').text().trim(),
+                        tenthuoc: $(this).find('td:nth-child(3)').text().trim(),
+                        madvt: $(this).find('td:nth-child(4)').find(":selected").val(),
+                        gianhap: AutoNumeric.getNumber(`#giaNhap${index + 1}`),
+                        giaban: AutoNumeric.getNumber(`#giaBan${index + 1}`),
+                        soluong: AutoNumeric.getNumber(`#soLuong${index + 1}`),
+                        thanhtien: AutoNumeric.getNumber(`#thanhTien${index + 1}`),
+                        losx: $(this).find('td:nth-child(9)').text().trim(),
+                        ngaysx: $(this).find('td:nth-child(10)').find('input').val(),
+                        ngayhh: $(this).find('td:nth-child(11)').find('input').val(),
+                        vitri: $(this).find('td:nth-child(12)').text().trim(),
+                    };
+                    tableData.push(row);
+                });
+                return tableData;
+            }
+
+            function getHoaDonDataFromTab() {
+                let tabHoaDon = $('#activity');
+                let data = {};
+
+                tabHoaDon.find('input, select, textarea').each(function () {
+                    let value = '';
+
+                    // Exclude hidden TRANGTHAI inputs
+                    if ($(this).attr('name') === 'TRANGTHAI' && $(this).attr('type') === 'hidden') {
+                        return; // Skip this iteration
+                    }
+
+                    // Handle tongtien or tienno fields
+                    if ($(this).attr('name') === 'tongtien' || $(this).attr('name') === 'tienno') {
+                        let elementID = $(this).attr('id');
+                        let element = AutoNumeric.getAutoNumericElement(`#${elementID}`);
+                        value = element.getNumber();
+                    }
+                    // Handle checkbox customCheckbox2
+                    else if ($(this).attr('id') === 'customCheckbox2') {
+                        value = $(this).prop('checked');
+                    }
+                    // Handle other fields
+                    else {
+                        value = $(this).val();
+                    }
+
+                    // Save value to the data object
+                    data[$(this).attr('name')] = value;
+                });
+
+                return data;
+            }
+
+            function parseDate(dateStr) {
+                const parts = dateStr.split('/');
+                return new Date(parts[2], parts[1] - 1, parts[0]);
+            }
+
+
+            $('body').on('click', '#btnAddChiTiet', function (e) {
+                e.preventDefault();
+                if (checkTableData() || checkHoaDon()) {
+                    alert('Thông tin cả 2 tab không được trống!');
+                    return;
+                }
+                let data = {
+                    chitiet: getTableData(),
+                    hoadonnhap: getHoaDonDataFromTab()
+                };
+
+                data.chitiet.forEach(item => {
+                    item.ngaysx = parseDate(item.ngaysx);
+                    item.ngayhh = parseDate(item.ngayhh);
+                });
+                let parseNgayNhap = parseDate(data.hoadonnhap.NGAYNHAP);
+                data.hoadonnhap.NGAYNHAP = parseNgayNhap;
+                        
+                let token = $('input[name="__RequestVerificationToken"]').val();
+                let headers = {};
+                headers['__RequestVerificationToken'] = token;
+                console.log('check data: ', data);
+
+                $.ajax({
+                    url: '/hoadonnhap/add',
+                    type: 'POST',
+                    headers: headers,
+                    'contentType': 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(data),
+                    async:true,
+                    success: function (res) {
+                        if (res.success) {
+                            alert('Thêm thành công');
+                            console.log(res);
+                            window.location.href = res.redirectURL;
+                        }
+                        else if (!res.success) {
+                            alert(res.errMessage);
+                        }
+                        else {
+                            alert('Có lỗi xảy ra!')
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Có lỗi xảy ra: ' + error);
+                    }
+                });
+            });
+
+
+
+            function formatRepo(repo) {
+                if (repo.loading) {
+                    return repo.text;
+                }
+                var $html = $(
+                   ` <div class='container text-center'>
+                     <div class="row justify-content-start align-items-center">
+
+                   <div class="col-4">
+                        <img src='${repo.anh}' style="width: 80px;height:100px;" />
+                   </div>
+                      <div class="col-4">
+                      <p>
+                        Mã thuốc: ${repo.id}
+                      </p>
+                       <p>
+                            Tên: ${repo.tenthuoc}
+                       </p>
+                        <p>
+                            Đóng gói: ${repo.donggoi}
+                        </p>
+                     </div>
+                      <div class="col-4">
+                     <p>
+                       Đối tượng sử dụng: ${repo.doituongsd}
+                     </p>
+                    </div>
+                      </div>
+
+                    </div>`
+
+                );
+                return $html;
+            }
+
+            function formatRepoSelection(repo) {
+                return repo.tenthuoc || repo.text;
+            }
+
+            $('#selectThuoc').on('select2:select', function (e) {
+                var data = e.params.data;
+                addRowToTable(data);
+                $(this).empty();
+            });
+
+            function addRowToTable(data) {
+                let temp = $('#tCurrentId').val();
+                let i = parseInt(temp) + 1;
+
+                // Đếm số lần thuốc với ID cụ thể đã được thêm vào bảng
+                let existingRows = $(`#tbHtml tr:contains(${data.id})`).length;
+
+                $.ajax({
+                    url: '/hoadonnhap/getDVTByIdThuoc',
+                    type: 'GET',
+                    data: { id: data.id },
+                    success: function (res) {
+                        let dvtCount = res.dvtData.length;
+                        // Kiểm tra nếu số lần thêm nhỏ hơn số đơn vị tính
+                        if (existingRows < dvtCount) {
+                            let dvtOptions = res.dvtData.map(dvt => `<option value="${dvt.ID}">${dvt.TENDVT}</option>`).join('');
+                            var newRow = `
+                <tr id='trow_${i}' class="text-center">
+                    <td style="color:red;cursor:pointer"><span class="btnDelete" data-id="${i}">X</span></td>
+                    <td>${data.id}</td>
+                    <td>${data.tenthuoc}</td>
+                    <td>
+                        <select class="form-control">${dvtOptions}</select>
+                    </td>
+                    <td contenteditable="true" data-type="number" id="giaNhap${i}">0</td>
+                    <td contenteditable="true" data-type="number" id="giaBan${i}">0</td>
+                    <td contenteditable="true" data-type="number" id="soLuong${i}">0</td>
+                    <td class="text-center" id="thanhTien${i}">0</td>
+                    <td contenteditable="true"></td>
+                    <td id="datetime">
+                            <input type="text" class="form-control datetimepicker-input" id="ngaysx${i}"/>
+                    </td>
+                     <td id="datetime">
+                            <input type="text" class="form-control datetimepicker-input2" id="ngayhh${i}"/>
+                     </td>
+                    <td contenteditable="true"></td>
+                </tr>
+                `;
+                            $('#tbHtml').append(newRow);
+                            $('#tCurrentId').val(i);
+                            new AutoNumeric(`#giaNhap${i}`, ['floatPos', { currencySymbol: '', modifyValueOnWheel: false }]);
+                            new AutoNumeric(`#giaBan${i}`, ['floatPos',{ currencySymbol: '', modifyValueOnWheel: false }]);
+                            new AutoNumeric(`#soLuong${i}`, ['integerPos' ,{ modifyValueOnWheel: false}]);
+                            new AutoNumeric(`#thanhTien${i}`, ['floatPos', { currencySymbol: '', modifyValueOnWheel: false }]);
+
+                        } else {
+                            alert(`Thuốc với ID ${data.id} đã được thêm vào đủ số đơn vị tính (${dvtCount}) DVT.`);
+                        }
+                    }
+                });
+            }
+
+
+            $('body').on('focus', '.datetimepicker-input', function () {
+                // Initialize date picker for start date
+                $(this).datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    maxDate: Date(),
+                    zIndexOffset: 10000,
+                    widgetPositioning: {
+                        horizontal: 'left',
+                        vertical: 'bottom'
+                    }
+                });
+                $(this).datetimepicker('show');
+            });
+
+
+            $('body').on('focus', '.datetimepicker-input2', function () {
+                // Initialize date picker for start date
+                $(this).datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    minDate: Date(),
+                    zIndexOffset: 10000,
+                    widgetPositioning: {
+                        horizontal: 'left',
+                        vertical: 'bottom'
+                    }
+                });
+                $(this).datetimepicker('show');
+            });
+
+
+
+            $('body').on('blur', '.datetimepicker-input', function () {
+                $(this).datetimepicker('hide');
+            });
+
+            $('body').on('blur', '.datetimepicker-input2', function () {
+                $(this).datetimepicker('hide');
+            });
+
+            $('body').on('click', '.btnDelete', function myfunction() {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có muốn xóa bản ghi này không?')
+                if (conf == true) {
+                    $('#trow_' + id).remove();
                 }
             });
+
+            $('body').find('blur', '#vatInput', function () {
+                if ($(this).val() === '') {
+                    $(this).val(0);
+                }
+            });
+            $('#vatInput').on('change', function () {
+                    let vat = $(this).val();
+                    let tongtien = calculateTotalPrice()
+                    tongtien += tongtien * vat/100;
+                AutoNumeric.getAutoNumericElement('#tongtien').set(Math.ceil(tongtien));
+            })
+
+
+            $('body').on('focus', '#tbHtml td[contenteditable=true][data-type="number"]', function () {
+                let $cell = $(this);
+                if ($cell.text() === '0') {
+                    $cell.text('');
+                }
+            });
+
+            $('body').on('blur', '#tbHtml td[contenteditable=true][data-type="number"]', function () {
+                let $cell = $(this);
+                if ($cell.text().trim() === '') {
+                    $cell.text('0');
+                }
+            });
+
+                $('#vatInput').on('keypress', function (event) {
+                    var charCode = event.which ? event.which : event.keyCode;
+                    // Chỉ cho phép nhập các số (0-9) và dấu chấm (.)
+                    if (charCode != 46 && (charCode < 48 || charCode > 57)) {
+                        event.preventDefault();
+                    }
+                });
+
+            function calculateTotalPrice() {
+                let total = 0;
+                $('#tbHtml tr').each(function (index) {
+                    total += AutoNumeric.getNumber(`#thanhTien${index+1}`)
+                });
+
+                return total
+            }
+
+            $('body').on('input', '#tbHtml td[contenteditable=true][data-type="number"]', function () {
+                let $cell = $(this);
+                let row = $cell.closest('tr').attr('id');
+                let match = row.match(/\d+/);
+                let rowId = match ? match[0] : null;
+                let giaNhap = AutoNumeric.getNumber(`#giaNhap${rowId}`);
+                let soLuong = AutoNumeric.getNumber(`#soLuong${rowId}`);
+                let thanhTien = giaNhap * soLuong;
+                let ThanhTienFromTbl = AutoNumeric.getAutoNumericElement(`#thanhTien${rowId}`);
+                ThanhTienFromTbl.set(thanhTien)
+                let total = calculateTotalPrice();
+                const totalPrice = AutoNumeric.getAutoNumericElement('#tongtien');
+                totalPrice.set(+total)
+                $('#vatInput').trigger("change");
+            });
         });
-
-
-    </script>
-    <!-- Select2 -->
-    <link rel="stylesheet" href="~/Content/clients/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="~/Content/clients/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    </script>  <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 }

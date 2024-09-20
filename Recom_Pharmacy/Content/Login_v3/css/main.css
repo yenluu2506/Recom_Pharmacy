@@ -280,7 +280,6 @@ iframe {
   left: 0;
   width: 0;
   height: 2px;
-
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -289,24 +288,23 @@ iframe {
   background: #fff;
 }
 
-.focus-input100::after {
-  font-family: "system-ui", sans-serif;
-  font-size: 22px;
-  color: #fff;
-
-  content: attr(data-placeholder);
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 6px;
-  left: 0px;
-  padding-left: 5px;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
+	.focus-input100::after {
+		font-family: "system-ui", sans-serif;
+		font-size: 22px;
+		color: #fff;
+		font-family: Material-Design-Iconic-Font !important;
+		content: attr(data-placeholder);
+		display: block;
+		width: 100%;
+		position: absolute;
+		top: 6px;
+		left: 0px;
+		padding-left: 5px;
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		transition: all 0.4s;
+	}
 
 .input100:focus {
   padding-left: 5px;

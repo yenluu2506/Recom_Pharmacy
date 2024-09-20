@@ -15,15 +15,13 @@ namespace Recom_Pharmacy.Models
     public partial class CHITIETHDN
     {
         public int ID { get; set; }
-        public Nullable<int> MAHDN { get; set; }
-        public Nullable<int> MACTTONKHO { get; set; }
-        public Nullable<int> MATHUOC { get; set; }
+        public int MAHDN { get; set; }
+        public int MATHUOC { get; set; }
         public int SOLUONG { get; set; }
         public decimal DONGIA { get; set; }
         public int MADVT { get; set; }
-        public double CHIETKHAU { get; set; }
+        public string LOSX { get; set; }
     
-        public virtual CTTONKHO CTTONKHO { get; set; }
         public virtual DONVITINH DONVITINH { get; set; }
         public virtual HOADONNHAP HOADONNHAP { get; set; }
         public virtual THUOC THUOC { get; set; }

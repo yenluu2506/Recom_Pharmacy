@@ -44,7 +44,15 @@ namespace Recom_Pharmacy.Controllers
             ViewBag.PageSize = pageSize;
             ViewBag.SelectedDM = SelectedDM;
             ViewBag.page = page;
-            return View(items);
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(items);
+            }
         }
 
         public ActionResult GetPhongChieuByRap(int rapId)

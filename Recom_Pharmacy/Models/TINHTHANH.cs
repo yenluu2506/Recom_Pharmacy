@@ -17,16 +17,16 @@ namespace Recom_Pharmacy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TINHTHANH()
         {
-            this.TRINHDUOCVIENs = new HashSet<TRINHDUOCVIEN>();
             this.KHACHHANGs = new HashSet<KHACHHANG>();
+            this.TRINHDUOCVIENs = new HashSet<TRINHDUOCVIEN>();
         }
     
         public int ID { get; set; }
         public string TENTINH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TRINHDUOCVIEN> TRINHDUOCVIENs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHACHHANG> KHACHHANGs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TRINHDUOCVIEN> TRINHDUOCVIENs { get; set; }
     }
 }

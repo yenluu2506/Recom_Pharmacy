@@ -55,13 +55,17 @@
             <div class="table-responsive">
                 <table class="table table-hover display" style="width: 100%;color:black;">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th><input type="checkbox" id="SelectAll" /></th>
                             <th>STT</th>
-                            <th>Kho</th>
                             <th>Thuốc</th>
+                            <th>ĐVT</th>
+                            <th>Lô SX</th>
+                            <th>Ngày SX</th>
+                            <th>Ngày HH</th>
                             <th>Số lượng tồn</th>
                             <th>Trạng thái</th>
+                            <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,16 +75,19 @@
                             foreach (var item in Model)
                             {
                                 var strCheck = item.TRANGTHAI ? "<i class='fa fa-check text-success'></i>" : "<i class='fa fa-times text-danger'></i>";
-                                <tr id="trow_@item.ID">
+                                <tr id="trow_@item.ID" class="text-center">
                                     <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
                                     <td>@i</td>
-                                    <td>TK @item.TONKHO.TENKHO</td>
-                                    @*<td>TK @item.TONKHO.KHO.CTKHOes.KE</td>*@
                                     <td>@item.THUOC.TENTHUOC</td>
+                                    <td>@(item.DONVITINH?.TENDVT ?? "N/A")</td>
+                                    <td>@item.LOSX</td>
+                                    <td>@(item.NGAYSX?.ToString("dd-MM-yyyy") ?? "N/A")</td>
+                                    <td>@(item.NGAYHH?.ToString("dd-MM-yyyy") ?? "N/A")</td>
                                     <td>@item.SLTON</td>
-                                    <td>@item.TRANGTHAI</td>
+                                    <td >
+                                        <a href='#' data-id="@item.ID" class="btnActive">@Html.Raw(strCheck)</a>
+                                    </td>
                                     <td>
-                                        <a href="/cttonkho/edit/@item.ID" class="btn btn-sm btn-primary">Sửa</a>
                                         <a href="#" data-id="@item.ID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
                                     </td>
                                 </tr>
@@ -173,8 +180,7 @@
                         data: { id: id },
                         success: function (rs) {
                             if (rs.success) {
-                                $('#trow_' + id).remove();
-
+                                location.reload();
                             }
                         }
                     });

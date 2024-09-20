@@ -1,4 +1,4 @@
-/* Base */
+﻿/* Base */
 body {
     line-height: 1.7;
     color: #8c92a0;
@@ -704,7 +704,7 @@ a {
     .block-4 .block-4-text h3 a {
       text-decoration: none; }
 
-.block-5 ul, .block-5 ul li {
+/*.block-5 ul, .block-5 ul li {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -714,8 +714,8 @@ a {
   padding-left: 30px;
   position: relative;
   margin-bottom: 15px;
-  color: #25262a; }
-  .block-5 ul li:before {
+  color: #25262a; }*/
+  /*.block-5 ul li:before {
     top: 0;
     font-family: "Arial";
     content: "";
@@ -723,13 +723,22 @@ a {
     left: 0;
     font-size: 20px;
     line-height: 1;
-    color: #51eaea; }
-  .block-5 ul li.address:before {
-    content: "\e8b4"; }
+    color: #51eaea; }*/
+  /*.block-5 ul li.address:before {
+    content: "\e8b4"; 
+    font-family: "Arial" !important;
+  }
   .block-5 ul li.email:before {
-    content: "\f0e0"; }
+    content: "\f0e0";
+    font-family: "Arial" !important;
+  }
   .block-5 ul li.phone:before {
-    content: "\f095"; }
+    content: "\f095";
+    font-family: "Arial" !important;
+  }*/
+.fa {
+    font-family: "Font Awesome 5 Free" !important;
+}
 
 .block-6 {
   display: block; }
@@ -889,17 +898,58 @@ a {
 
 .bag {
   position: relative; }
-  .bag .number {
-    position: absolute;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    line-height: 20px;
-    color: #000;
-    font-size: 12px;
-    background: #51eaea;
-    right: -5px; }
+    .bag .number {
+        position: absolute;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        line-height: 20px;
+        color: #000;
+        font-size: 12px;
+        background: #51eaea;
+        right: -5px;
+        text-align: center;
+    }
+.icons .bag {
+    position: relative;
+}
+
+    .icons .bag .number {
+        position: absolute;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        line-height: 20px;
+        color: #000;
+        font-size: 12px;
+        background: #51eaea;
+        right: -5px;
+        text-align: center; /* Đảm bảo rằng số lượng được căn giữa */
+    }
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+    .icons .icons-btn {
+        margin-right: 10px; /* Khoảng cách giữa các icon */
+    }
+
+    .icons .bag {
+        display: flex;
+        align-items: center;
+    }
+
+    .icons .icon-shopping-bag {
+        margin-right: 5px; /* Khoảng cách giữa biểu tượng và số lượng */
+    }
+
+    .icons .number {
+        font-size: 14px; /* Kích thước của số lượng */
+        color: #333; /* Màu của số lượng */
+    }
 
 .search-wrap {
   position: absolute;

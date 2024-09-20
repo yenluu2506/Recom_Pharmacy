@@ -2,10 +2,12 @@
 
 @foreach (var item in Model)
 {
+
+    var giaBan = item.CTTONKHOes.FirstOrDefault()?.GIABAN ?? item.GIABAN;
     <div class="col-sm-6 col-lg-4 text-center item mb-4" style="border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
         <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})" class="product_image"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
         <div style="border-bottom: 1px solid #ccc;"> </div>
         <h3 class="product_name"><a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})">@item.TENTHUOC</a></h3>
-        <p class="in_product_price">@item.GIABAN</p>
+        <p class="in_product_price">@String.Format("{0:0,0}", giaBan) VNĐ</p>
     </div>
 }

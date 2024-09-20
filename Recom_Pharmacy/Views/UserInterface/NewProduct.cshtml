@@ -10,7 +10,7 @@
                 <a href="@Url.Action("DetailProduct", "UserInterface", new { id=item.ID})"> <img src="@item.ANH" alt="@item.TENTHUOC"></a>
                 <div style="border-bottom: 1px solid #ccc;"> </div>
                 <h3 class="text-dark"><a href="shop-single.html">@item.TENTHUOC</a></h3>
-                <p class="price">@item.GIABAN VND</p>
+                <p class="price">@String.Format("{0:0,0}", @item.GIABAN) VND</p>
             </div>
         }
 

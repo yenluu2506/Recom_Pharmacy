@@ -25,41 +25,56 @@
           <Property Name="MOTACT" Type="nvarchar(max)" />
           <Property Name="ANH" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MAKH" Type="int" />
+          <Property Name="MATHUOC" Type="int" />
+          <Property Name="SOLUONG" Type="int" />
+        </EntityType>
         <EntityType Name="CHITIETHDN">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MAHDN" Type="int" />
-          <Property Name="MACTTONKHO" Type="int" />
-          <Property Name="MATHUOC" Type="int" />
+          <Property Name="MAHDN" Type="int" Nullable="false" />
+          <Property Name="MATHUOC" Type="int" Nullable="false" />
           <Property Name="SOLUONG" Type="int" Nullable="false" />
           <Property Name="DONGIA" Type="money" Nullable="false" />
           <Property Name="MADVT" Type="int" Nullable="false" />
-          <Property Name="CHIETKHAU" Type="float" Nullable="false" />
+          <Property Name="LOSX" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CHITIETHDX">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MAHDX" Type="int" />
-          <Property Name="MATHUOC" Type="int" />
+          <Property Name="MAHDX" Type="int" Nullable="false" />
+          <Property Name="MATHUOC" Type="int" Nullable="false" />
           <Property Name="SOLUONG" Type="int" Nullable="false" />
+          <Property Name="LOSX" Type="nvarchar" MaxLength="50" />
           <Property Name="DONGIA" Type="money" Nullable="false" />
-          <Property Name="MADVT" Type="int" />
-          <Property Name="CHIETKHAU" Type="float" />
-          <Property Name="TONGTIEN" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MADVT" Type="int" Nullable="false" />
+          <Property Name="TONGTIEN" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="CTTONKHO">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MATHUOC" Type="int" />
-          <Property Name="MATONKHO" Type="int" />
+          <Property Name="MATHUOC" Type="int" Nullable="false" />
+          <Property Name="DVT" Type="int" Nullable="false" />
+          <Property Name="MAKHO" Type="int" Nullable="false" />
+          <Property Name="KE" Type="nvarchar" MaxLength="50" />
+          <Property Name="LOSX" Type="nvarchar" MaxLength="200" />
+          <Property Name="NGAYSX" Type="date" />
+          <Property Name="NGAYHH" Type="date" />
           <Property Name="SLTON" Type="int" />
           <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
+          <Property Name="GIANHAP" Type="money" />
+          <Property Name="GIABAN" Type="money" />
         </EntityType>
         <EntityType Name="DONVITINH">
           <Key>
@@ -86,6 +101,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SOHD" Type="nvarchar" MaxLength="50" />
           <Property Name="MATDV" Type="int" Nullable="false" />
+          <Property Name="MAKHO" Type="int" />
+          <Property Name="MANCC" Type="int" />
           <Property Name="NGAYNHAP" Type="date" Nullable="false" />
           <Property Name="TONGTIEN" Type="money" Nullable="false" />
           <Property Name="MALOAITIEN" Type="nvarchar" MaxLength="500" />
@@ -100,14 +117,18 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MAKH" Type="int" />
+          <Property Name="MATDV" Type="int" />
           <Property Name="NGAYXUAT" Type="date" Nullable="false" />
           <Property Name="TONGTIEN" Type="money" Nullable="false" />
           <Property Name="VAT" Type="float" />
           <Property Name="NGAYGIAOHANG" Type="date" />
+          <Property Name="DIEMTLSD" Type="int" />
           <Property Name="TTGIAOHANG" Type="bit" />
+          <Property Name="DATHANHTOAN" Type="bit" />
           <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
-          <Property Name="XULY" Type="bit" />
+          <Property Name="HOANTHANH" Type="bit" />
           <Property Name="GHICHU" Type="nvarchar" MaxLength="100" />
+          <Property Name="BANLE" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -121,10 +142,23 @@
           <Property Name="NGAYSINH" Type="date" />
           <Property Name="MATINH" Type="int" />
           <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+          <Property Name="TICHDIEM" Type="int" />
+          <Property Name="HANGTV" Type="nvarchar" MaxLength="100" />
           <Property Name="Username" Type="nvarchar" MaxLength="400" />
           <Property Name="Passwords" Type="nvarchar" MaxLength="400" />
           <Property Name="Picture" Type="nvarchar(max)" />
           <Property Name="Payment" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="KHO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENKHO" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="NGAYLAP" Type="datetime" Nullable="false" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="20" />
+          <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LOAITHUOC">
           <Key>
@@ -162,6 +196,33 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENQG" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <EntityType Name="QUYDOIDV">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MATHUOC" Type="int" Nullable="false" />
+          <Property Name="MADVT" Type="int" Nullable="false" />
+          <Property Name="TILEQUYDOI" Type="int" />
+          <Property Name="DONVIBANONL" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_SEQUENCE">
+          <Key>
+            <PropertyRef Name="SEQNAME" />
+          </Key>
+          <Property Name="SEQNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SEQVALUE" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="THUOC">
           <Key>
             <PropertyRef Name="ID" />
@@ -169,9 +230,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ANH" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MALOAI" Type="int" Nullable="false" />
-          <Property Name="MANCC" Type="int" Nullable="false" />
           <Property Name="TENTHUOC" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="HINHTHUC" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="TENCT" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="DONGGOI" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="NGAYSX" Type="date" Nullable="false" />
           <Property Name="HSD" Type="date" Nullable="false" />
@@ -179,9 +239,8 @@
           <Property Name="NUOCSX" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="DOITUONGSD" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CONGDUNG" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="GIANHAP" Type="money" />
+          <Property Name="MOTA" Type="nvarchar(max)" />
           <Property Name="GIABAN" Type="money" />
-          <Property Name="SOLUONG" Type="int" Nullable="false" />
           <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TINHTHANH">
@@ -190,17 +249,6 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TENTINH" Type="nvarchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="TONKHO">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TENKHO" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="NGAYLAP" Type="datetime" Nullable="false" />
-          <Property Name="DIACHI" Type="nvarchar" MaxLength="500" />
-          <Property Name="SDT" Type="nvarchar" MaxLength="20" />
-          <Property Name="TRANGTHAI" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TRINHDUOCVIEN">
           <Key>
@@ -214,15 +262,27 @@
           <Property Name="DIACHI" Type="nvarchar" MaxLength="50" />
           <Property Name="SDT" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <Association Name="FK_CHITIETHDN_CTTONKHO">
-          <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="0..1" />
-          <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
+        <Association Name="FK_Cart_KHACHHANG">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CTTONKHO">
+            <Principal Role="KHACHHANG">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="CHITIETHDN">
-              <PropertyRef Name="MACTTONKHO" />
+            <Dependent Role="Cart">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_THUOC">
+          <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="MATHUOC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -239,9 +299,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CHITIETHDN_HOADONNHAP">
-          <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="1" />
           <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HOADONNHAP">
@@ -253,7 +311,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CHITIETHDN_THUOC">
-          <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+          <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
           <End Role="CHITIETHDN" Type="Self.CHITIETHDN" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THUOC">
@@ -265,7 +323,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CHITIETHDX_DONVITINH">
-          <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="0..1" />
+          <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
           <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DONVITINH">
@@ -277,7 +335,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CHITIETHDX_HOADONXUAT">
-          <End Role="HOADONXUAT" Type="Self.HOADONXUAT" Multiplicity="0..1" />
+          <End Role="HOADONXUAT" Type="Self.HOADONXUAT" Multiplicity="1" />
           <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HOADONXUAT">
@@ -289,7 +347,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CHITIETHDX_THUOC">
-          <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+          <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
           <End Role="CHITIETHDX" Type="Self.CHITIETHDX" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THUOC">
@@ -300,8 +358,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CTTONKHO_DONVITINH">
+          <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
+          <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONVITINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CTTONKHO">
+              <PropertyRef Name="DVT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CTTONKHO_THUOC">
-          <End Role="THUOC" Type="Self.THUOC" Multiplicity="0..1" />
+          <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
           <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="THUOC">
@@ -313,14 +383,38 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CTTONKHO_TONKHO">
-          <End Role="TONKHO" Type="Self.TONKHO" Multiplicity="0..1" />
+          <End Role="KHO" Type="Self.KHO" Multiplicity="1" />
           <End Role="CTTONKHO" Type="Self.CTTONKHO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TONKHO">
+            <Principal Role="KHO">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="CTTONKHO">
-              <PropertyRef Name="MATONKHO" />
+              <PropertyRef Name="MAKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONNHAP_KHO">
+          <End Role="KHO" Type="Self.KHO" Multiplicity="0..1" />
+          <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HOADONNHAP">
+              <PropertyRef Name="MAKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONNHAP_NCC">
+          <End Role="NCC" Type="Self.NCC" Multiplicity="0..1" />
+          <End Role="HOADONNHAP" Type="Self.HOADONNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NCC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HOADONNHAP">
+              <PropertyRef Name="MANCC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -384,6 +478,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QUYDOIDV_DONVITINH">
+          <End Role="DONVITINH" Type="Self.DONVITINH" Multiplicity="1" />
+          <End Role="QUYDOIDV" Type="Self.QUYDOIDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONVITINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYDOIDV">
+              <PropertyRef Name="MADVT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYDOIDV_THUOC">
+          <End Role="THUOC" Type="Self.THUOC" Multiplicity="1" />
+          <End Role="QUYDOIDV" Type="Self.QUYDOIDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYDOIDV">
+              <PropertyRef Name="MATHUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_THUOC_LOAITHUOC">
           <End Role="LOAITHUOC" Type="Self.LOAITHUOC" Multiplicity="1" />
           <End Role="THUOC" Type="Self.THUOC" Multiplicity="*" />
@@ -393,18 +511,6 @@
             </Principal>
             <Dependent Role="THUOC">
               <PropertyRef Name="MALOAI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_THUOC_NCC">
-          <End Role="NCC" Type="Self.NCC" Multiplicity="1" />
-          <End Role="THUOC" Type="Self.THUOC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NCC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="THUOC">
-              <PropertyRef Name="MANCC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -423,6 +529,7 @@
         <EntityContainer Name="RecomPharmacyModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETHDN" EntityType="Self.CHITIETHDN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETHDX" EntityType="Self.CHITIETHDX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CTTONKHO" EntityType="Self.CTTONKHO" Schema="dbo" store:Type="Tables" />
@@ -431,17 +538,24 @@
           <EntitySet Name="HOADONNHAP" EntityType="Self.HOADONNHAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOADONXUAT" EntityType="Self.HOADONXUAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAITHUOC" EntityType="Self.LOAITHUOC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MENUTHUOC" EntityType="Self.MENUTHUOC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NCC" EntityType="Self.NCC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QUOCGIA" EntityType="Self.QUOCGIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUYDOIDV" EntityType="Self.QUYDOIDV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_SEQUENCE" EntityType="Self.SYS_SEQUENCE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="THUOC" EntityType="Self.THUOC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TINHTHANH" EntityType="Self.TINHTHANH" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TONKHO" EntityType="Self.TONKHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRINHDUOCVIEN" EntityType="Self.TRINHDUOCVIEN" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CHITIETHDN_CTTONKHO" Association="Self.FK_CHITIETHDN_CTTONKHO">
-            <End Role="CTTONKHO" EntitySet="CTTONKHO" />
-            <End Role="CHITIETHDN" EntitySet="CHITIETHDN" />
+          <AssociationSet Name="FK_Cart_KHACHHANG" Association="Self.FK_Cart_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_THUOC" Association="Self.FK_Cart_THUOC">
+            <End Role="THUOC" EntitySet="THUOC" />
+            <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
           <AssociationSet Name="FK_CHITIETHDN_DONVITINH" Association="Self.FK_CHITIETHDN_DONVITINH">
             <End Role="DONVITINH" EntitySet="DONVITINH" />
@@ -467,13 +581,25 @@
             <End Role="THUOC" EntitySet="THUOC" />
             <End Role="CHITIETHDX" EntitySet="CHITIETHDX" />
           </AssociationSet>
+          <AssociationSet Name="FK_CTTONKHO_DONVITINH" Association="Self.FK_CTTONKHO_DONVITINH">
+            <End Role="DONVITINH" EntitySet="DONVITINH" />
+            <End Role="CTTONKHO" EntitySet="CTTONKHO" />
+          </AssociationSet>
           <AssociationSet Name="FK_CTTONKHO_THUOC" Association="Self.FK_CTTONKHO_THUOC">
             <End Role="THUOC" EntitySet="THUOC" />
             <End Role="CTTONKHO" EntitySet="CTTONKHO" />
           </AssociationSet>
           <AssociationSet Name="FK_CTTONKHO_TONKHO" Association="Self.FK_CTTONKHO_TONKHO">
-            <End Role="TONKHO" EntitySet="TONKHO" />
+            <End Role="KHO" EntitySet="KHO" />
             <End Role="CTTONKHO" EntitySet="CTTONKHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONNHAP_KHO" Association="Self.FK_HOADONNHAP_KHO">
+            <End Role="KHO" EntitySet="KHO" />
+            <End Role="HOADONNHAP" EntitySet="HOADONNHAP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONNHAP_NCC" Association="Self.FK_HOADONNHAP_NCC">
+            <End Role="NCC" EntitySet="NCC" />
+            <End Role="HOADONNHAP" EntitySet="HOADONNHAP" />
           </AssociationSet>
           <AssociationSet Name="FK_HOADONNHAP_TRINHDUOCVIEN" Association="Self.FK_HOADONNHAP_TRINHDUOCVIEN">
             <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIEN" />
@@ -495,12 +621,16 @@
             <End Role="QUOCGIA" EntitySet="QUOCGIA" />
             <End Role="NCC" EntitySet="NCC" />
           </AssociationSet>
+          <AssociationSet Name="FK_QUYDOIDV_DONVITINH" Association="Self.FK_QUYDOIDV_DONVITINH">
+            <End Role="DONVITINH" EntitySet="DONVITINH" />
+            <End Role="QUYDOIDV" EntitySet="QUYDOIDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUYDOIDV_THUOC" Association="Self.FK_QUYDOIDV_THUOC">
+            <End Role="THUOC" EntitySet="THUOC" />
+            <End Role="QUYDOIDV" EntitySet="QUYDOIDV" />
+          </AssociationSet>
           <AssociationSet Name="FK_THUOC_LOAITHUOC" Association="Self.FK_THUOC_LOAITHUOC">
             <End Role="LOAITHUOC" EntitySet="LOAITHUOC" />
-            <End Role="THUOC" EntitySet="THUOC" />
-          </AssociationSet>
-          <AssociationSet Name="FK_THUOC_NCC" Association="Self.FK_THUOC_NCC">
-            <End Role="NCC" EntitySet="NCC" />
             <End Role="THUOC" EntitySet="THUOC" />
           </AssociationSet>
           <AssociationSet Name="FK_TRINHDUOCVIEN_TINHTHANH" Association="Self.FK_TRINHDUOCVIEN_TINHTHANH">
@@ -512,116 +642,75 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RecomPharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="LOAITHUOC">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MAMENU" Type="Int32" Nullable="false" />
-          <Property Name="TENLOAI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="MENUTHUOC" Relationship="Self.FK_LOAITHUOC_MENUTHUOC" FromRole="LOAITHUOC" ToRole="MENUTHUOC" />
-          <NavigationProperty Name="THUOCs" Relationship="RecomPharmacyModel.FK_THUOC_LOAITHUOC" FromRole="LOAITHUOC" ToRole="THUOC" />
-        </EntityType>
-        <EntityType Name="MENUTHUOC">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TENDM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LOAITHUOCs" Relationship="Self.FK_LOAITHUOC_MENUTHUOC" FromRole="MENUTHUOC" ToRole="LOAITHUOC" />
-        </EntityType>
-        <EntityType Name="QUOCGIA">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TENQG" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="NCCs" Relationship="RecomPharmacyModel.FK_NCC_QUOCGIA" FromRole="QUOCGIA" ToRole="NCC" />
-        </EntityType>
-        <EntityType Name="TINHTHANH">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TENTINH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TRINHDUOCVIENs" Relationship="Self.FK_TRINHDUOCVIEN_TINHTHANH" FromRole="TINHTHANH" ToRole="TRINHDUOCVIEN" />
-          <NavigationProperty Name="KHACHHANGs" Relationship="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" FromRole="TINHTHANH" ToRole="KHACHHANG" />
-        </EntityType>
-        <EntityType Name="TRINHDUOCVIEN">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MATINH" Type="Int32" />
-          <Property Name="TENNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GIOITINH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
-          <Property Name="DIACHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TINHTHANH" Relationship="Self.FK_TRINHDUOCVIEN_TINHTHANH" FromRole="TRINHDUOCVIEN" ToRole="TINHTHANH" />
-          <NavigationProperty Name="HOADONNHAPs" Relationship="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN" FromRole="TRINHDUOCVIEN" ToRole="HOADONNHAP" />
-        </EntityType>
-        <Association Name="FK_LOAITHUOC_MENUTHUOC">
-          <End Role="MENUTHUOC" Type="Self.MENUTHUOC" Multiplicity="1" />
-          <End Role="LOAITHUOC" Type="Self.LOAITHUOC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MENUTHUOC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="LOAITHUOC">
-              <PropertyRef Name="MAMENU" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TRINHDUOCVIEN_TINHTHANH">
-          <End Role="TINHTHANH" Type="Self.TINHTHANH" Multiplicity="0..1" />
-          <End Role="TRINHDUOCVIEN" Type="Self.TRINHDUOCVIEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TINHTHANH">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TRINHDUOCVIEN">
-              <PropertyRef Name="MATINH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="RecomPharmacyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LOAITHUOCs" EntityType="Self.LOAITHUOC" />
-          <EntitySet Name="MENUTHUOCs" EntityType="Self.MENUTHUOC" />
-          <EntitySet Name="QUOCGIAs" EntityType="Self.QUOCGIA" />
-          <EntitySet Name="TINHTHANHs" EntityType="Self.TINHTHANH" />
-          <EntitySet Name="TRINHDUOCVIENs" EntityType="Self.TRINHDUOCVIEN" />
-          <AssociationSet Name="FK_LOAITHUOC_MENUTHUOC" Association="Self.FK_LOAITHUOC_MENUTHUOC">
-            <End Role="MENUTHUOC" EntitySet="MENUTHUOCs" />
-            <End Role="LOAITHUOC" EntitySet="LOAITHUOCs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TRINHDUOCVIEN_TINHTHANH" Association="Self.FK_TRINHDUOCVIEN_TINHTHANH">
-            <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
-            <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIENs" />
-          </AssociationSet>
           <EntitySet Name="Admins" EntityType="RecomPharmacyModel.Admin" />
-          <EntitySet Name="NCCs" EntityType="RecomPharmacyModel.NCC" />
-          <AssociationSet Name="FK_NCC_QUOCGIA" Association="RecomPharmacyModel.FK_NCC_QUOCGIA">
-            <End Role="QUOCGIA" EntitySet="QUOCGIAs" />
-            <End Role="NCC" EntitySet="NCCs" />
-          </AssociationSet>
+          <EntitySet Name="Blogs" EntityType="RecomPharmacyModel.Blog" />
+          <EntitySet Name="Carts" EntityType="RecomPharmacyModel.Cart" />
           <EntitySet Name="DONVITINHs" EntityType="RecomPharmacyModel.DONVITINH" />
+          <EntitySet Name="Feedbacks" EntityType="RecomPharmacyModel.Feedback" />
           <EntitySet Name="HOADONNHAPs" EntityType="RecomPharmacyModel.HOADONNHAP" />
+          <EntitySet Name="KHACHHANGs" EntityType="RecomPharmacyModel.KHACHHANG" />
+          <EntitySet Name="KHOes" EntityType="RecomPharmacyModel.KHO" />
+          <EntitySet Name="LOAITHUOCs" EntityType="RecomPharmacyModel.LOAITHUOC" />
+          <EntitySet Name="MENUTHUOCs" EntityType="RecomPharmacyModel.MENUTHUOC" />
+          <EntitySet Name="NCCs" EntityType="RecomPharmacyModel.NCC" />
+          <EntitySet Name="QUOCGIAs" EntityType="RecomPharmacyModel.QUOCGIA" />
+          <EntitySet Name="QUYDOIDVs" EntityType="RecomPharmacyModel.QUYDOIDV" />
+          <EntitySet Name="SYS_SEQUENCE" EntityType="RecomPharmacyModel.SYS_SEQUENCE" />
+          <EntitySet Name="sysdiagrams" EntityType="RecomPharmacyModel.sysdiagram" />
+          <EntitySet Name="TINHTHANHs" EntityType="RecomPharmacyModel.TINHTHANH" />
+          <EntitySet Name="TRINHDUOCVIENs" EntityType="RecomPharmacyModel.TRINHDUOCVIEN" />
+          <AssociationSet Name="FK_Cart_KHACHHANG" Association="RecomPharmacyModel.FK_Cart_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUYDOIDV_DONVITINH" Association="RecomPharmacyModel.FK_QUYDOIDV_DONVITINH">
+            <End Role="DONVITINH" EntitySet="DONVITINHs" />
+            <End Role="QUYDOIDV" EntitySet="QUYDOIDVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONNHAP_KHO" Association="RecomPharmacyModel.FK_HOADONNHAP_KHO">
+            <End Role="KHO" EntitySet="KHOes" />
+            <End Role="HOADONNHAP" EntitySet="HOADONNHAPs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOADONNHAP_NCC" Association="RecomPharmacyModel.FK_HOADONNHAP_NCC">
+            <End Role="NCC" EntitySet="NCCs" />
+            <End Role="HOADONNHAP" EntitySet="HOADONNHAPs" />
+          </AssociationSet>
           <AssociationSet Name="FK_HOADONNHAP_TRINHDUOCVIEN" Association="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN">
             <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIENs" />
             <End Role="HOADONNHAP" EntitySet="HOADONNHAPs" />
           </AssociationSet>
-          <EntitySet Name="CHITIETHDNs" EntityType="RecomPharmacyModel.CHITIETHDN" />
-          <EntitySet Name="CHITIETHDXes" EntityType="RecomPharmacyModel.CHITIETHDX" />
-          <EntitySet Name="CTTONKHOes" EntityType="RecomPharmacyModel.CTTONKHO" />
-          <EntitySet Name="THUOCs" EntityType="RecomPharmacyModel.THUOC" />
-          <EntitySet Name="TONKHOes" EntityType="RecomPharmacyModel.TONKHO" />
-          <AssociationSet Name="FK_CHITIETHDN_CTTONKHO" Association="RecomPharmacyModel.FK_CHITIETHDN_CTTONKHO">
-            <End Role="CTTONKHO" EntitySet="CTTONKHOes" />
-            <End Role="CHITIETHDN" EntitySet="CHITIETHDNs" />
+          <AssociationSet Name="FK_KHACHHANG_TINHTHANH" Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH">
+            <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
           </AssociationSet>
+          <AssociationSet Name="FK_LOAITHUOC_MENUTHUOC" Association="RecomPharmacyModel.FK_LOAITHUOC_MENUTHUOC">
+            <End Role="MENUTHUOC" EntitySet="MENUTHUOCs" />
+            <End Role="LOAITHUOC" EntitySet="LOAITHUOCs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCC_QUOCGIA" Association="RecomPharmacyModel.FK_NCC_QUOCGIA">
+            <End Role="QUOCGIA" EntitySet="QUOCGIAs" />
+            <End Role="NCC" EntitySet="NCCs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRINHDUOCVIEN_TINHTHANH" Association="RecomPharmacyModel.FK_TRINHDUOCVIEN_TINHTHANH">
+            <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
+            <End Role="TRINHDUOCVIEN" EntitySet="TRINHDUOCVIENs" />
+          </AssociationSet>
+          <EntitySet Name="CHITIETHDXes" EntityType="RecomPharmacyModel.CHITIETHDX" />
+          <AssociationSet Name="FK_CHITIETHDX_DONVITINH" Association="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH">
+            <End Role="DONVITINH" EntitySet="DONVITINHs" />
+            <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
+          </AssociationSet>
+          <EntitySet Name="CTTONKHOes" EntityType="RecomPharmacyModel.CTTONKHO" />
+          <AssociationSet Name="FK_CTTONKHO_DONVITINH" Association="RecomPharmacyModel.FK_CTTONKHO_DONVITINH">
+            <End Role="DONVITINH" EntitySet="DONVITINHs" />
+            <End Role="CTTONKHO" EntitySet="CTTONKHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTTONKHO_TONKHO" Association="RecomPharmacyModel.FK_CTTONKHO_TONKHO">
+            <End Role="KHO" EntitySet="KHOes" />
+            <End Role="CTTONKHO" EntitySet="CTTONKHOes" />
+          </AssociationSet>
+          <EntitySet Name="CHITIETHDNs" EntityType="RecomPharmacyModel.CHITIETHDN" />
           <AssociationSet Name="FK_CHITIETHDN_DONVITINH" Association="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH">
             <End Role="DONVITINH" EntitySet="DONVITINHs" />
             <End Role="CHITIETHDN" EntitySet="CHITIETHDNs" />
@@ -630,13 +719,14 @@
             <End Role="HOADONNHAP" EntitySet="HOADONNHAPs" />
             <End Role="CHITIETHDN" EntitySet="CHITIETHDNs" />
           </AssociationSet>
+          <EntitySet Name="THUOCs" EntityType="RecomPharmacyModel.THUOC" />
+          <AssociationSet Name="FK_Cart_THUOC" Association="RecomPharmacyModel.FK_Cart_THUOC">
+            <End Role="THUOC" EntitySet="THUOCs" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
           <AssociationSet Name="FK_CHITIETHDN_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDN_THUOC">
             <End Role="THUOC" EntitySet="THUOCs" />
             <End Role="CHITIETHDN" EntitySet="CHITIETHDNs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CHITIETHDX_DONVITINH" Association="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH">
-            <End Role="DONVITINH" EntitySet="DONVITINHs" />
-            <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
           </AssociationSet>
           <AssociationSet Name="FK_CHITIETHDX_THUOC" Association="RecomPharmacyModel.FK_CHITIETHDX_THUOC">
             <End Role="THUOC" EntitySet="THUOCs" />
@@ -646,34 +736,23 @@
             <End Role="THUOC" EntitySet="THUOCs" />
             <End Role="CTTONKHO" EntitySet="CTTONKHOes" />
           </AssociationSet>
-          <AssociationSet Name="FK_CTTONKHO_TONKHO" Association="RecomPharmacyModel.FK_CTTONKHO_TONKHO">
-            <End Role="TONKHO" EntitySet="TONKHOes" />
-            <End Role="CTTONKHO" EntitySet="CTTONKHOes" />
-          </AssociationSet>
           <AssociationSet Name="FK_THUOC_LOAITHUOC" Association="RecomPharmacyModel.FK_THUOC_LOAITHUOC">
             <End Role="LOAITHUOC" EntitySet="LOAITHUOCs" />
             <End Role="THUOC" EntitySet="THUOCs" />
           </AssociationSet>
-          <AssociationSet Name="FK_THUOC_NCC" Association="RecomPharmacyModel.FK_THUOC_NCC">
-            <End Role="NCC" EntitySet="NCCs" />
+          <AssociationSet Name="FK_QUYDOIDV_THUOC" Association="RecomPharmacyModel.FK_QUYDOIDV_THUOC">
             <End Role="THUOC" EntitySet="THUOCs" />
+            <End Role="QUYDOIDV" EntitySet="QUYDOIDVs" />
           </AssociationSet>
           <EntitySet Name="HOADONXUATs" EntityType="RecomPharmacyModel.HOADONXUAT" />
           <AssociationSet Name="FK_CHITIETHDX_HOADONXUAT" Association="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT">
             <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
             <End Role="CHITIETHDX" EntitySet="CHITIETHDXes" />
           </AssociationSet>
-          <EntitySet Name="Feedbacks" EntityType="RecomPharmacyModel.Feedback" />
-          <EntitySet Name="KHACHHANGs" EntityType="RecomPharmacyModel.KHACHHANG" />
           <AssociationSet Name="FK_HOADONXUAT_KHACHHANG" Association="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG">
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="HOADONXUAT" EntitySet="HOADONXUATs" />
           </AssociationSet>
-          <AssociationSet Name="FK_KHACHHANG_TINHTHANH" Association="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH">
-            <End Role="TINHTHANH" EntitySet="TINHTHANHs" />
-            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
-          </AssociationSet>
-          <EntitySet Name="Blogs" EntityType="RecomPharmacyModel.Blog" />
           </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -684,32 +763,28 @@
           <Property Name="Name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="NCC">
+        <EntityType Name="Blog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TENNCC" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MAQUOCGIA" Type="Int32" />
-          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="QUOCGIA" Relationship="RecomPharmacyModel.FK_NCC_QUOCGIA" FromRole="NCC" ToRole="QUOCGIA" />
-          <NavigationProperty Name="THUOCs" Relationship="RecomPharmacyModel.FK_THUOC_NCC" FromRole="NCC" ToRole="THUOC" />
+          <Property Name="NGAYVIET" Type="DateTime" Precision="3" />
+          <Property Name="TIEUDE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOTANGAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOTACT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ANH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_NCC_QUOCGIA">
-          <End Type="RecomPharmacyModel.QUOCGIA" Role="QUOCGIA" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.NCC" Role="NCC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QUOCGIA">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NCC">
-              <PropertyRef Name="MAQUOCGIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MATHUOC" Type="Int32" />
+          <Property Name="SOLUONG" Type="Int32" />
+          <NavigationProperty Name="KHACHHANG" Relationship="RecomPharmacyModel.FK_Cart_KHACHHANG" FromRole="Cart" ToRole="KHACHHANG" />
+          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_Cart_THUOC" FromRole="Cart" ToRole="THUOC" />
+        </EntityType>
         <EntityType Name="DONVITINH">
           <Key>
             <PropertyRef Name="ID" />
@@ -717,274 +792,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TENDVT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" FromRole="DONVITINH" ToRole="CHITIETHDN" />
+          <NavigationProperty Name="QUYDOIDVs" Relationship="RecomPharmacyModel.FK_QUYDOIDV_DONVITINH" FromRole="DONVITINH" ToRole="QUYDOIDV" />
           <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="DONVITINH" ToRole="CHITIETHDX" />
+          <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_DONVITINH" FromRole="DONVITINH" ToRole="CTTONKHO" />
+          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" FromRole="DONVITINH" ToRole="CHITIETHDN" />
         </EntityType>
-        <EntityType Name="HOADONNHAP">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SOHD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MATDV" Type="Int32" Nullable="false" />
-          <Property Name="NGAYNHAP" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="MALOAITIEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="VAT" Type="Double" Nullable="false" />
-          <Property Name="TIENNO" Type="Int32" />
-          <Property Name="GHICHU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="TRINHDUOCVIEN" Relationship="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN" FromRole="HOADONNHAP" ToRole="TRINHDUOCVIEN" />
-          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" FromRole="HOADONNHAP" ToRole="CHITIETHDN" />
-        </EntityType>
-        <Association Name="FK_HOADONNHAP_TRINHDUOCVIEN">
-          <End Type="RecomPharmacyModel.TRINHDUOCVIEN" Role="TRINHDUOCVIEN" Multiplicity="1" />
-          <End Type="RecomPharmacyModel.HOADONNHAP" Role="HOADONNHAP" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TRINHDUOCVIEN">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="HOADONNHAP">
-              <PropertyRef Name="MATDV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CHITIETHDN">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MAHDN" Type="Int32" />
-          <Property Name="MACTTONKHO" Type="Int32" />
-          <Property Name="MATHUOC" Type="Int32" />
-          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
-          <Property Name="DONGIA" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="MADVT" Type="Int32" Nullable="false" />
-          <Property Name="CHIETKHAU" Type="Double" Nullable="false" />
-          <NavigationProperty Name="CTTONKHO" Relationship="RecomPharmacyModel.FK_CHITIETHDN_CTTONKHO" FromRole="CHITIETHDN" ToRole="CTTONKHO" />
-          <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" FromRole="CHITIETHDN" ToRole="DONVITINH" />
-          <NavigationProperty Name="HOADONNHAP" Relationship="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" FromRole="CHITIETHDN" ToRole="HOADONNHAP" />
-          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="CHITIETHDN" ToRole="THUOC" />
-        </EntityType>
-        <EntityType Name="CHITIETHDX">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MAHDX" Type="Int32" />
-          <Property Name="MATHUOC" Type="Int32" />
-          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
-          <Property Name="DONGIA" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="MADVT" Type="Int32" />
-          <Property Name="CHIETKHAU" Type="Double" />
-          <Property Name="TONGTIEN" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="CHITIETHDX" ToRole="DONVITINH" />
-          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="CHITIETHDX" ToRole="THUOC" />
-          <NavigationProperty Name="HOADONXUAT" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="CHITIETHDX" ToRole="HOADONXUAT" />
-        </EntityType>
-        <EntityType Name="CTTONKHO">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MATHUOC" Type="Int32" />
-          <Property Name="MATONKHO" Type="Int32" />
-          <Property Name="SLTON" Type="Int32" />
-          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_CTTONKHO" FromRole="CTTONKHO" ToRole="CHITIETHDN" />
-          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CTTONKHO_THUOC" FromRole="CTTONKHO" ToRole="THUOC" />
-          <NavigationProperty Name="TONKHO" Relationship="RecomPharmacyModel.FK_CTTONKHO_TONKHO" FromRole="CTTONKHO" ToRole="TONKHO" />
-        </EntityType>
-        <EntityType Name="THUOC">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ANH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MALOAI" Type="Int32" Nullable="false" />
-          <Property Name="MANCC" Type="Int32" Nullable="false" />
-          <Property Name="TENTHUOC" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="HINHTHUC" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="DONGGOI" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYSX" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="HSD" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="NHASX" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="NUOCSX" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="DOITUONGSD" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CONGDUNG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GIANHAP" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="GIABAN" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
-          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="THUOC" ToRole="CHITIETHDN" />
-          <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="THUOC" ToRole="CHITIETHDX" />
-          <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_THUOC" FromRole="THUOC" ToRole="CTTONKHO" />
-          <NavigationProperty Name="LOAITHUOC" Relationship="RecomPharmacyModel.FK_THUOC_LOAITHUOC" FromRole="THUOC" ToRole="LOAITHUOC" />
-          <NavigationProperty Name="NCC" Relationship="RecomPharmacyModel.FK_THUOC_NCC" FromRole="THUOC" ToRole="NCC" />
-        </EntityType>
-        <EntityType Name="TONKHO">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TENKHO" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYLAP" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_TONKHO" FromRole="TONKHO" ToRole="CTTONKHO" />
-        </EntityType>
-        <Association Name="FK_CHITIETHDN_CTTONKHO">
-          <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CTTONKHO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDN">
-              <PropertyRef Name="MACTTONKHO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIETHDN_DONVITINH">
-          <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="1" />
-          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DONVITINH">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDN">
-              <PropertyRef Name="MADVT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIETHDN_HOADONNHAP">
-          <End Type="RecomPharmacyModel.HOADONNHAP" Role="HOADONNHAP" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HOADONNHAP">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDN">
-              <PropertyRef Name="MAHDN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIETHDN_THUOC">
-          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THUOC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDN">
-              <PropertyRef Name="MATHUOC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIETHDX_DONVITINH">
-          <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DONVITINH">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDX">
-              <PropertyRef Name="MADVT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CHITIETHDX_THUOC">
-          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THUOC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDX">
-              <PropertyRef Name="MATHUOC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTTONKHO_THUOC">
-          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="THUOC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CTTONKHO">
-              <PropertyRef Name="MATHUOC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTTONKHO_TONKHO">
-          <End Type="RecomPharmacyModel.TONKHO" Role="TONKHO" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TONKHO">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CTTONKHO">
-              <PropertyRef Name="MATONKHO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_THUOC_LOAITHUOC">
-          <End Type="RecomPharmacyModel.LOAITHUOC" Role="LOAITHUOC" Multiplicity="1" />
-          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LOAITHUOC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="THUOC">
-              <PropertyRef Name="MALOAI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_THUOC_NCC">
-          <End Type="RecomPharmacyModel.NCC" Role="NCC" Multiplicity="1" />
-          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NCC">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="THUOC">
-              <PropertyRef Name="MANCC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="HOADONXUAT">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MAKH" Type="Int32" />
-          <Property Name="NGAYXUAT" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="VAT" Type="Double" />
-          <Property Name="NGAYGIAOHANG" Type="DateTime" Precision="0" />
-          <Property Name="TTGIAOHANG" Type="Boolean" />
-          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
-          <Property Name="XULY" Type="Boolean" />
-          <Property Name="GHICHU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="HOADONXUAT" ToRole="CHITIETHDX" />
-          <NavigationProperty Name="KHACHHANG" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="HOADONXUAT" ToRole="KHACHHANG" />
-        </EntityType>
-        <Association Name="FK_CHITIETHDX_HOADONXUAT">
-          <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HOADONXUAT">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CHITIETHDX">
-              <PropertyRef Name="MAHDX" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="ID" />
@@ -994,6 +806,27 @@
           <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CHITIET" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HOADONNHAP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SOHD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MATDV" Type="Int32" Nullable="false" />
+          <Property Name="MAKHO" Type="Int32" />
+          <Property Name="MANCC" Type="Int32" />
+          <Property Name="NGAYNHAP" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MALOAITIEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VAT" Type="Double" Nullable="false" />
+          <Property Name="TIENNO" Type="Int32" />
+          <Property Name="GHICHU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="KHO" Relationship="RecomPharmacyModel.FK_HOADONNHAP_KHO" FromRole="HOADONNHAP" ToRole="KHO" />
+          <NavigationProperty Name="NCC" Relationship="RecomPharmacyModel.FK_HOADONNHAP_NCC" FromRole="HOADONNHAP" ToRole="NCC" />
+          <NavigationProperty Name="TRINHDUOCVIEN" Relationship="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN" FromRole="HOADONNHAP" ToRole="TRINHDUOCVIEN" />
+          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" FromRole="HOADONNHAP" ToRole="CHITIETHDN" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -1007,22 +840,180 @@
           <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
           <Property Name="MATINH" Type="Int32" />
           <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TICHDIEM" Type="Int32" />
+          <Property Name="HANGTV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Username" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Passwords" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Payment" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HOADONXUATs" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="KHACHHANG" ToRole="HOADONXUAT" />
+          <NavigationProperty Name="Carts" Relationship="RecomPharmacyModel.FK_Cart_KHACHHANG" FromRole="KHACHHANG" ToRole="Cart" />
           <NavigationProperty Name="TINHTHANH" Relationship="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" FromRole="KHACHHANG" ToRole="TINHTHANH" />
+          <NavigationProperty Name="HOADONXUATs" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="KHACHHANG" ToRole="HOADONXUAT" />
         </EntityType>
-        <Association Name="FK_HOADONXUAT_KHACHHANG">
+        <EntityType Name="KHO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENKHO" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYLAP" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HOADONNHAPs" Relationship="RecomPharmacyModel.FK_HOADONNHAP_KHO" FromRole="KHO" ToRole="HOADONNHAP" />
+          <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_TONKHO" FromRole="KHO" ToRole="CTTONKHO" />
+        </EntityType>
+        <EntityType Name="LOAITHUOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAMENU" Type="Int32" Nullable="false" />
+          <Property Name="TENLOAI" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MENUTHUOC" Relationship="RecomPharmacyModel.FK_LOAITHUOC_MENUTHUOC" FromRole="LOAITHUOC" ToRole="MENUTHUOC" />
+          <NavigationProperty Name="THUOCs" Relationship="RecomPharmacyModel.FK_THUOC_LOAITHUOC" FromRole="LOAITHUOC" ToRole="THUOC" />
+        </EntityType>
+        <EntityType Name="MENUTHUOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENDM" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LOAITHUOCs" Relationship="RecomPharmacyModel.FK_LOAITHUOC_MENUTHUOC" FromRole="MENUTHUOC" ToRole="LOAITHUOC" />
+        </EntityType>
+        <EntityType Name="NCC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENNCC" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAQUOCGIA" Type="Int32" />
+          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HOADONNHAPs" Relationship="RecomPharmacyModel.FK_HOADONNHAP_NCC" FromRole="NCC" ToRole="HOADONNHAP" />
+          <NavigationProperty Name="QUOCGIA" Relationship="RecomPharmacyModel.FK_NCC_QUOCGIA" FromRole="NCC" ToRole="QUOCGIA" />
+        </EntityType>
+        <EntityType Name="QUOCGIA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENQG" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NCCs" Relationship="RecomPharmacyModel.FK_NCC_QUOCGIA" FromRole="QUOCGIA" ToRole="NCC" />
+        </EntityType>
+        <EntityType Name="QUYDOIDV">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATHUOC" Type="Int32" Nullable="false" />
+          <Property Name="MADVT" Type="Int32" Nullable="false" />
+          <Property Name="TILEQUYDOI" Type="Int32" />
+          <Property Name="DONVIBANONL" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_QUYDOIDV_DONVITINH" FromRole="QUYDOIDV" ToRole="DONVITINH" />
+          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_QUYDOIDV_THUOC" FromRole="QUYDOIDV" ToRole="THUOC" />
+        </EntityType>
+        <EntityType Name="SYS_SEQUENCE">
+          <Key>
+            <PropertyRef Name="SEQNAME" />
+          </Key>
+          <Property Name="SEQNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SEQVALUE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TINHTHANH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENTINH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KHACHHANGs" Relationship="RecomPharmacyModel.FK_KHACHHANG_TINHTHANH" FromRole="TINHTHANH" ToRole="KHACHHANG" />
+          <NavigationProperty Name="TRINHDUOCVIENs" Relationship="RecomPharmacyModel.FK_TRINHDUOCVIEN_TINHTHANH" FromRole="TINHTHANH" ToRole="TRINHDUOCVIEN" />
+        </EntityType>
+        <EntityType Name="TRINHDUOCVIEN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATINH" Type="Int32" />
+          <Property Name="TENNV" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GIOITINH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSINH" Type="DateTime" Precision="0" />
+          <Property Name="DIACHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOADONNHAPs" Relationship="RecomPharmacyModel.FK_HOADONNHAP_TRINHDUOCVIEN" FromRole="TRINHDUOCVIEN" ToRole="HOADONNHAP" />
+          <NavigationProperty Name="TINHTHANH" Relationship="RecomPharmacyModel.FK_TRINHDUOCVIEN_TINHTHANH" FromRole="TRINHDUOCVIEN" ToRole="TINHTHANH" />
+        </EntityType>
+        <Association Name="FK_Cart_KHACHHANG">
           <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
-          <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
+          <End Type="RecomPharmacyModel.Cart" Role="Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="HOADONXUAT">
+            <Dependent Role="Cart">
               <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYDOIDV_DONVITINH">
+          <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.QUYDOIDV" Role="QUYDOIDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONVITINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYDOIDV">
+              <PropertyRef Name="MADVT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONNHAP_KHO">
+          <End Type="RecomPharmacyModel.KHO" Role="KHO" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.HOADONNHAP" Role="HOADONNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HOADONNHAP">
+              <PropertyRef Name="MAKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONNHAP_NCC">
+          <End Type="RecomPharmacyModel.NCC" Role="NCC" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.HOADONNHAP" Role="HOADONNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NCC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HOADONNHAP">
+              <PropertyRef Name="MANCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONNHAP_TRINHDUOCVIEN">
+          <End Type="RecomPharmacyModel.TRINHDUOCVIEN" Role="TRINHDUOCVIEN" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.HOADONNHAP" Role="HOADONNHAP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRINHDUOCVIEN">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HOADONNHAP">
+              <PropertyRef Name="MATDV" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1038,71 +1029,302 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Blog">
+        <Association Name="FK_LOAITHUOC_MENUTHUOC">
+          <End Type="RecomPharmacyModel.MENUTHUOC" Role="MENUTHUOC" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.LOAITHUOC" Role="LOAITHUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENUTHUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOAITHUOC">
+              <PropertyRef Name="MAMENU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCC_QUOCGIA">
+          <End Type="RecomPharmacyModel.QUOCGIA" Role="QUOCGIA" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.NCC" Role="NCC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUOCGIA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NCC">
+              <PropertyRef Name="MAQUOCGIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRINHDUOCVIEN_TINHTHANH">
+          <End Type="RecomPharmacyModel.TINHTHANH" Role="TINHTHANH" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.TRINHDUOCVIEN" Role="TRINHDUOCVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TINHTHANH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TRINHDUOCVIEN">
+              <PropertyRef Name="MATINH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CHITIETHDX">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NGAYVIET" Type="DateTime" Precision="3" />
-          <Property Name="TIEUDE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MOTANGAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MOTACT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ANH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MAHDX" Type="Int32" Nullable="false" />
+          <Property Name="MATHUOC" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
+          <Property Name="LOSX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DONGIA" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MADVT" Type="Int32" Nullable="false" />
+          <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDX_DONVITINH" FromRole="CHITIETHDX" ToRole="DONVITINH" />
+          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="CHITIETHDX" ToRole="THUOC" />
+          <NavigationProperty Name="HOADONXUAT" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="CHITIETHDX" ToRole="HOADONXUAT" />
         </EntityType>
+        <Association Name="FK_CHITIETHDX_DONVITINH">
+          <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONVITINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIETHDX">
+              <PropertyRef Name="MADVT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CTTONKHO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATHUOC" Type="Int32" Nullable="false" />
+          <Property Name="DVT" Type="Int32" Nullable="false" />
+          <Property Name="MAKHO" Type="Int32" Nullable="false" />
+          <Property Name="KE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LOSX" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSX" Type="DateTime" Precision="0" />
+          <Property Name="NGAYHH" Type="DateTime" Precision="0" />
+          <Property Name="SLTON" Type="Int32" />
+          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+          <Property Name="GIANHAP" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GIABAN" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CTTONKHO_DONVITINH" FromRole="CTTONKHO" ToRole="DONVITINH" />
+          <NavigationProperty Name="KHO" Relationship="RecomPharmacyModel.FK_CTTONKHO_TONKHO" FromRole="CTTONKHO" ToRole="KHO" />
+          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CTTONKHO_THUOC" FromRole="CTTONKHO" ToRole="THUOC" />
+        </EntityType>
+        <Association Name="FK_CTTONKHO_DONVITINH">
+          <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONVITINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CTTONKHO">
+              <PropertyRef Name="DVT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTTONKHO_TONKHO">
+          <End Type="RecomPharmacyModel.KHO" Role="KHO" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CTTONKHO">
+              <PropertyRef Name="MAKHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CHITIETHDN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAHDN" Type="Int32" Nullable="false" />
+          <Property Name="MATHUOC" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
+          <Property Name="DONGIA" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MADVT" Type="Int32" Nullable="false" />
+          <Property Name="LOSX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DONVITINH" Relationship="RecomPharmacyModel.FK_CHITIETHDN_DONVITINH" FromRole="CHITIETHDN" ToRole="DONVITINH" />
+          <NavigationProperty Name="HOADONNHAP" Relationship="RecomPharmacyModel.FK_CHITIETHDN_HOADONNHAP" FromRole="CHITIETHDN" ToRole="HOADONNHAP" />
+          <NavigationProperty Name="THUOC" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="CHITIETHDN" ToRole="THUOC" />
+        </EntityType>
+        <Association Name="FK_CHITIETHDN_DONVITINH">
+          <End Type="RecomPharmacyModel.DONVITINH" Role="DONVITINH" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DONVITINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIETHDN">
+              <PropertyRef Name="MADVT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIETHDN_HOADONNHAP">
+          <End Type="RecomPharmacyModel.HOADONNHAP" Role="HOADONNHAP" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADONNHAP">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIETHDN">
+              <PropertyRef Name="MAHDN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="THUOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ANH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MALOAI" Type="Int32" Nullable="false" />
+          <Property Name="TENTHUOC" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TENCT" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DONGGOI" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSX" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HSD" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NHASX" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NUOCSX" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DOITUONGSD" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CONGDUNG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GIABAN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="RecomPharmacyModel.FK_Cart_THUOC" FromRole="THUOC" ToRole="Cart" />
+          <NavigationProperty Name="CHITIETHDNs" Relationship="RecomPharmacyModel.FK_CHITIETHDN_THUOC" FromRole="THUOC" ToRole="CHITIETHDN" />
+          <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_THUOC" FromRole="THUOC" ToRole="CHITIETHDX" />
+          <NavigationProperty Name="CTTONKHOes" Relationship="RecomPharmacyModel.FK_CTTONKHO_THUOC" FromRole="THUOC" ToRole="CTTONKHO" />
+          <NavigationProperty Name="LOAITHUOC" Relationship="RecomPharmacyModel.FK_THUOC_LOAITHUOC" FromRole="THUOC" ToRole="LOAITHUOC" />
+          <NavigationProperty Name="QUYDOIDVs" Relationship="RecomPharmacyModel.FK_QUYDOIDV_THUOC" FromRole="THUOC" ToRole="QUYDOIDV" />
+        </EntityType>
+        <Association Name="FK_Cart_THUOC">
+          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="MATHUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIETHDN_THUOC">
+          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CHITIETHDN" Role="CHITIETHDN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIETHDN">
+              <PropertyRef Name="MATHUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CHITIETHDX_THUOC">
+          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIETHDX">
+              <PropertyRef Name="MATHUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CTTONKHO_THUOC">
+          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CTTONKHO" Role="CTTONKHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CTTONKHO">
+              <PropertyRef Name="MATHUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THUOC_LOAITHUOC">
+          <End Type="RecomPharmacyModel.LOAITHUOC" Role="LOAITHUOC" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAITHUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="THUOC">
+              <PropertyRef Name="MALOAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYDOIDV_THUOC">
+          <End Type="RecomPharmacyModel.THUOC" Role="THUOC" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.QUYDOIDV" Role="QUYDOIDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THUOC">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYDOIDV">
+              <PropertyRef Name="MATHUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HOADONXUAT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MATDV" Type="Int32" />
+          <Property Name="NGAYXUAT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TONGTIEN" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="VAT" Type="Double" />
+          <Property Name="NGAYGIAOHANG" Type="DateTime" Precision="0" />
+          <Property Name="DIEMTLSD" Type="Int32" />
+          <Property Name="TTGIAOHANG" Type="Boolean" />
+          <Property Name="DATHANHTOAN" Type="Boolean" />
+          <Property Name="TRANGTHAI" Type="Boolean" Nullable="false" />
+          <Property Name="HOANTHANH" Type="Boolean" />
+          <Property Name="GHICHU" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BANLE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CHITIETHDXes" Relationship="RecomPharmacyModel.FK_CHITIETHDX_HOADONXUAT" FromRole="HOADONXUAT" ToRole="CHITIETHDX" />
+          <NavigationProperty Name="KHACHHANG" Relationship="RecomPharmacyModel.FK_HOADONXUAT_KHACHHANG" FromRole="HOADONXUAT" ToRole="KHACHHANG" />
+        </EntityType>
+        <Association Name="FK_CHITIETHDX_HOADONXUAT">
+          <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="1" />
+          <End Type="RecomPharmacyModel.CHITIETHDX" Role="CHITIETHDX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADONXUAT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CHITIETHDX">
+              <PropertyRef Name="MAHDX" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOADONXUAT_KHACHHANG">
+          <End Type="RecomPharmacyModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
+          <End Type="RecomPharmacyModel.HOADONXUAT" Role="HOADONXUAT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HOADONXUAT">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RecomPharmacyModelStoreContainer" CdmEntityContainer="RecomPharmacyEntities">
-          <EntitySetMapping Name="LOAITHUOCs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.LOAITHUOC">
-              <MappingFragment StoreEntitySet="LOAITHUOC">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MAMENU" ColumnName="MAMENU" />
-                <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
-                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MENUTHUOCs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.MENUTHUOC">
-              <MappingFragment StoreEntitySet="MENUTHUOC">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TENDM" ColumnName="TENDM" />
-                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="QUOCGIAs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.QUOCGIA">
-              <MappingFragment StoreEntitySet="QUOCGIA">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TENQG" ColumnName="TENQG" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TINHTHANHs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.TINHTHANH">
-              <MappingFragment StoreEntitySet="TINHTHANH">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TENTINH" ColumnName="TENTINH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TRINHDUOCVIENs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.TRINHDUOCVIEN">
-              <MappingFragment StoreEntitySet="TRINHDUOCVIEN">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MATINH" ColumnName="MATINH" />
-                <ScalarProperty Name="TENNV" ColumnName="TENNV" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="RecomPharmacyModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
@@ -1110,6 +1332,117 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Passwords" ColumnName="Passwords" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.Blog">
+              <MappingFragment StoreEntitySet="Blog">
+                <ScalarProperty Name="ANH" ColumnName="ANH" />
+                <ScalarProperty Name="MOTACT" ColumnName="MOTACT" />
+                <ScalarProperty Name="MOTANGAN" ColumnName="MOTANGAN" />
+                <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+                <ScalarProperty Name="NGAYVIET" ColumnName="NGAYVIET" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DONVITINHs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.DONVITINH">
+              <MappingFragment StoreEntitySet="DONVITINH">
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="TENDVT" ColumnName="TENDVT" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="CHITIET" ColumnName="CHITIET" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOADONNHAPs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONNHAP">
+              <MappingFragment StoreEntitySet="HOADONNHAP">
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+                <ScalarProperty Name="TIENNO" ColumnName="TIENNO" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="MALOAITIEN" ColumnName="MALOAITIEN" />
+                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
+                <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
+                <ScalarProperty Name="MANCC" ColumnName="MANCC" />
+                <ScalarProperty Name="MAKHO" ColumnName="MAKHO" />
+                <ScalarProperty Name="MATDV" ColumnName="MATDV" />
+                <ScalarProperty Name="SOHD" ColumnName="SOHD" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="HANGTV" ColumnName="HANGTV" />
+                <ScalarProperty Name="TICHDIEM" ColumnName="TICHDIEM" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="MATINH" ColumnName="MATINH" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHOes">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.KHO">
+              <MappingFragment StoreEntitySet="KHO">
+                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
+                <ScalarProperty Name="TENKHO" ColumnName="TENKHO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAITHUOCs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.LOAITHUOC">
+              <MappingFragment StoreEntitySet="LOAITHUOC">
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="TENLOAI" ColumnName="TENLOAI" />
+                <ScalarProperty Name="MAMENU" ColumnName="MAMENU" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENUTHUOCs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.MENUTHUOC">
+              <MappingFragment StoreEntitySet="MENUTHUOC">
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="TENDM" ColumnName="TENDM" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1126,41 +1459,61 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DONVITINHs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.DONVITINH">
-              <MappingFragment StoreEntitySet="DONVITINH">
-                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-                <ScalarProperty Name="TENDVT" ColumnName="TENDVT" />
+          <EntitySetMapping Name="QUOCGIAs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.QUOCGIA">
+              <MappingFragment StoreEntitySet="QUOCGIA">
+                <ScalarProperty Name="TENQG" ColumnName="TENQG" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HOADONNHAPs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONNHAP">
-              <MappingFragment StoreEntitySet="HOADONNHAP">
-                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-                <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
-                <ScalarProperty Name="TIENNO" ColumnName="TIENNO" />
-                <ScalarProperty Name="VAT" ColumnName="VAT" />
-                <ScalarProperty Name="MALOAITIEN" ColumnName="MALOAITIEN" />
-                <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
-                <ScalarProperty Name="NGAYNHAP" ColumnName="NGAYNHAP" />
-                <ScalarProperty Name="MATDV" ColumnName="MATDV" />
-                <ScalarProperty Name="SOHD" ColumnName="SOHD" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CHITIETHDNs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDN">
-              <MappingFragment StoreEntitySet="CHITIETHDN">
-                <ScalarProperty Name="CHIETKHAU" ColumnName="CHIETKHAU" />
+          <EntitySetMapping Name="QUYDOIDVs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.QUYDOIDV">
+              <MappingFragment StoreEntitySet="QUYDOIDV">
+                <ScalarProperty Name="DONVIBANONL" ColumnName="DONVIBANONL" />
+                <ScalarProperty Name="TILEQUYDOI" ColumnName="TILEQUYDOI" />
                 <ScalarProperty Name="MADVT" ColumnName="MADVT" />
-                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
-                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
-                <ScalarProperty Name="MACTTONKHO" ColumnName="MACTTONKHO" />
-                <ScalarProperty Name="MAHDN" ColumnName="MAHDN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_SEQUENCE">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.SYS_SEQUENCE">
+              <MappingFragment StoreEntitySet="SYS_SEQUENCE">
+                <ScalarProperty Name="SEQVALUE" ColumnName="SEQVALUE" />
+                <ScalarProperty Name="SEQNAME" ColumnName="SEQNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TINHTHANHs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.TINHTHANH">
+              <MappingFragment StoreEntitySet="TINHTHANH">
+                <ScalarProperty Name="TENTINH" ColumnName="TENTINH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRINHDUOCVIENs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.TRINHDUOCVIEN">
+              <MappingFragment StoreEntitySet="TRINHDUOCVIEN">
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="TENNV" ColumnName="TENNV" />
+                <ScalarProperty Name="MATINH" ColumnName="MATINH" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1169,9 +1522,9 @@
             <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDX">
               <MappingFragment StoreEntitySet="CHITIETHDX">
                 <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
-                <ScalarProperty Name="CHIETKHAU" ColumnName="CHIETKHAU" />
                 <ScalarProperty Name="MADVT" ColumnName="MADVT" />
                 <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="LOSX" ColumnName="LOSX" />
                 <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
                 <ScalarProperty Name="MAHDX" ColumnName="MAHDX" />
@@ -1182,10 +1535,30 @@
           <EntitySetMapping Name="CTTONKHOes">
             <EntityTypeMapping TypeName="RecomPharmacyModel.CTTONKHO">
               <MappingFragment StoreEntitySet="CTTONKHO">
+                <ScalarProperty Name="GIABAN" ColumnName="GIABAN" />
+                <ScalarProperty Name="GIANHAP" ColumnName="GIANHAP" />
                 <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
                 <ScalarProperty Name="SLTON" ColumnName="SLTON" />
-                <ScalarProperty Name="MATONKHO" ColumnName="MATONKHO" />
+                <ScalarProperty Name="NGAYHH" ColumnName="NGAYHH" />
+                <ScalarProperty Name="NGAYSX" ColumnName="NGAYSX" />
+                <ScalarProperty Name="LOSX" ColumnName="LOSX" />
+                <ScalarProperty Name="KE" ColumnName="KE" />
+                <ScalarProperty Name="MAKHO" ColumnName="MAKHO" />
+                <ScalarProperty Name="DVT" ColumnName="DVT" />
                 <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHITIETHDNs">
+            <EntityTypeMapping TypeName="RecomPharmacyModel.CHITIETHDN">
+              <MappingFragment StoreEntitySet="CHITIETHDN">
+                <ScalarProperty Name="LOSX" ColumnName="LOSX" />
+                <ScalarProperty Name="MADVT" ColumnName="MADVT" />
+                <ScalarProperty Name="DONGIA" ColumnName="DONGIA" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="MATHUOC" ColumnName="MATHUOC" />
+                <ScalarProperty Name="MAHDN" ColumnName="MAHDN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1194,9 +1567,8 @@
             <EntityTypeMapping TypeName="RecomPharmacyModel.THUOC">
               <MappingFragment StoreEntitySet="THUOC">
                 <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
                 <ScalarProperty Name="GIABAN" ColumnName="GIABAN" />
-                <ScalarProperty Name="GIANHAP" ColumnName="GIANHAP" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
                 <ScalarProperty Name="CONGDUNG" ColumnName="CONGDUNG" />
                 <ScalarProperty Name="DOITUONGSD" ColumnName="DOITUONGSD" />
                 <ScalarProperty Name="NUOCSX" ColumnName="NUOCSX" />
@@ -1204,23 +1576,10 @@
                 <ScalarProperty Name="HSD" ColumnName="HSD" />
                 <ScalarProperty Name="NGAYSX" ColumnName="NGAYSX" />
                 <ScalarProperty Name="DONGGOI" ColumnName="DONGGOI" />
-                <ScalarProperty Name="HINHTHUC" ColumnName="HINHTHUC" />
+                <ScalarProperty Name="TENCT" ColumnName="TENCT" />
                 <ScalarProperty Name="TENTHUOC" ColumnName="TENTHUOC" />
-                <ScalarProperty Name="MANCC" ColumnName="MANCC" />
                 <ScalarProperty Name="MALOAI" ColumnName="MALOAI" />
                 <ScalarProperty Name="ANH" ColumnName="ANH" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TONKHOes">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.TONKHO">
-              <MappingFragment StoreEntitySet="TONKHO">
-                <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-                <ScalarProperty Name="NGAYLAP" ColumnName="NGAYLAP" />
-                <ScalarProperty Name="TENKHO" ColumnName="TENKHO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1228,56 +1587,19 @@
           <EntitySetMapping Name="HOADONXUATs">
             <EntityTypeMapping TypeName="RecomPharmacyModel.HOADONXUAT">
               <MappingFragment StoreEntitySet="HOADONXUAT">
+                <ScalarProperty Name="BANLE" ColumnName="BANLE" />
                 <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
-                <ScalarProperty Name="XULY" ColumnName="XULY" />
+                <ScalarProperty Name="HOANTHANH" ColumnName="HOANTHANH" />
                 <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+                <ScalarProperty Name="DATHANHTOAN" ColumnName="DATHANHTOAN" />
                 <ScalarProperty Name="TTGIAOHANG" ColumnName="TTGIAOHANG" />
+                <ScalarProperty Name="DIEMTLSD" ColumnName="DIEMTLSD" />
                 <ScalarProperty Name="NGAYGIAOHANG" ColumnName="NGAYGIAOHANG" />
                 <ScalarProperty Name="VAT" ColumnName="VAT" />
                 <ScalarProperty Name="TONGTIEN" ColumnName="TONGTIEN" />
                 <ScalarProperty Name="NGAYXUAT" ColumnName="NGAYXUAT" />
+                <ScalarProperty Name="MATDV" ColumnName="MATDV" />
                 <ScalarProperty Name="MAKH" ColumnName="MAKH" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Feedbacks">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="CHITIET" ColumnName="CHITIET" />
-                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="KHACHHANGs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.KHACHHANG">
-              <MappingFragment StoreEntitySet="KHACHHANG">
-                <ScalarProperty Name="Payment" ColumnName="Payment" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
-                <ScalarProperty Name="MATINH" ColumnName="MATINH" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Blogs">
-            <EntityTypeMapping TypeName="RecomPharmacyModel.Blog">
-              <MappingFragment StoreEntitySet="Blog">
-                <ScalarProperty Name="ANH" ColumnName="ANH" />
-                <ScalarProperty Name="MOTACT" ColumnName="MOTACT" />
-                <ScalarProperty Name="MOTANGAN" ColumnName="MOTANGAN" />
-                <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
-                <ScalarProperty Name="NGAYVIET" ColumnName="NGAYVIET" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

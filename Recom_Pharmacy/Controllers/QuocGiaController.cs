@@ -38,7 +38,15 @@ namespace Recom_Pharmacy.Controllers
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.page = page;
-            return View(items);
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(items);
+            }
         }
 
         // GET: QuocGia/Create

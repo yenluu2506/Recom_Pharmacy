@@ -43,7 +43,15 @@ namespace Recom_Pharmacy.Controllers
             ViewBag.PageSize = pageSize;
             ViewBag.SelectedTT = SelectedTT;
             ViewBag.page = page;
-            return View(items);
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(items);
+            }
         }
 
         // GET: TrinhDuocVien/Create

@@ -25,23 +25,27 @@ namespace Recom_Pharmacy.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<DONVITINH> DONVITINHs { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<HOADONNHAP> HOADONNHAPs { get; set; }
+        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
+        public virtual DbSet<KHO> KHOes { get; set; }
         public virtual DbSet<LOAITHUOC> LOAITHUOCs { get; set; }
         public virtual DbSet<MENUTHUOC> MENUTHUOCs { get; set; }
+        public virtual DbSet<NCC> NCCs { get; set; }
         public virtual DbSet<QUOCGIA> QUOCGIAs { get; set; }
+        public virtual DbSet<QUYDOIDV> QUYDOIDVs { get; set; }
+        public virtual DbSet<SYS_SEQUENCE> SYS_SEQUENCE { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TINHTHANH> TINHTHANHs { get; set; }
         public virtual DbSet<TRINHDUOCVIEN> TRINHDUOCVIENs { get; set; }
-        public virtual DbSet<Admin> Admins { get; set; }
-        public virtual DbSet<NCC> NCCs { get; set; }
-        public virtual DbSet<DONVITINH> DONVITINHs { get; set; }
-        public virtual DbSet<HOADONNHAP> HOADONNHAPs { get; set; }
-        public virtual DbSet<CHITIETHDN> CHITIETHDNs { get; set; }
         public virtual DbSet<CHITIETHDX> CHITIETHDXes { get; set; }
         public virtual DbSet<CTTONKHO> CTTONKHOes { get; set; }
+        public virtual DbSet<CHITIETHDN> CHITIETHDNs { get; set; }
         public virtual DbSet<THUOC> THUOCs { get; set; }
-        public virtual DbSet<TONKHO> TONKHOes { get; set; }
         public virtual DbSet<HOADONXUAT> HOADONXUATs { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
-        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
-        public virtual DbSet<Blog> Blogs { get; set; }
     }
 }

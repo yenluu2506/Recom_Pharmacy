@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Recom_Pharmacy.Models.QUYDOIDV>
+
+@{
+    ViewBag.Title = "Index";
+    var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+    string cLayout = "";
+
+    if (controller.ToLower() == "thuoc")
+    {
+        cLayout = null;
+    }
+    else
+    {
+        cLayout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    Layout = cLayout;
+}
+<head>
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+    <table class="table table-hover" id="tbAnhSanPham">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Tên đơn vị</th>
+                <th class="text-center">Tỷ lệ quy đổi</th>
+                <th class="text-center">Bán trên web</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="tbHtml">
+            @{int i = 0;}
+            @foreach (var item in Model)
+            {
+                var strCheck = item.DONVIBANONL ? "<i class='fa fa-check text-success'></i>" : "<i class='fa fa-times text-danger'></i>";
+
+                <tr id="trow_@item.ID" class="text-center">
+                    <td>@(i+1)</td>
+                    <td>
+                        <p>
+                        @Html.DisplayFor(modelItem => item.DONVITINH.TENDVT)
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                        @Html.DisplayFor(modelItem => item.TILEQUYDOI)
+                        </p>
+                    </td>
+                    <td>
+                        <a href='#' data-id="@item.ID" class="btnActive">@Html.Raw(strCheck)</a>
+                    </td>
+                    <td>
+                        <a href="/quydoidv/edit/@item.ID" class="btn btn-sm btn-primary">Sửa</a>
+                        <a href="" data-id="@item.ID" class="btn btn-sm btn-danger" id="btnDeleteUnit">Xóa</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    <input type="hidden" id="tCurrentId" value=@Model.Count() />
+</body>
+<script type="text/javascript">
+    $(document).ready(function myFunction() {
+        $('body').on('click', '#btnDeleteUnit', function myfunction(event) {
+            event.preventDefault(); 
+            var id = $(this).data("id");
+            var conf = confirm('Bạn có muốn xóa  bản ghi này không?')
+            if (conf == true) {
+                $.ajax({
+                    url: '/quydoidv/delete',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            $('#trow_' + id).remove();
+                            updateRowNumbers();
+                        }
+                    }
+                });
+            }
+        });
+
+
+        function updateRowNumbers() {
+            let modelCount = $('#tCurrentId').val();
+            $('#tCurrentId').val(parseInt(modelCount-1));
+            $('#tbHtml tr').each(function (index) {
+                $(this).find('td:first').text(index + 1) // Cột số thứ tự
+            });
+        }
+
+        $('body').on('click', '.btnActive', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var id = btn.data("id");
+            $.ajax({
+                url: '/quydoidv/IsActive',
+                type: 'POST',
+                data: { id: id },
+                success: function (rs) {
+                    if (rs.success) {
+                        if (rs.isAcive) {
+                            btn.html("<i class='fa fa-check text-success'></i>");
+                        } else {
+                            btn.html("<i class='fas fa-times text-danger'></i>");
+                        }
+                    }
+
+                }
+            });
+        });
+    });
+</script>

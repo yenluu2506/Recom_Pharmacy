@@ -1,4 +1,4 @@
-﻿@model Recom_Pharmacy.Models.TONKHO
+﻿@model Recom_Pharmacy.Models.KHO
 
 @{
     ViewBag.Title = "Edit";
@@ -28,7 +28,7 @@
         @if (Model != null)
         {
             <div class="bs-stepper-content">
-                @using (Html.BeginForm("Edit", "TonKho", FormMethod.Post, new { }))
+                @using (Html.BeginForm("Edit", "KHO", FormMethod.Post, new { }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)

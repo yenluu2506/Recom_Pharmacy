@@ -23,6 +23,8 @@ namespace Recom_Pharmacy.Models
         public int ID { get; set; }
         public string SOHD { get; set; }
         public int MATDV { get; set; }
+        public Nullable<int> MAKHO { get; set; }
+        public Nullable<int> MANCC { get; set; }
         public System.DateTime NGAYNHAP { get; set; }
         public decimal TONGTIEN { get; set; }
         public string MALOAITIEN { get; set; }
@@ -31,6 +33,8 @@ namespace Recom_Pharmacy.Models
         public string GHICHU { get; set; }
         public bool TRANGTHAI { get; set; }
     
+        public virtual KHO KHO { get; set; }
+        public virtual NCC NCC { get; set; }
         public virtual TRINHDUOCVIEN TRINHDUOCVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }

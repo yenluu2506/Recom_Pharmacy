@@ -63,8 +63,8 @@
                             <th>Tỉnh thành</th>
                             <th>Địa chỉ</th>
                             <th>Số điện thoại</th>
+                            <th>Tích điểm</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Ảnh</th>
                         </tr>
                     </thead>
@@ -80,11 +80,11 @@
                                     <td>@item.TENKH</td>
                                     <td>@item.GIOITINH</td>
                                     <td>@item.NGAYSINH</td>
-                                    <td>@item.TINHTHANH.TENTINH</td>
+                                    <td>@(item.TINHTHANH?.TENTINH ?? "N/A")</td>
                                     <td>@item.DIACHI</td>
                                     <td>@item.SDT</td>
+                                    <td>@item.TICHDIEM</td>
                                     <td>@item.Username</td>
-                                    <td>@item.Passwords</td>
                                     <td>@item.Picture</td>
                                     <td>
                                         <a href="/khachhang/edit/@item.ID" class="btn btn-sm btn-primary">Sửa</a>

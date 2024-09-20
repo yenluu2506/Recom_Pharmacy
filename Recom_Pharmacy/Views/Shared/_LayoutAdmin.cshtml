@@ -29,9 +29,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>NHÀ THUỐC CPP</title>
+    <title>Pharmacy</title>
 
     <!-- Custom fonts for this template-->
+    @*select vip pro*@
+
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="~/Content/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
@@ -49,8 +51,8 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="~/Content/clients/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- Select2 -->
-    <link rel="stylesheet" href="~/Content/clients/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="~/Content/clients/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    @*<link rel="stylesheet" href="~/Content/clients/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/clients/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">*@
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="~/Content/clients/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <!-- BS Stepper -->
@@ -145,9 +147,9 @@
                 </a>
                 <div id="rr5" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="@Url.Action("Index","Kho")">Danh sách kho</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "TonKho")">Danh sách Tồn Kho</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "TonKho")">Danh sách Kho</a>
+                        <a class="collapse-item" href="@Url.Action("ThuocDenHan", "CTTonKho")">Thuốc đến hạn</a>
+                        <a class="collapse-item" href="@Url.Action("TonKhoLauNam", "CTTonKho")">Thuốc tồn lâu</a>
                     </div>
                 </div>
             </li>
@@ -159,33 +161,33 @@
                 <div id="rr6" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="@Url.Action("Index","Hoadonnhap")">Danh sách kho</a>
+                        <a class="collapse-item" href="@Url.Action("Index","Hoadonnhap")">Danh sách hóa đơn</a>
                         @*<a class="collapse-item" href="@Url.Action("Index", "TonKho")">Danh sách Tồn Kho</a>*@
                     </div>
                 </div>
             </li>
             @*<li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Index","LoaiThuoc")">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Loại Thuốc</span>
-            </a>
-        </li>*@
+                <a class="nav-link" href="@Url.Action("Index","LoaiThuoc")">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Loại Thuốc</span>
+                </a>
+            </li>*@
 
             <!--  Banners -->
 
+
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr4" aria-expanded="true" aria-controls="rr4">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr10" aria-expanded="true" aria-controls="rr10">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Banner</span>
+                    <span>Đơn vị tính</span>
                 </a>
-                <div id="rr4" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="rr10" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="@Url.Action("Index","Banners")">Danh sách</a>
+                        <a class="collapse-item" href="@Url.Action("Index","DonViTinh")">Chỉnh sửa</a>
                     </div>
                 </div>
             </li>
-
             <!--  Trademark Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rr1" aria-expanded="true" aria-controls="rr1">
@@ -197,7 +199,7 @@
                 <div id="rr1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="@Url.Action("Index","Blogs")">Danh sách</a>
+                        <a class="collapse-item" href="@Url.Action("Index","Blog")">Danh sách</a>
 
                     </div>
                 </div>
@@ -304,13 +306,13 @@
                 <!-- /.container-fluid -->
                 <!-- End of Main Content -->
                 <!-- Footer -->
-                <footer class="sticky-footer bg-white">
+                @*<footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
 
                         </div>
                     </div>
-                </footer>
+                </footer>*@
                 <!-- End of Footer -->
 
             </div>
@@ -341,20 +343,19 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.8.1/autoNumeric.min.js"></script>
 
         <!-- Bootstrap core JavaScript-->
         <script src="~/Content/Admin/vendor/jquery/jquery.min.js"></script>
-
-
         <script src="~/Content/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- Core plugin JavaScript-->
 
         <script src="~/Content/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Custom scripts for all pages-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script src="~/Content/Admin/js/sb-admin-2.min.js"></script>
         <!-- Page level plugins -->
-
         @*<script src="~/Content/Admin/vendor/chart.js/Chart.min.js"></script>*@
         <!-- Page level custom scripts -->
         <script src="~/Content/Admin/js/demo/datatables-demo.js"></script>
@@ -365,11 +366,12 @@
         <script src="~/Content/ckeditor/ckeditor/ckeditor.js"></script>
         <script src="~/Content/ckfinder/ckfinder/ckfinder.js"></script>
         <!-- jQuery -->
+        <script src="~/Scripts/autoNumeric-1.9.45.js"></script>
         @*<script src="~/Content/clients/plugins/jquery/jquery.min.js"></script>*@
         <!-- Bootstrap 4 -->
         <script src="~/Content/clients/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- Select2 -->
-        <script src="~/Content/clients/plugins/select2/js/select2.full.min.js"></script>
+        @*<script src="~/Content/clients/plugins/select2/js/select2.full.min.js"></script>*@
         <!-- Bootstrap4 Duallistbox -->
         <script src="~/Content/clients/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
         <!-- InputMask -->
@@ -387,7 +389,7 @@
         <script src="~/Content/clients/plugins/bs-stepper/js/bs-stepper.min.js"></script>
         <!-- dropzonejs -->
         <script src="~/Content/clients/plugins/dropzone/min/dropzone.min.js"></script>
-        <script>
+        @*<script>
             $(function () {
                 //Initialize Select2 Elements
                 $('.select2').select2()
@@ -445,7 +447,7 @@
 
             });
 
-        </script>
+        </script>*@
         @RenderSection("upload", required: false)
         @RenderSection("scripts", required: false)
 </body>

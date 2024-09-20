@@ -28,8 +28,8 @@ namespace Recom_Pharmacy.Models
         public string DIACHI { get; set; }
         public string SDT { get; set; }
     
-        public virtual TINHTHANH TINHTHANH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONNHAP> HOADONNHAPs { get; set; }
+        public virtual TINHTHANH TINHTHANH { get; set; }
     }
 }

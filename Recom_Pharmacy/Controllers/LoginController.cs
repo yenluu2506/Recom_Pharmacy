@@ -16,6 +16,7 @@ using Vonage.Messaging;
 using Vonage;
 using System.Configuration;
 using Vonage.Request;
+using Vonage.Users;
 
 namespace HieuThuoc.Controllers
 {
@@ -38,13 +39,16 @@ namespace HieuThuoc.Controllers
 			//passWord = Encryption.ComputeHash(passWord, "SHA512", GetBytes("acc"));
 		
 			KHACHHANG cs = db.KHACHHANGs.SingleOrDefault(n => n.Username == userName && n.Passwords == passWord);
-				//Customer cs = db.Customers.SingleOrDefault(n => n.Username == userName && n.Passwords == passWord);
-				if (cs != null)
-				{
+            //Customer cs = db.Customers.SingleOrDefault(n => n.Username == userName && n.Passwords == passWord);
+            if (cs != null)
+			{
 					
-					Session["usr"] = cs;
-					return RedirectToAction("Index", "UserInterface");
-				}
+				Session["usr"] = cs;
+                //var cartItems = db.Carts.Where(c => c.MAKH == cs.ID).ToList();
+
+                //Session["Cart"] = cartItems;
+                return RedirectToAction("Index", "UserInterface");
+            }
 				else
 					ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
 			//}

@@ -1,0 +1,117 @@
+﻿@model PagedList.PagedList<Recom_Pharmacy.Models.CTTONKHO>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thuốc đến hạn</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+
+                <div class="col-lg-5">
+                    <div class="card-tools">
+                        <a href="#" class="btn btn-danger">Xuất hủy</a>
+                    </div>
+                </div>
+                </div>
+        </div>
+       
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    @using (Html.BeginForm("ThuocDenHan", "CTTONKHO", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group input-group-sm">
+                            @Html.TextBox("searchtext", null, new { @class = "form-control", placeholder = "Tìm kiếm" })
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                            </span>
+                        </div>
+                        <div class="input-group input-group-sm my-2">
+                            @Html.DropDownList("thoiHan", null, htmlAttributes: new { @class = "form-control" })
+                            <span class="input-group-append mx-2">
+                                <button type="submit" class="btn btn-info btn-flat">Lọc</button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+                <div class="table-responsive">
+                    <table class="table table-hover display" style="width: 120%;color:black;">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="SelectAll" /></th>
+                                <th>STT</th>
+                                <th>Tên thuốc</th>
+                                <th>ĐVT</th>
+                                <th>Tên Chi tiết</th>
+                                <th>Lô Sản Xuất</th>
+                                <th>Kệ</th>
+                                <th>Ngày sản xuất</th>
+                                <th>Ngày hết hạn</th>
+                                <th>Số lượng Tồn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                var i = ((ViewBag.page - 1) * ViewBag.PageSize) + 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr id="trow_@item.ID">
+                                        <td><input type="checkbox" class="cbkItem" value="@item.ID" /></td>
+                                        <td>@i</td>
+                                        <td>@item.THUOC.TENTHUOC</td>
+                                        <td>@item.DONVITINH.TENDVT</td>
+                                        <td>@item.THUOC.TENCT</td>
+                                        <td>@item.LOSX</td>
+                                        <td>@item.KE</td>
+                                        <td>@(item.NGAYSX?.ToString("dd-MM-yyyy") ?? "N/A")</td>
+                                        <td>@(item.NGAYHH?.ToString("dd-MM-yyyy") ?? "N/A")</td>
+                                        <td>@item.SLTON</td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4">Không có bản ghi nào!</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6" style="text-align:right">
+                        @Html.PagedListPager(Model, page => Url.Action("ThuocDenHan", new { page, searchtext = Request["searchtext"], thoiHan = Request["thoiHan"] }))
+                    </div>
+                </div>
+            </div>
+            </div>
+        <!-- /.card-body -->
+    <!-- /.card -->
+
+</section>

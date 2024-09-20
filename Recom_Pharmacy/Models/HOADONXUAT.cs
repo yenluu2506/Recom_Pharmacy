@@ -22,14 +22,18 @@ namespace Recom_Pharmacy.Models
     
         public int ID { get; set; }
         public Nullable<int> MAKH { get; set; }
+        public Nullable<int> MATDV { get; set; }
         public System.DateTime NGAYXUAT { get; set; }
         public decimal TONGTIEN { get; set; }
         public Nullable<double> VAT { get; set; }
         public Nullable<System.DateTime> NGAYGIAOHANG { get; set; }
+        public Nullable<int> DIEMTLSD { get; set; }
         public Nullable<bool> TTGIAOHANG { get; set; }
+        public Nullable<bool> DATHANHTOAN { get; set; }
         public bool TRANGTHAI { get; set; }
-        public Nullable<bool> XULY { get; set; }
+        public Nullable<bool> HOANTHANH { get; set; }
         public string GHICHU { get; set; }
+        public bool BANLE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDX> CHITIETHDXes { get; set; }

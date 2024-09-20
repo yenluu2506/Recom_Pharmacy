@@ -1,4 +1,4 @@
-﻿@model Recom_Pharmacy.Models.TONKHO
+﻿@model Recom_Pharmacy.Models.KHO
 
 @{
     ViewBag.Title = "Create";
@@ -27,7 +27,7 @@
 
     <div class="card-body">
         <div class="bs-stepper-content">
-            @using (Html.BeginForm("Add", "TonKho", FormMethod.Post, new { }))
+            @using (Html.BeginForm("Add", "KHO", FormMethod.Post, new { }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)

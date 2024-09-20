@@ -31,107 +31,139 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
+
                 <!-- your steps content here -->
-                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
-                    <div class="form-group">
-                        <label for="exampleInputFile">Ảnh</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                @Html.TextBoxFor(x => x.ANH, new { @id = "txtImage", @class = "form-control" })
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Thông tin chung</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Đơn vị tính</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                                    <!-- your steps content here -->
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Ảnh</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                @Html.TextBoxFor(x => x.ANH, new { @id = "txtImage", @class = "form-control" })
+                                            </div>
+                                            <div class="input-group-append">
+                                                <input type="button" value="Tải ảnh" onclick="BrowseServer('txtImage');" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tên Thuốc</label>
+                                        @Html.TextBoxFor(x => x.TENTHUOC, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.TENTHUOC, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Loại thuốc</label>
+                                        @Html.DropDownList("MALOAI", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MALOAI, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tên chi tiết</label>
+                                        @Html.TextBoxFor(x => x.TENCT, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.TENCT, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Đóng gói</label>
+                                        @Html.TextBoxFor(x => x.DONGGOI, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.DONGGOI, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startdate">Ngày sản xuất</label>
+                                        <div class="input-group date" id="startdate" data-target-input="nearest">
+                                            @Html.TextBoxFor(x => x.NGAYSX, new { @class = "form-control datetimepicker-input", data_target = "#startdate" })
+                                            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startdate">Hạn sử dụng</label>
+                                        <div class="input-group date" id="enddate" data-target-input="nearest">
+                                            @Html.TextBoxFor(x => x.HSD, new { @class = "form-control datetimepicker-input", data_target = "#enddate" })
+                                            <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nhà sản xuất</label>
+                                        @Html.TextBoxFor(x => x.NHASX, new { @class = "form-control", @placeholder = "Nhập" })
+                                        @Html.ValidationMessageFor(x => x.NHASX, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nước sản xuất</label>
+                                        @Html.TextBoxFor(x => x.NUOCSX, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.NUOCSX, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Đối tượng sử dụng</label>
+                                        @Html.TextBoxFor(x => x.DOITUONGSD, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.DOITUONGSD, null, new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Công dụng</label>
+                                        @Html.TextBoxFor(x => x.CONGDUNG, new { @class = "form-control", @placeholder = "" })
+                                        @Html.ValidationMessageFor(x => x.CONGDUNG, null, new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Mô tả</label>
+                                        @Html.TextAreaFor(x => x.MOTA, new { @class = "form-control", @id = "txtDetail" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Hiển thị</label>
+                                        @Html.CheckBoxFor(x => x.TRANGTHAI, new { @checked = "@checked" })
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="input-group-append">
-                                <input type="button" value="Tải ảnh" onclick="BrowseServer('txtImage');" />
+                            <div class="tab-pane" id="timeline">
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <input type="button" class="btn btn-primary btnShowModal" data-toggle="modal" data-target="#AceptModal" value="Thêm mới" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <table class="table table-hover" id="tbAnhSanPham">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Tên đơn vị</th>
+                                                    <th class="text-center">Tỷ lệ quy đổi(viên/gói)</th>
+                                                    <th class="text-center">Bán trên web</th>
+                                                    <th class="text-center">Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbHtml">
+                                            </tbody>
+                                        </table>
+                                        <input type="hidden" id="tCurrentId" value="0" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tên Thuốc</label>
-                        @Html.TextBoxFor(x => x.TENTHUOC, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.TENTHUOC, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Loại thuốc</label>
-                        @Html.DropDownList("MALOAI", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MALOAI, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nhà cung cấp</label>
-                        @Html.DropDownList("MANCC", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MANCC, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Hình thức</label>
-                        @Html.TextBoxFor(x => x.HINHTHUC, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.HINHTHUC, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Đóng gói</label>
-                        @Html.TextBoxFor(x => x.DONGGOI, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.DONGGOI, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="startdate">Ngày sản xuất</label>
-                        <div class="input-group date" id="startdate" data-target-input="nearest">
-                            @Html.TextBoxFor(x => x.NGAYSX, new { @class = "form-control datetimepicker-input", data_target = "#startdate" })
-                            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="startdate">Hạn sử dụng</label>
-                        <div class="input-group date" id="enddate" data-target-input="nearest">
-                            @Html.TextBoxFor(x => x.HSD, new { @class = "form-control datetimepicker-input", data_target = "#enddate" })
-                            <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nhà sản xuất</label>
-                        @Html.TextBoxFor(x => x.NHASX, new { @class = "form-control", @placeholder = "Nhập" })
-                        @Html.ValidationMessageFor(x => x.NHASX, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nước sản xuất</label>
-                        @Html.TextBoxFor(x => x.NUOCSX, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.NUOCSX, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Đối tượng sử dụng</label>
-                        @Html.TextBoxFor(x => x.DOITUONGSD, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.DOITUONGSD, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Công dụng</label>
-                        @Html.TextAreaFor(x => x.CONGDUNG, new { @class = "form-control", @id = "txtDetail" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Giá nhập</label>
-                        @Html.TextBoxFor(x => x.GIANHAP, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.GIANHAP, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Giá bán</label>
-                        @Html.TextBoxFor(x => x.GIABAN, new { @class = "form-control", @placeholder = "Nhập vào tên" })
-                        @Html.ValidationMessageFor(x => x.GIABAN, null, new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Hiển thị</label>
-                        @Html.CheckBoxFor(x => x.TRANGTHAI, new { @checked = "@checked" })
-                    </div>
-                    <div class="form-group">
-                        <a href="/thuoc" class="btn btn-danger">Quay lại</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-
+                <div class="form-group my-5">
+                    <a href="/thuoc" class="btn btn-danger">Quay lại</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             }
         </div>
+        
     </div>
-
 </section>
-
+<div id="AcceptModalContainer">
+    <input type="hidden" class="get_id" />
+</div>
 @section scripts{
     <script>
         $(document).ready(function () {
@@ -139,8 +171,40 @@
                 customConfig: '/content/ckeditor/config.js',
                 extraAllowedContent: 'span',
             });
+
+            $('.btnShowModal').click(function () {
+                $('#AcceptModalContainer').load('/thuoc/Partial_DVT', function () {
+                    $('#AcceptModal').modal('show');
+                });
+
+            });
+
+
+            $('body').on('click', '.btnDeleteUnit', function () {
+                var conf = confirm('Bạn có muốn xóa DVT này không?');
+                if (conf === true) {
+                    var _id = $(this).data('id');
+                    $('#trow_' + _id).fadeTo('fast', 0.5, function () {
+                        $(this).slideUp('fast', function () {
+                            $(this).remove();
+                            var temp = $('#tCurrentId').val();
+                            var currentId = parseInt(temp) - 1;
+                            $('#tCurrentId').val(currentId);
+                            // Cập nhật lại số thứ tự
+                            updateRowNumbers();
+                        });
+                    })
+                }
+            });
+            function updateRowNumbers() {
+                $('#tbHtml tr').each(function (index) {
+                    $(this).find('td:first').text(index + 1) // Cột số thứ tự
+                });
+            }
+
+
         });
-        function BrowseServer(field) {
+       function BrowseServer(field) {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
                 document.getElementById(field).value = fileUrl;

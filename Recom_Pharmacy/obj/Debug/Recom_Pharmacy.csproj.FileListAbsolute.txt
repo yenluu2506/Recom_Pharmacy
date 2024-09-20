@@ -175,3 +175,14 @@ F:\Recom_Pharmacy\Recom_Pharmacy\bin\TestableIO.System.IO.Abstractions.xml
 F:\Recom_Pharmacy\Recom_Pharmacy\bin\TestableIO.System.IO.Abstractions.Wrappers.xml
 F:\Recom_Pharmacy\Recom_Pharmacy\bin\Twilio.xml
 F:\Recom_Pharmacy\Recom_Pharmacy\bin\Vonage.xml
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.AspNet.SignalR.Core.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.Owin.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.Owin.Security.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Owin.dll
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.AspNet.SignalR.Core.xml
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.Owin.xml
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\Recom_Pharmacy\Recom_Pharmacy\bin\Microsoft.Owin.Security.xml

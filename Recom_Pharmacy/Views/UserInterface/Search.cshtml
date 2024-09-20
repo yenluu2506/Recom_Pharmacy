@@ -1,0 +1,19 @@
+﻿<div class="row d-flex" style="align-items:center;height:100%;">
+    <div class="col-md-10">
+        @using (Html.BeginForm("Index", "UserInterface", FormMethod.Get))
+        {
+            <div class="input-group">
+                @Html.TextBox("search", null, new { @class = "form-control", @placeholder = "Nhập từ khóa...." })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="icon icon-Search"></i></button>
+                </span>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-2">
+        <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+    </div>
+</div>
+
+

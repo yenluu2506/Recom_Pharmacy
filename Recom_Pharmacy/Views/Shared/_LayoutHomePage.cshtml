@@ -14,7 +14,7 @@
 <html lang="en">
 
 <head>
-    <title>Pharma &mdash; Colorlib Template</title>
+    <title>Pharmacy</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="/Content/assets/css/aos.css">
 
     <link rel="stylesheet" href="/Content/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
 </head>
 
@@ -40,13 +42,9 @@
 
 
         <div class="site-navbar py-2">
-
             <div class="search-wrap">
                 <div class="container">
-                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-                    <form action="#" method="post">
-                        <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
-                    </form>
+                    @Html.Action("Search","UserInterface")
                 </div>
             </div>
 
@@ -63,17 +61,19 @@
                                 <li><a href="@Url.Action("Index", "UserInterface")">Trang chủ</a></li>
                                 <li><a href="@Url.Action("ViewAllProduct", "UserInterface")">Cửa hàng</a></li>
                                 <li><a href="@Url.Action("Blog", "UserInterface")">Blog</a></li>
-                                <li><a href="@Url.Action("About", "UserInterface")">About</a></li>
+                                @*<li><a href="@Url.Action("About", "UserInterface")">About</a></li>*@
                                 <li><a href="@Url.Action("Contact", "UserInterface")">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
                     <div class="icons">
                         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                        <a href="@Url.Action("Cart", "Cart")" class="icons-btn d-inline-block bag">
-                            <span class="icon-shopping-bag"></span>
-                            <span class="number">2</span>
+                        <a class="icons-btn d-inline-block bag" href="@Url.Action("Cart","Cart")" >
+                            <span class="icon-shopping-bag">
+                            </span>
+                            <span class="number">@Html.Action("CartPartial", "Cart")</span>
                         </a>
+
                         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
                             <span class="icon-menu"></span>
                         </a>
@@ -130,8 +130,8 @@
                         <div class="block-7">
                             <h3 class="footer-heading mb-4">About Us</h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
-                                sed dolorum excepturi iure eaque, aut unde.
+                                Với mục tiêu làm cho mỗi ngày của bạn trở nên mạnh mẽ và khỏe mạnh, 
+                                chúng tôi mang đến những giải pháp thuốc chất lượng cao, để bạn có thể sống một cuộc sống trọn vẹn và hạnh phúc!
                             </p>
                         </div>
 
@@ -139,10 +139,13 @@
                     <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
                         <h3 class="footer-heading mb-4">Quick Links</h3>
                         <ul class="list-unstyled">
-                            <li><a href="#">Supplements</a></li>
-                            <li><a href="#">Vitamins</a></li>
-                            <li><a href="#">Diet &amp; Nutrition</a></li>
-                            <li><a href="#">Tea &amp; Coffee</a></li>
+                            <li>
+                                <a href="@Url.Action("ViewAllProduct", "UserInterface")">Tất cả sản phẩm</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Blog", "UserInterface")">  Tin tức</a>
+                            </li>
+                            <li><a href="@Url.Action("Contact", "UserInterface")"> Liên hệ</a></li>
                         </ul>
                     </div>
 
@@ -150,9 +153,9 @@
                         <div class="block-5 mb-5">
                             <h3 class="footer-heading mb-4">Contact Info</h3>
                             <ul class="list-unstyled">
-                                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                                <li class="email">emailaddress@domain.com</li>
+                                <li> <i class="fa fa-map-marker" aria-hidden="true"></i> 450 Lê Văn Việt, Phường Tăng Nhơn Phú A, TP.Thủ Đức, TPHCM</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i><a href="tel://84383782024"> +84 383 782 024</a></li>
+                                <li><i class="fa fa-envelope" aria-hidden="true"></i> thienlinh0112000@gmail.com</li>
                             </ul>
                         </div>
 
@@ -164,9 +167,8 @@
                         <p>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
-                            with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
-                                                                                     class="text-primary">Colorlib</a>
+                            <script>document.write(new Date().getFullYear());</script> Các chính sách bảo hành | Trang web được thực hiện <i class="icon-heart" aria-hidden="true"></i> bởi <a href="https://github.com/yenluu2506" target="_blank"
+                                                                                     class="text-primary">YenLuu</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>

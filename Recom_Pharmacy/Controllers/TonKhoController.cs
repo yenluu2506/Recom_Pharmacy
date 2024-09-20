@@ -25,7 +25,7 @@ namespace Recom_Pharmacy.Controllers
             {
                 page = 1;
             }
-            IEnumerable<TONKHO> items = db.TONKHOes.OrderByDescending(x => x.ID);
+            IEnumerable<KHO> items = db.KHOes.OrderByDescending(x => x.ID);
             if (!string.IsNullOrEmpty(Searchtext))
             {
                 string searchKeyword = Filter.ChuyenCoDauThanhKhongDau(Searchtext);
@@ -38,7 +38,15 @@ namespace Recom_Pharmacy.Controllers
             items = items.ToPagedList(pageIndex, pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.page = page;
-            return View(items);
+            var ac = (Admin)Session["Account"];
+            if (ac == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+            else
+            {
+                return View(items);
+            }
         }
 
         // GET: TonKho/Create
@@ -52,11 +60,11 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add([Bind(Include = "ID,TENKHO,NGAYLAP,DIACHI,SDT,TRANGTHAI")] TONKHO tONKHO)
+        public ActionResult Add([Bind(Include = "ID,TENKHO,NGAYLAP,DIACHI,SDT,TRANGTHAI")] KHO tONKHO)
         {
             if (ModelState.IsValid)
             {
-                db.TONKHOes.Add(tONKHO);
+                db.KHOes.Add(tONKHO);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -71,7 +79,7 @@ namespace Recom_Pharmacy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TONKHO tONKHO = db.TONKHOes.Find(id);
+            KHO tONKHO = db.KHOes.Find(id);
             if (tONKHO == null)
             {
                 return HttpNotFound();
@@ -84,7 +92,7 @@ namespace Recom_Pharmacy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,TENKHO,NGAYLAP,DIACHI,SDT,TRANGTHAI")] TONKHO tONKHO)
+        public ActionResult Edit([Bind(Include = "ID,TENKHO,NGAYLAP,DIACHI,SDT,TRANGTHAI")] KHO tONKHO)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +106,7 @@ namespace Recom_Pharmacy.Controllers
         [HttpPost]
         public ActionResult IsActive(int id)
         {
-            var item = db.TONKHOes.Find(id);
+            var item = db.KHOes.Find(id);
             if (item != null)
             {
                 item.TRANGTHAI = !item.TRANGTHAI;
@@ -112,10 +120,10 @@ namespace Recom_Pharmacy.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var item = db.TONKHOes.Find(id);
+            var item = db.KHOes.Find(id);
             if (item != null)
             {
-                db.TONKHOes.Remove(item);
+                db.KHOes.Remove(item);
                 db.SaveChanges();
                 return Json(new { success = true });
             }
@@ -132,8 +140,8 @@ namespace Recom_Pharmacy.Controllers
                 {
                     foreach (var item in items)
                     {
-                        var obj = db.TONKHOes.Find(Convert.ToInt32(item));
-                        db.TONKHOes.Remove(obj);
+                        var obj = db.KHOes.Find(Convert.ToInt32(item));
+                        db.KHOes.Remove(obj);
                         db.SaveChanges();
                     }
                 }

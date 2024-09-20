@@ -17,7 +17,7 @@ namespace Recom_Pharmacy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NCC()
         {
-            this.THUOCs = new HashSet<THUOC>();
+            this.HOADONNHAPs = new HashSet<HOADONNHAP>();
         }
     
         public int ID { get; set; }
@@ -28,8 +28,8 @@ namespace Recom_Pharmacy.Models
         public Nullable<int> MAQUOCGIA { get; set; }
         public bool TRANGTHAI { get; set; }
     
-        public virtual QUOCGIA QUOCGIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THUOC> THUOCs { get; set; }
+        public virtual ICollection<HOADONNHAP> HOADONNHAPs { get; set; }
+        public virtual QUOCGIA QUOCGIA { get; set; }
     }
 }

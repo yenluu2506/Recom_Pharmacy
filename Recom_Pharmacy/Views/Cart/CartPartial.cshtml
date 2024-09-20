@@ -2,4 +2,16 @@
 @using Recom_Pharmacy.Models
 @model List<CartEntity>
 
-<li class="shop_cart"><a href="@Url.Action("Cart","Cart")"><i class="lnr lnr-cart">Cart(@ViewBag.TotalQuantity)</i></a></li>
+<li style="list-style: none;"><i>@ViewBag.TotalQuantity</i></li>
+
+@*<style>
+    .shop_cart a {
+        display: flex;
+        align-items: center;
+    }
+
+    .shop_cart .lnr-cart {
+        margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+        font-size: 18px; /* Kích thước của biểu tượng */
+    }
+</style>*@

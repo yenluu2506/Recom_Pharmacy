@@ -17,6 +17,7 @@ namespace Recom_Pharmacy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACHHANG()
         {
+            this.Carts = new HashSet<Cart>();
             this.HOADONXUATs = new HashSet<HOADONXUAT>();
         }
     
@@ -28,13 +29,17 @@ namespace Recom_Pharmacy.Models
         public Nullable<System.DateTime> NGAYSINH { get; set; }
         public Nullable<int> MATINH { get; set; }
         public string DIACHI { get; set; }
+        public Nullable<int> TICHDIEM { get; set; }
+        public string HANGTV { get; set; }
         public string Username { get; set; }
         public string Passwords { get; set; }
         public string Picture { get; set; }
         public string Payment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADONXUAT> HOADONXUATs { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
         public virtual TINHTHANH TINHTHANH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HOADONXUAT> HOADONXUATs { get; set; }
     }
 }

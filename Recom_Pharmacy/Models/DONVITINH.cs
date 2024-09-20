@@ -17,8 +17,10 @@ namespace Recom_Pharmacy.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DONVITINH()
         {
-            this.CHITIETHDNs = new HashSet<CHITIETHDN>();
+            this.QUYDOIDVs = new HashSet<QUYDOIDV>();
             this.CHITIETHDXes = new HashSet<CHITIETHDX>();
+            this.CTTONKHOes = new HashSet<CTTONKHO>();
+            this.CHITIETHDNs = new HashSet<CHITIETHDN>();
         }
     
         public int ID { get; set; }
@@ -26,8 +28,12 @@ namespace Recom_Pharmacy.Models
         public bool TRANGTHAI { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }
+        public virtual ICollection<QUYDOIDV> QUYDOIDVs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHDX> CHITIETHDXes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTTONKHO> CTTONKHOes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIETHDN> CHITIETHDNs { get; set; }
     }
 }
